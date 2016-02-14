@@ -1,3 +1,10 @@
+/*General*/
+hr {
+	margin-top: 50px;
+	margin-bottom: 50px;
+}
+
+/*Footer*/
 footer {
   margin-top: 45px;
   padding-top: 5px;
@@ -20,4 +27,49 @@ footer {
       margin-left: 15px;
     }
   }
+}
+
+/*Homepage main containers*/
+.p-a-3 {
+	text-align: center;
+}
+
+.container {
+	margin-bottom: 10px;
+}
+
+.container-fluid {
+	border-radius: 5px;
+	margin-bottom: 10px;
+	padding-top: 10px;
+}
+
+.stylish-panel {
+    text-align: center;
+}
+.stylish-panel > div{
+    padding: 10px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    transition: 0.2s;
+}
+.stylish-panel > div:hover {
+    margin-top: -10px;
+    border: 1px solid rgb(200, 200, 200);
+    box-shadow: $red-pastel 0px 5px 5px 2px;
+    background: rgba(200, 200, 200, 0.1);
+    transition: 0.5s;
+}
+
+.stylish-panel > div:hover img {
+    border-radius: 50%;
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    transform: rotate(360deg);
+}
+
+#bottom-block {
+	text-align: center;
 }
