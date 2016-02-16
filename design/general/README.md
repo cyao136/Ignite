@@ -1,1 +1,0 @@
-Contains general information regarding designs.
