@@ -1,5 +1,5 @@
 branch-defaults:
-  default:
+  master:
     environment: ignite-site-env
 global:
   application_name: ignite_site
@@ -7,4 +7,4 @@ global:
   default_platform: 64bit Amazon Linux 2015.09 v2.0.6 running Ruby 2.2 (Puma)
   default_region: us-west-2
   profile: eb-cli
-  sc: null
+  sc: git
