@@ -30,9 +30,6 @@ footer {
 }
 
 /*Homepage main containers*/
-.p-a-3 {
-	text-align: center;
-}
 
 .container {
 	margin-bottom: 10px;
@@ -50,15 +47,15 @@ footer {
 .stylish-panel > div{
     padding: 10px;
     border: 1px solid transparent;
-    border-radius: 4px;
+    border-radius: 2px;
     transition: 0.2s;
 }
 .stylish-panel > div:hover {
     margin-top: -10px;
-    border: 1px solid rgb(200, 200, 200);
-    box-shadow: $red-pastel 0px 5px 5px 2px;
-    background: rgba(200, 200, 200, 0.1);
-    transition: 0.5s;
+    border: 1px solid $gray;
+    box-shadow: $orange-light 1px 1px 0px 0px;
+    background: rgba($gray, 0.13);
+    transition: 0.2s;
 }
 
 .stylish-panel > div:hover img {

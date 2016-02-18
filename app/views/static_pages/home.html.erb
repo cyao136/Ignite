@@ -1,59 +1,64 @@
-<div class="container">
-	<div class="col-sm-12 text-xs-center m-t-3">
-	  <%= image_tag("ignite_logo.png", alt: "Ignite", height: "130") %>
-	  <h1>Ignite</h1>
+<!-- Main -->
+
+<div>
+	<div class="jumbotron text-xs-center">
+	  <%= image_tag("ignite_logo_text_jumbo.png", alt: "Ignite", height: "130") %>
 	  <p class="lead">
 		The better crowdfunding platform for gamers
 	  </p>
 	</div>
-</div>
 
-<hr>
+	<hr>
 
-<div class="container-fluid">
-	<div class="row stylish-panel">
-		<div>
-			<img src="/pacman.png" alt="pacman" class="img-circle img-thumbnail">
-			<h2>Discover a community</h2>
-			<p>Find and support your favorite titles.<br>
-			Receive notifications from the games and independent developers you follow.</p>
+	<div class="container-fluid">
+		<div class="row stylish-panel">
+			<div>
+				<%= image_tag("community_logo.png", alt: "community", :class => "img-circle img-thumbnail") %>
+				<h2>Discover a community</h2>
+				<p>Find and support your favorite titles.<br>
+				Receive notifications from the games and independent developers you follow.</p>
+			</div>
 		</div>
+	</div>
+
+	<div class="container-fluid">
+		<div class="row stylish-panel">
+			<div>
+				<%= image_tag("funding_logo.png", alt: "community", :class => "img-circle img-thumbnail") %>
+				<h2>Flexible multi-staged funding</h2>
+				<p>Users: Own a successfully funded game for as little as $1, and track the game from inception to release.<br>
+				Developers: Receive funding and support from us and the users every step of the way.</p>
+				<button type="button" class="btn btn-secondary btn-lg" data-toggle="modal" data-target="#fundingDetails">
+				Find out more
+				</button>
+			</div>
+		</div>
+	</div>
+
+	<div class="container-fluid">
+		<div class="row stylish-panel">
+			<div>
+				<%= image_tag("arrows_logo.png", alt: "community", :class => "img-circle img-thumbnail") %>
+				<h2>Moving forward</h2>
+				<p>Ignite provides a dedicated client for you to fund, follow, and play all the games from.<br>
+				User-driven community, with a secure funding system and rewards to incentivize funding.</p>
+			</div>
+		</div>
+	</div>
+
+	<hr>
+
+	<div class="container" id="bottom-block">
+		<h1 class="p-a-3 text-center">Coming Soon</h1>
+		<p>Subscribe to our newsletter to receive news and updates to our site.</p>
+		<button type="button" class="btn btn-secondary btn-lg" data-toggle="modal" data-target="#newsletterGoogleForm">
+		Newsletter Subscription
+		</button>
 	</div>
 </div>
 
-<div class="container-fluid">
-	<div class="row stylish-panel">
-		<div>
-			<img src="/piggy.png" alt="pacman" class="img-circle img-thumbnail">
-			<h2>Flexible multi-staged funding</h2>
-			<p>Users: Own a successfully funded game for as little as $1, and track the game from inception to release.<br>
-			Developers: Receive funding and support from us and the users every step of the way.</p>
-			<a href="about" class="btn btn-secondary" title="Find out more">Find out more</a>
-		</div>
-	</div>
-</div>
+<!-- Modals -->
 
-<div class="container-fluid">
-	<div class="row stylish-panel">
-		<div>
-			<img src="/cloud.png" alt="pacman" class="img-circle img-thumbnail">
-			<h2>Moving forward</h2>
-			<p>Ignite provides a dedicated client for you to fund, follow, and play all the games from.<br>
-			User-driven community, with a secure funding system and rewards to incentivize funding.</p>
-		</div>
-	</div>
-</div>
-
-<hr>
-
-<div class="container" id="bottom-block">
-	<h1 class="p-a-3">Coming Soon</h1>
-	<p>Subscribe to our newsletter to receive news and updates to our site.</p>
-	<button type="button" class="btn btn-secondary btn-lg" data-toggle="modal" data-target="#newsletterGoogleForm">
-	Newsletter Subscription
-	</button>
-</div>
-	  
 <div class="modal fade" id="newsletterGoogleForm" tabindex="-1" role="dialog" aria-labelledby="newsletterGoogleFormLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
@@ -66,6 +71,22 @@
       <div class="modal-body">
 		<iframe src="https://docs.google.com/forms/d/1NRaa5NEY_IlrOzgvyVTJPVp6ekK62U1dGoYEGV8YWPM/viewform?embedded=true" width="100%" height="700" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
       </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="fundingDetails" tabindex="-1" role="dialog" aria-labelledby="fundingDetails" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" id="fundingDetails">A new way to fund</h4>
+      </div>
+      <div class="modal-body">
+		<p>Coming Soon</p>
+	  </div>
     </div>
   </div>
 </div>
