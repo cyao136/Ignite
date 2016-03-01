@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'tzinfo-data'
-gem 'sqlite3'
+gem 'mysql2',		'~> 0.3.13'
 gem 'bootstrap',    '~> 4.0.0.alpha3'
 gem 'sprockets-rails',    '>= 3.0.0'
 gem 'coffee-script-source', '1.8.0'
