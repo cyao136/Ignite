@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160301215842) do
+ActiveRecord::Schema.define(version: 20160302182441) do
 
   create_table "comments", force: :cascade do |t|
     t.integer  "commentable_id",   limit: 4
@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(version: 20160301215842) do
   create_table "demos", force: :cascade do |t|
     t.integer  "project_id", limit: 4
     t.string   "name",       limit: 255
-    t.string   "reference",  limit: 255
+    t.string   "location",   limit: 255
     t.string   "version",    limit: 255
     t.boolean  "is_active",  limit: 1
     t.datetime "created_at",             null: false
@@ -70,16 +70,18 @@ ActiveRecord::Schema.define(version: 20160301215842) do
 
   add_index "goals", ["project_id"], name: "index_goals_on_project_id", using: :btree
 
-  create_table "media", force: :cascade do |t|
-    t.integer  "storeable_id",   limit: 4
-    t.string   "storeable_type", limit: 255
+  create_table "pictures", force: :cascade do |t|
+    t.integer  "asset_id",       limit: 4
+    t.string   "asset_type",     limit: 255
     t.string   "name",           limit: 255
-    t.string   "reference_link", limit: 255
+    t.string   "file_extension", limit: 255
+    t.string   "location",       limit: 255
+    t.string   "tag",            limit: 255
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
   end
 
-  add_index "media", ["storeable_type", "storeable_id"], name: "index_media_on_storeable_type_and_storeable_id", using: :btree
+  add_index "pictures", ["asset_type", "asset_id"], name: "index_pictures_on_asset_type_and_asset_id", using: :btree
 
   create_table "pledges", force: :cascade do |t|
     t.integer  "project_id",  limit: 4
@@ -128,5 +130,18 @@ ActiveRecord::Schema.define(version: 20160301215842) do
     t.datetime "created_at",                     null: false
     t.datetime "updated_at",                     null: false
   end
+
+  create_table "videos", force: :cascade do |t|
+    t.integer  "asset_id",       limit: 4
+    t.string   "asset_type",     limit: 255
+    t.string   "name",           limit: 255
+    t.string   "file_extension", limit: 255
+    t.string   "location",       limit: 255
+    t.string   "tag",            limit: 255
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
+
+  add_index "videos", ["asset_type", "asset_id"], name: "index_videos_on_asset_type_and_asset_id", using: :btree
 
 end
