@@ -12,6 +12,8 @@ gem 'jquery-rails', '4.0.3'
 gem 'turbolinks',   '2.3.0'
 gem 'jbuilder',     '2.2.3'
 gem 'sdoc',         '0.4.0', group: :doc
+gem 'mail_form'
+gem 'simple_form'
 
 source 'http://rails-assets.org' do
   gem 'rails-assets-tether', '>= 1.1.0'
