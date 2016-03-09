@@ -1,0 +1,25 @@
+<% provide(:title, "Contact Us") %>
+
+<div class="container-fluid" id="contact-page">
+  <h1>Contact Us</h1>
+	<p>We will get back to you within 2 business days.</p>
+  <hr>
+  
+  <h3>Send us a message</h3>
+    <%= simple_form_for(Contact.new, html: {class: 'form' }) do |f| %>
+    <%= f.input :name, required: true, label:'Name or organization', placeholder: 'Enter your name or organization' %>
+    <%= f.input :email, required: false, label:'How should we contact you back?', placeholder: 'Email, phone, etc.' %>
+    <%= f.input :message, :as => :text, :required => true, input_html: {'rows': 5}, placeholder: 'Write your message here' %>
+	<div class= "hidden">
+      <%= f.input :nickname, :hint => 'Leave this field blank!' %>
+    </div>
+    </br>
+    <%= f.button :submit, 'Send message', class: 'btn btn-primary' %>
+    <% end %>
+
+  <hr>
+	<h3>Send us a direct email</h3>
+    <p>
+      For all inquiries, you can reach us directly at <a href="mailto:ignite.crowdfund@gmail.com">ignite.crowdfund@gmail.com</a>
+    </p>
+</div>

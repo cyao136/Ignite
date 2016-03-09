@@ -1,0 +1,9 @@
+<div>
+  <% flash.each do |key, value| %>
+    <div class="alert alert-<%= key %>"><%= value %>
+	<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+	</div>
+      <% end %>
+      <%= yield %>
+      <%= render 'contacts/new' %>
+</div>
