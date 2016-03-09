@@ -1,6 +1,6 @@
 class Contact < MailForm::Base
   attribute :name,      :validate => true
-  attribute :email,     :validate => /\A([\w\.%\+\-]+)@([\w\-]+\.)+([\w]{2,})\z/i
+  attribute :email
   attribute :message
   attribute :nickname,  :captcha  => true
 
@@ -8,9 +8,9 @@ class Contact < MailForm::Base
   # in ActionMailer accepts.
   def headers
     {
-      :subject => "My Contact Form",
+      :subject => "Ignite Contact Us Reply",
       :to => "ignite.crowdfund@gmail.com",
-      :from => %("#{name}" <#{email}>)
+      :from => %("#{name}")
     }
   end
 end
