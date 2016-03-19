@@ -15,6 +15,7 @@ gem 'sdoc',         '0.4.0', group: :doc
 gem 'mail_form'
 gem 'simple_form'
 gem 'paperclip'
+gem 'bcrypt'
 
 source 'http://rails-assets.org' do
   gem 'rails-assets-tether', '>= 1.1.0'
