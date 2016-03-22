@@ -1,0 +1,7 @@
+#TODO
+
+-remove old contact resources.
+-remove unused user columns (e.g. password_salt)
+-find workaround for refresh resubmit contact us data
+-look into SSL for AWS (e.g. config.force_ssl = true in production.rb)
+-investigate why My Account dropdown is sometimes unresponsive
