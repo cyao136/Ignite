@@ -40,5 +40,4 @@ class Project < ActiveRecord::Base
 		# set the state to stage_1_funding
 		self.state = "stage_1_funding"
 	end
-	
 end
