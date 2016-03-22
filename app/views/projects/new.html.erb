@@ -1,0 +1,6 @@
+<% provide(:title, "New Project") %>
+<div class="container">
+	<h1>New Project</h1>
+	<%= button_to "Has Demo", {:controller => 'projects', :action => 'create_has_demo' }, :class => "button", :method => :get %>
+	<%= button_to "No Demo", {:controller => 'projects', :action => 'create_no_demo' }, :class => "button", :method => :get %>
+</div>
