@@ -5,3 +5,5 @@
 -find workaround for refresh resubmit contact us data
 -look into SSL for AWS (e.g. config.force_ssl = true in production.rb)
 -investigate why My Account dropdown is sometimes unresponsive
+-get rid of _headerold.html.erb when it's ready to be deleted
+-fix header "My Account" dropdown issue or use html in the meantime
