@@ -42,6 +42,7 @@ class ProjectsController < ApplicationController
 	
 	def create_has_demo
 		@project = Project.new
+		@project.user_id = current_user
 		if @project.save
 			flash[:success] = "Project Created Successfully!"
 		else
