@@ -17,6 +17,8 @@ gem 'mail_form'
 gem 'simple_form'
 gem 'paperclip'
 gem 'bcrypt'
+gem 'will_paginate'
+gem 'bootstrap-will_paginate'
 
 source 'http://rails-assets.org' do
   gem 'rails-assets-tether', '>= 1.1.0'

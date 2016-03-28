@@ -23,7 +23,7 @@
 					</a>
 					<div class="dropdown-menu" aria-labelledby="Preview">
 					  <a class="dropdown-item" href="<%= user_path(current_user) %>">Profile</a>
-					  <a class="dropdown-item" href="#">Settings</a>
+					  <a class="dropdown-item" href="<%= edit_user_path(current_user) %>">Settings</a>
 					  <div class="dropdown-divider"></div>
 					  <a class="dropdown-item" href="<%= logout_path %>" data-method="delete" rel="nofollow">Log out</a>
 					</div>

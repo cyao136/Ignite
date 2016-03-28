@@ -7,3 +7,6 @@
 -investigate why My Account dropdown is sometimes unresponsive
 -get rid of _headerold.html.erb when it's ready to be deleted
 -fix header "My Account" dropdown issue or use html in the meantime
+
+For Chong:
+-do a "gem update --system" to update gem, if things aren't working.
