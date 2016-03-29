@@ -1,5 +1,6 @@
 class ProjectsController < ApplicationController
-	
+	# Temp
+	skip_before_action :require_login
 	####################################################
 	# Standard resource methods
 	
@@ -26,6 +27,7 @@ class ProjectsController < ApplicationController
 	
 	def create_no_demo
 		@project = Project.new
+		@project.user_id = current_user
 		if @project.save
 		# TODO: Create flash
 			flash[:success] = "Project Created Successfully!"
@@ -55,7 +57,7 @@ class ProjectsController < ApplicationController
 		if params[:create]
 		# For project creation
 			@project = Project.find(params[:id])
-			@project.start_stage_1
+			@project.state = "stage_1_funding"
 			if @project.update(project_params)
 				render "new"
 			else
@@ -79,6 +81,6 @@ class ProjectsController < ApplicationController
 		# allow the view to modify the parameters
 		
 		def project_params
-			params.require(:project).permit(:name, :small_desc, :full_desc, :team_desc, :creator_desc, :funding)
+			params.require(:project).permit(:name, :small_desc, :full_desc, :team_desc, :creator_desc, :funding, state, user_id)
 		end
 end
