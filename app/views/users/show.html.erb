@@ -1,0 +1,9 @@
+<% provide(:title, @user.username) %>
+
+<p>Sample user profile page</p>
+<h1>
+  <%= gravatar_for @user %>
+  <%= @user.username %>
+</h1>
+<%= image_tag @user.avatar.url %>
+<%= @user.username %>, <%= @user.email %>

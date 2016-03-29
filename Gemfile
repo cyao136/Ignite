@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 gem 'tzinfo-data'
 gem 'mysql2',		'~> 0.3.13'
 gem 'bootstrap',    '~> 4.0.0.alpha3'
+gem 'bootstrap-sass', '3.2.0.2'
 gem 'sprockets-rails',    '>= 3.0.0'
 gem 'coffee-script-source', '1.8.0'
 gem 'rails',        '4.2.2'
@@ -14,6 +15,9 @@ gem 'jbuilder',     '2.2.3'
 gem 'sdoc',         '0.4.0', group: :doc
 gem 'mail_form'
 gem 'simple_form'
+gem 'bcrypt'
+gem 'will_paginate'
+gem 'bootstrap-will_paginate'
 gem 'paperclip'
 
 source 'http://rails-assets.org' do

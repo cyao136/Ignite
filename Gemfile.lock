@@ -39,11 +39,17 @@ GEM
       tzinfo (~> 1.1)
     ansi (1.5.0)
     arel (6.0.3)
-    autoprefixer-rails (6.3.3.1)
+    autoprefixer-rails (6.3.4)
       execjs
+    bcrypt (3.1.11)
+    bcrypt (3.1.11-x64-mingw32)
     bootstrap (4.0.0.alpha3)
       autoprefixer-rails (>= 6.0.3)
       sass (>= 3.4.19)
+    bootstrap-sass (3.2.0.2)
+      sass (~> 3.2)
+    bootstrap-will_paginate (0.0.10)
+      will_paginate
     builder (3.2.2)
     byebug (3.4.0)
       columnize (~> 0.8)
@@ -213,13 +219,17 @@ GEM
       activemodel (>= 4.2)
       debug_inspector
       railties (>= 4.2)
+    will_paginate (3.1.0)
 
 PLATFORMS
   ruby
   x64-mingw32
 
 DEPENDENCIES
+  bcrypt
   bootstrap (~> 4.0.0.alpha3)
+  bootstrap-sass (= 3.2.0.2)
+  bootstrap-will_paginate
   byebug (= 3.4.0)
   coffee-rails (= 4.1.0)
   coffee-script-source (= 1.8.0)
@@ -244,6 +254,7 @@ DEPENDENCIES
   tzinfo-data
   uglifier (= 2.5.3)
   web-console
+  will_paginate
 
 BUNDLED WITH
    1.11.2
