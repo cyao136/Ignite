@@ -8,7 +8,8 @@
 		<p> Team Description:</br> <%= f.text_field :team_desc%> </p>
 		<p> Creator Description:</br> <%= f.text_field :creator_desc%> </p>
 		<p> Funding:</br> <%= f.number_field :funding%> </p>
-		<%= f.submit :Create %>
+		<%= f.submit :Create, name: 'create' %>
+		<%= f.submit :Save %>
 	<% end %>
 	<% if @project.errors.any? %>
 		<ul class="Signup_Errors">
