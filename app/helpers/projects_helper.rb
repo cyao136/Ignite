@@ -7,4 +7,8 @@ module ProjectsHelper
 	def project_id
 		@project.id
 	end
+	
+	def update_project
+		@project.update
+	end
 end

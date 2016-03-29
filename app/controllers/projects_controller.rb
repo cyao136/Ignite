@@ -27,9 +27,10 @@ class ProjectsController < ApplicationController
 	def create_no_demo
 		@project = Project.new
 		if @project.save
-		  flash[:success] = "Project Created Successfully!"
+		# TODO: Create flash
+			flash[:success] = "Project Created Successfully!"
 		else
-		  flash[:error] = "Fail to Create Project!"
+			flash[:error] = "Fail to Create Project!"
 		end
 	end
 	
@@ -40,26 +41,36 @@ class ProjectsController < ApplicationController
 	def create_has_demo
 		@project = Project.new
 		if @project.save
-		  flash[:success] = "Project Created Successfully!"
+			flash[:success] = "Project Created Successfully!"
 		else
-		  flash[:error] = "Fail to Create Project!"
+			flash[:error] = "Fail to Create Project!"
 		end
 	end
 	
 	####################################################
 	# submit
-	# submit a project to start the funding
+	# form submission
 	
 	def submit
-		@project = Project.find(params[:id])
-		@project.start_stage_1
-		if @project.update(project_params)
-		  render "new"
+		if params[:create]
+		# For project creation
+			@project = Project.find(params[:id])
+			@project.start_stage_1
+			if @project.update(project_params)
+				render "new"
+			else
+				flash[:error] = "Fail to Create Project!"
+			end
 		else
-		  flash[:error] = "Fail to Create Project!"
+		# For project saving
+			@project = Project.find(params[:id])
+			if @project.update(project_params)
+				flash[:success] = "Project Saved Successfully!"
+			else
+				flash[:error] = "Fail to Save Project!"
+			end
 		end
 	end
-	
 	
 	private
 		
