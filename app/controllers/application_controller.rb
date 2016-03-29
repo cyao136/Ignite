@@ -9,8 +9,8 @@ class ApplicationController < ActionController::Base
   
 	def require_login
 		unless logged_in?
-			flash[:error] = "You must be logged in to access this section"
-			render "sessions/new" # halts request cycle
+			flash[:danger] = "You must be logged in to access this section"
+			redirect_to login_url
 		end
 	end
 end
