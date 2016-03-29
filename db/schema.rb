@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160313022250) do
+ActiveRecord::Schema.define(version: 20160327222719) do
 
   create_table "comments", force: :cascade do |t|
     t.integer  "commentable_id",   limit: 4
@@ -131,10 +131,10 @@ ActiveRecord::Schema.define(version: 20160313022250) do
     t.text     "full_desc",    limit: 65535
     t.text     "team_desc",    limit: 65535
     t.text     "creator_desc", limit: 65535
-    t.integer  "state",        limit: 4
+    t.integer  "state",        limit: 4,                    default: 0
     t.decimal  "funding",                    precision: 10
-    t.datetime "created_at",                                null: false
-    t.datetime "updated_at",                                null: false
+    t.datetime "created_at",                                            null: false
+    t.datetime "updated_at",                                            null: false
   end
 
   add_index "projects", ["user_id"], name: "index_projects_on_user_id", using: :btree
