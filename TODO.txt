@@ -1,18 +1,23 @@
 #TODO
 
--remove old contact resources.
--remove unused user columns (e.g. password_salt)
--find workaround for refresh resubmit contact us data
+
 -look into SSL for AWS (e.g. config.force_ssl = true in production.rb)
 -investigate why My Account dropdown is sometimes unresponsive
--get rid of _headerold.html.erb when it's ready to be deleted
 -fix header "My Account" dropdown issue or use html in the meantime
 -code cleanup for new features & comments
 -currently using spoof patch for paperclip: https://github.com/thoughtbot/paperclip/issues/1924
 -use Amazon S3 for paperclip storage
 
-
 -upload pictures and videos to project
 -have uploaded files show in project creation
 -fix render/redirect in project creation
 -bootstrap tabs for project creation instead of redirect
+
+For Chong:
+-do a "gem update --system" to update gem, if things aren't working.
+
+Done:
+-get rid of _headerold.html.erb when it's ready to be deleted
+-remove old contact resources.
+-remove unused user columns (e.g. password_salt)
+-find workaround for refresh resubmit contact us data
