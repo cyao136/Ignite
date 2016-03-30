@@ -19,6 +19,7 @@ gem 'bcrypt'
 gem 'will_paginate'
 gem 'bootstrap-will_paginate'
 gem 'paperclip'
+gem 'aws-sdk', '>= 2.0.34'
 
 source 'http://rails-assets.org' do
   gem 'rails-assets-tether', '>= 1.1.0'
