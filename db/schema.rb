@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160329221233) do
+ActiveRecord::Schema.define(version: 20160330223943) do
 
   create_table "comments", force: :cascade do |t|
     t.integer  "commentable_id",   limit: 4
@@ -73,6 +73,18 @@ ActiveRecord::Schema.define(version: 20160329221233) do
   end
 
   add_index "goals", ["project_id"], name: "index_goals_on_project_id", using: :btree
+
+  create_table "new_pictures", force: :cascade do |t|
+    t.integer  "asset_id",           limit: 4
+    t.string   "asset_type",         limit: 255
+    t.string   "name",               limit: 255
+    t.string   "asset_file_name",    limit: 255
+    t.string   "asset_content_type", limit: 255
+    t.integer  "asset_file_size",    limit: 4
+    t.datetime "asset_updated_at"
+  end
+
+  add_index "new_pictures", ["asset_type", "asset_id"], name: "index_new_pictures_on_asset_type_and_asset_id", using: :btree
 
   create_table "pictures", force: :cascade do |t|
     t.integer  "asset_id",           limit: 4
@@ -141,8 +153,6 @@ ActiveRecord::Schema.define(version: 20160329221233) do
 
   create_table "users", force: :cascade do |t|
     t.string   "username",            limit: 255
-    t.string   "password_encrypted",  limit: 255
-    t.string   "password_salt",       limit: 255
     t.string   "email",               limit: 255
     t.string   "first_name",          limit: 255
     t.string   "last_name",           limit: 255
