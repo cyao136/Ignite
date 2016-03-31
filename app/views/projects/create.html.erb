@@ -1,13 +1,14 @@
 <% provide(:title, "New Project") %>
 <div class="container">
 	<h1>New Project</h1>
-	<%= form_for(:project, :url => {:controller => 'projects', :action => 'submit', :id => project_id}) do |f| %>
+	<%= render 'shared/error_messages', object: @project %>
+	<%= form_for(:project, :url => {:controller => 'projects', :action => 'submit_basic_info', :id => project_id, :has_demo => @has_demo}) do |f| %>
 		<p> Name:</br> <%= f.text_field :name%> </p>
 		<p> Small Description:</br> <%= f.text_field :small_desc%> </p>
 		<p> Full Description:</br> <%= f.text_field :full_desc%> </p>
 		<p> Team Description:</br> <%= f.text_field :team_desc%> </p>
 		<p> Creator Description:</br> <%= f.text_field :creator_desc%> </p>
-		<p> Funding:</br> <%= f.number_field :funding%> </p>
+		<p> Funding:</br> <%= f.number_field :funding%> </p>		
 		<%= f.submit :Create, name: 'create' %>
 		<%= f.submit :Save %>
 	<% end %>

@@ -1,11 +1,10 @@
 class ProjectsController < ApplicationController
-	# Temp
-	skip_before_action :require_login
 	####################################################
 	# Standard resource methods
 	
 	def new
 		@project = Project.new
+		@project.demos.build
 	end
 	
 	def edit
@@ -22,58 +21,68 @@ class ProjectsController < ApplicationController
 	end
 	
 	####################################################
-	# create_no_demo
-	# create a project that has no demo (stage 1)
+	# create
+	# create a project
 	
-	def create_no_demo
-		@project = Project.new
-		@project.user_id = current_user
+	def create
+		@project = Project.new(user_id: current_user.id)
+		@has_demo = params[:demo]
 		if @project.save
-		# TODO: Create flash
-			flash[:success] = "Project Created Successfully!"
+			flash[:success] = "Let's build your project together!"
 		else
-			flash[:error] = "Fail to Create Project!"
+			flash.now[:danger] = @project.errors.full_messages.to_sentence
+			render "new"
 		end
 	end
 	
 	####################################################
-	# create_has_demo
-	# create a project that has a demo (stage 2)
+	# submit_basic_info
+	# submitting basic project informations
 	
-	def create_has_demo
-		@project = Project.new
-		@project.user_id = current_user
-		if @project.save
-			flash[:success] = "Project Created Successfully!"
-		else
-			flash[:error] = "Fail to Create Project!"
-		end
-	end
-	
-	####################################################
-	# submit
-	# form submission
-	
-	def submit
-		if params[:create]
+	def submit_basic_info
+		@has_demo = params[:has_demo]
 		# For project creation
+		if params[:create]
 			@project = Project.find(params[:id])
-			@project.state = "stage_1_funding"
 			if @project.update(project_params)
-				render "new"
+				flash[:success] = "Basic Info Saved!"
+				if @has_demo
+					render "demo_upload"
+				else
+					render "new"
+				end
 			else
-				flash[:error] = "Fail to Create Project!"
+				render "create"
 			end
-		else
 		# For project saving
+		else
 			@project = Project.find(params[:id])
 			if @project.update(project_params)
 				flash[:success] = "Project Saved Successfully!"
+				render "create"
 			else
-				flash[:error] = "Fail to Save Project!"
+				render "create"
 			end
 		end
 	end
+		
+	####################################################
+	# upload_demo
+	# upload a demo of the game
+	
+	def upload_demo
+		@project = Project.find(params[:id])
+		@demo = Demo.new(demo_params)
+		@demo.project_id = @project.id
+		if @demo.save
+			flash[:success] = "The demo was added!"
+			render 'new'
+		else
+			flash[:danger] = @demo.errors.full_messages.to_sentence
+			render 'demo_upload'
+		end
+	end
+
 	
 	private
 		
@@ -82,6 +91,10 @@ class ProjectsController < ApplicationController
 		# allow the view to modify the parameters
 		
 		def project_params
-			params.require(:project).permit(:name, :small_desc, :full_desc, :team_desc, :creator_desc, :funding, state, user_id)
+			params.require(:project).permit(:name, :small_desc, :full_desc, :team_desc, :creator_desc, :funding, :state)
+		end
+		
+		def demo_params
+			params.require(:demo).permit(:name, :version, :asset)
 		end
 end
