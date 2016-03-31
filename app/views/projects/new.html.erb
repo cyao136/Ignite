@@ -1,0 +1,6 @@
+<% provide(:title, "New Project") %>
+<div class="container">
+	<h1>New Project</h1>
+	<%= link_to "Has Demo", :controller => 'projects', :action => 'create', :demo => true %>
+	<%= link_to "No Demo", :controller => 'projects', :action => 'create', :demo => false %>
+</div>
