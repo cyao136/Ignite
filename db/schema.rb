@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160331224245) do
+ActiveRecord::Schema.define(version: 20160401225547) do
 
   create_table "comments", force: :cascade do |t|
     t.integer  "commentable_id",   limit: 4
@@ -137,24 +137,20 @@ ActiveRecord::Schema.define(version: 20160331224245) do
   add_index "projects", ["user_id"], name: "index_projects_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
-    t.string   "username",            limit: 255
-    t.string   "email",               limit: 255
-    t.string   "first_name",          limit: 255
-    t.string   "last_name",           limit: 255
-    t.integer  "gender",              limit: 4
-    t.datetime "created_at",                                      null: false
-    t.datetime "updated_at",                                      null: false
-    t.string   "password_digest",     limit: 255
-    t.string   "remember_digest",     limit: 255
-    t.string   "activation_digest",   limit: 255
-    t.boolean  "activated",           limit: 1,   default: false
+    t.string   "username",          limit: 255
+    t.string   "email",             limit: 255
+    t.string   "first_name",        limit: 255
+    t.string   "last_name",         limit: 255
+    t.integer  "gender",            limit: 4
+    t.datetime "created_at",                                    null: false
+    t.datetime "updated_at",                                    null: false
+    t.string   "password_digest",   limit: 255
+    t.string   "remember_digest",   limit: 255
+    t.string   "activation_digest", limit: 255
+    t.boolean  "activated",         limit: 1,   default: false
     t.datetime "activated_at"
-    t.string   "reset_digest",        limit: 255
+    t.string   "reset_digest",      limit: 255
     t.datetime "reset_sent_at"
-    t.string   "avatar_file_name",    limit: 255
-    t.string   "avatar_content_type", limit: 255
-    t.integer  "avatar_file_size",    limit: 4
-    t.datetime "avatar_updated_at"
   end
 
   create_table "videos", force: :cascade do |t|
