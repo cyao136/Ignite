@@ -14,7 +14,6 @@ class UsersController < ApplicationController
   
   def new
     @user = User.new
-	@user.pictures.build
   end
   
   def create
@@ -46,7 +45,7 @@ class UsersController < ApplicationController
 
     def user_params
       params.require(:user).permit(:username, :email, :password,
-                                   :password_confirmation, :avatar, pictures_attributes: [:name, :assetable_id, :assetable_type, :asset])
+                                   :password_confirmation, :avatar, picture_attributes: [:name, :assetable_id, :assetable_type, :asset])
     end
 
     # Before filters
