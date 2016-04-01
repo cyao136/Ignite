@@ -3,7 +3,8 @@ class User < ActiveRecord::Base
   before_save   :downcase_fields
   before_create :create_activation_digest
   has_many :posts
-  has_one :picture, as: :asset
+  has_one :picture, as: :assetable
+  accepts_nested_attributes_for :picture
   has_and_belongs_to_many :pledges
   validates :username, presence: true, :length => { :in => 4..12 }, uniqueness: { case_sensitive: false }
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i

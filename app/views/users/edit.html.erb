@@ -20,6 +20,10 @@
 	  
 	  <%= f.file_field :avatar %>
 	  
+	  <%= f.fields_for :pictures do |ph| %>
+      <%= ph.file_field :asset %>
+      <% end%>
+	  
       <%= f.submit "Save changes", class: "btn btn-primary" %>
     <% end %>
 
