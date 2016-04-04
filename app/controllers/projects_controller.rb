@@ -1,4 +1,12 @@
 class ProjectsController < ApplicationController
+	before_filter :verify_project_owner
+  	skip_before_filter :verify_project_owner, only: [:new, :create]
+
+	def verify_project_owner
+		if current_user.id != Project.find(params[:id]).user_id
+			redirect_to root_url
+		end
+	end
 	####################################################
 	# Standard resource methods
 	
@@ -25,8 +33,14 @@ class ProjectsController < ApplicationController
 	# create a project
 	
 	def create
-		@project = Project.new(user_id: current_user.id)
-		@has_demo = params[:demo]
+		@project = Project.new(project_params)
+		@project.user_id = current_user.id
+		puts params[:demo]
+		@has_demo = false
+		if params[:demo]
+			@has_demo = true
+		end
+		puts @has_demo
 		if @project.save
 			flash[:success] = "Let's build your project together!"
 		else
@@ -40,10 +54,10 @@ class ProjectsController < ApplicationController
 	# submitting basic project informations
 	
 	def submit_basic_info
+		@project = Project.find(params[:id])
 		@has_demo = params[:has_demo]
 		# For project creation
 		if params[:create]
-			@project = Project.find(params[:id])
 			if @project.update(project_params)
 				flash[:success] = "Basic Info Saved!"
 				if @has_demo
@@ -52,11 +66,10 @@ class ProjectsController < ApplicationController
 					render "new"
 				end
 			else
-				render "create"
+				render "picture_video_upload"
 			end
 		# For project saving
 		else
-			@project = Project.find(params[:id])
 			if @project.update(project_params)
 				flash[:success] = "Project Saved Successfully!"
 				render "create"
@@ -76,10 +89,26 @@ class ProjectsController < ApplicationController
 		@demo.project_id = @project.id
 		if @demo.save
 			flash[:success] = "The demo was added!"
-			render 'new'
+			render 'picture_video_upload'
 		else
 			flash[:danger] = @demo.errors.full_messages.to_sentence
 			render 'demo_upload'
+		end
+	end
+
+	####################################################
+	# upload_picture
+	# upload pictures of the project
+	
+	def upload_picture
+		@project = Project.find(params[:id])
+		@picture = Picture.new(picture_params)
+		if @picture.save
+			flash[:success] = "The picture was added!"
+			render 'new'
+		else
+			flash[:danger] = @picture.errors.full_messages.to_sentence
+			render 'new'
 		end
 	end
 
@@ -91,10 +120,14 @@ class ProjectsController < ApplicationController
 		# allow the view to modify the parameters
 		
 		def project_params
-			params.require(:project).permit(:name, :small_desc, :full_desc, :team_desc, :creator_desc, :funding, :state)
+			params.require(:project).permit(:name, :small_desc, :full_desc, :team_desc, :creator_desc, :funding, :state, :demos_attributes)
 		end
 		
 		def demo_params
 			params.require(:demo).permit(:name, :version, :asset)
+		end
+
+		def picture_params
+			params.require(:picture).permit(:asset)
 		end
 end

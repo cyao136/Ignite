@@ -1,6 +1,13 @@
 <% provide(:title, "New Project") %>
 <div class="container">
 	<h1>New Project</h1>
-	<%= link_to "Has Demo", :controller => 'projects', :action => 'create', :demo => true %>
-	<%= link_to "No Demo", :controller => 'projects', :action => 'create', :demo => false %>
+	<%= form_for(:project, :url => {:controller => 'projects', :action => 'create'}) do |f| %>
+
+		<%= f.label :name %>
+		<%= f.text_field :name, class: 'form-control' %>
+
+		<%= f.submit :No_demo, class: 'form-control'  %>
+		<%= f.submit :Has_demo, :name => 'demo', class: 'form-control'  %>
+
+	<% end %>
 </div>

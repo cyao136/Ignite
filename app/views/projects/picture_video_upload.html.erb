@@ -1,0 +1,11 @@
+<div class="page-header"><h1>Upload Demo</h1></div>
+
+<%= form_for :photo, :url => {:controller => 'projects', :action => 'upload_photo', :id => project_id} do |f| %>
+
+	<div class="form-group">
+		<%= f.label :asset %>
+		<%= f.file_field :asset, class: 'form-control'%>
+	</div>
+
+	<%= f.submit 'Upload', class: 'btn btn-primary' %>
+<% end %>
