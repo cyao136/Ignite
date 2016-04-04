@@ -3,15 +3,14 @@ class User < ActiveRecord::Base
   before_save   :downcase_fields
   before_create :create_activation_digest
   has_many :posts
-  has_one :picture, as: :asset
+  has_one :picture, as: :assetable
+  accepts_nested_attributes_for :picture
   has_and_belongs_to_many :pledges
   validates :username, presence: true, :length => { :in => 4..12 }, uniqueness: { case_sensitive: false }
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :email, presence: true, :length => { maximum: 255 }, format: { with: VALID_EMAIL_REGEX }, uniqueness: { case_sensitive: false }
   has_secure_password
   validates :password, presence: true, length: { minimum: 4 }, allow_nil: true
-  has_attached_file :avatar, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/images/:style/missing.png"
-  validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/
   
   # Returns the hash digest of the given string.
   def User.digest(string)

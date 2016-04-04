@@ -2,8 +2,12 @@
 
 <p>Sample user profile page</p>
 <h1>
-  <%= gravatar_for @user %>
   <%= @user.username %>
 </h1>
-<%= image_tag @user.avatar.url %>
+<% if @user.picture.nil? %>
+<% else %>
+  <%= image_tag @user.picture.asset.url %>
+<% end %>
 <%= @user.username %>, <%= @user.email %>
+<a href="<%= edit_user_path(current_user) %>">Settings</a>
+<a href="<%= logout_path %>" data-method="delete" rel="nofollow">Log out</a>
