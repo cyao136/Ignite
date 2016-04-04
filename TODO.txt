@@ -2,8 +2,7 @@
 
 
 -look into SSL for AWS (e.g. config.force_ssl = true in production.rb)
--investigate why My Account dropdown is sometimes unresponsive
--fix header "My Account" dropdown issue or use html in the meantime
+
 -code cleanup for new features & comments
 -currently using spoof patch for paperclip: https://github.com/thoughtbot/paperclip/issues/1924
 -use Amazon S3 for paperclip storage
@@ -13,6 +12,28 @@
 -fix render/redirect in project creation
 -bootstrap tabs for project creation instead of redirect
 
+-investigate why My Account dropdown is sometimes unresponsive
+-fix header "My Account" dropdown issue or use html in the meantime
+For now, links from dropdown moved to user profile page. Javascript fix can be referred to here:
+http://stackoverflow.com/questions/30578971/bootstrap-dropdown-not-working-after-initial-ajax-form-submission
+Old dropdown code:
+<% if logged_in? %>
+  <li class="nav-item btn-group">
+	<a type="button" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+	  My Account
+	</a>
+	<div class="dropdown-menu" aria-labelledby="Preview">
+	  <a class="dropdown-item" href="<%= user_path(current_user) %>">Profile</a>
+	  <a class="dropdown-item" href="<%= edit_user_path(current_user) %>">Settings</a>
+	  <div class="dropdown-divider"></div>
+	  <a class="dropdown-item" href="<%= logout_path %>" data-method="delete" rel="nofollow">Log out</a>
+	</div>
+  </li>
+<% else %>
+				
+				
+-------------------------------------------------------------------------------------------------------------------------------
+				
 For Chong:
 -do a "gem update --system" to update gem, if things aren't working.
 

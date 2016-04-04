@@ -17,16 +17,8 @@
 					<a class="nav-link" href="<%= contact_path %>">Contact Us</a>
 				</li>
 				<% if logged_in? %>
-				  <li class="nav-item btn-group">
-					<a type="button" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-					  My Account
-					</a>
-					<div class="dropdown-menu" aria-labelledby="Preview">
-					  <a class="dropdown-item" href="<%= user_path(current_user) %>">Profile</a>
-					  <a class="dropdown-item" href="<%= edit_user_path(current_user) %>">Settings</a>
-					  <div class="dropdown-divider"></div>
-					  <a class="dropdown-item" href="<%= logout_path %>" data-method="delete" rel="nofollow">Log out</a>
-					</div>
+				  <li class="nav-item">
+					<a class="nav-link" href="<%= user_path(current_user) %>">My Account</a>
 				  </li>
 				<% else %>
 				  <li class="nav-item <%= is_active?('/login') %>">
