@@ -11,4 +11,7 @@ module ProjectsHelper
 	def project_owner
 		@project.user_id
 	end
+	def current_project
+		@project
+	end
 end

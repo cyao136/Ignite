@@ -1,11 +1,20 @@
-<div class="page-header"><h1>Upload Demo</h1></div>
+<div class="page-header"><h1>Upload Media</h1></div>
 
-<%= form_for :photo, :url => {:controller => 'projects', :action => 'upload_photo', :id => project_id} do |f| %>
+<%= form_for :project, :url => {:controller => 'projects', :action => 'update', :id => project_id} do |f| %>
+	
+	<%= f.fields_for :pictures_attributes, :html => {:multipart => true} do |p| %>
+		<div class="form-group">
+			<%= p.label :pictures %>
+			<%= p.file_field :asset, class: 'form-control'%>
+		</div>
+	<% end%>
 
-	<div class="form-group">
-		<%= f.label :asset %>
-		<%= f.file_field :asset, class: 'form-control'%>
-	</div>
+	<%= f.fields_for :pictures_attributes, :html => {:multipart => true} do |v| %>
+		<div class="form-group">
+			<%= v.label :videos %>
+			<%= v.file_field :asset, class: 'form-control'%>
+		</div>
+	<% end%>
 
 	<%= f.submit 'Upload', class: 'btn btn-primary' %>
 <% end %>

@@ -2,7 +2,7 @@
 <div class="container">
 	<h1>New Project</h1>
 	<%= render 'shared/error_messages', object: @project %>
-	<%= form_for(:project, :url => {:controller => 'projects', :action => 'submit_basic_info', :id => project_id, :has_demo => @has_demo}) do |f| %>
+	<%= form_for(:project, :url => {:controller => 'projects', :action => 'submit', :id => project_id, :has_demo => @has_demo}) do |f| %>
 		
 		<%= f.label :small_description %>
 		<%= f.text_field :small_desc, class: 'form-control' %>
@@ -10,16 +10,50 @@
 		<%= f.label :full_description %>
 		<%= f.text_field :full_desc, class: 'form-control' %>
 
+		<hr>
 		<%= f.label :team_description %>
 		<%= f.text_field :team_desc, class: 'form-control' %>
 
 		<%= f.label :creator_description %>
 		<%= f.text_field :creator_desc, class: 'form-control' %>
 
+		<hr>
 		<%= f.label :funding %>
 		<%= f.number_field :funding, class: 'form-control' %>
 
-		<%= f.submit :Create, name: 'create' %>
-		<%= f.submit :Save %>
+		<hr>
+		<h3> Demo </h3>
+
+		<%= f.fields_for :demos_attributes, :html => {:multipart => true} do |d| %>
+			<div class="form-group">
+				<%= d.label :demo %>
+				<%= d.file_field :asset, class: 'form-control' %>
+			</div>
+		<% end%>
+		
+		<%= f.submit :Upload, class: 'form-control' %>
+
+		<hr>
+
+		<%= f.fields_for :pictures_attributes, :html => {:multipart => true} do |p| %>
+			<div class="form-group">
+				<%= p.label :pictures %>
+				<%= p.file_field :asset, class: 'form-control', multiple: true %>
+			</div>
+		<% end%>
+		<%= f.submit :Upload, class: 'form-control' %>
+
+		<%= f.fields_for :videos_attributes, :html => {:multipart => true} do |v| %>
+			<div class="form-group">
+				<%= v.label :videos %>
+				<%= v.file_field :asset, class: 'form-control', multiple: true %>
+			</div>
+		<% end%>
+		<%= f.submit :Upload, class: 'form-control' %>
+		
+		<hr>
+
+		<%= f.submit :Create, name: 'create', class: 'form-control' %>
+		<%= f.submit :Save, class: 'form-control' %>
 	<% end %>
 </div>
