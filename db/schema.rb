@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160401225547) do
+ActiveRecord::Schema.define(version: 20160406072133) do
 
   create_table "comments", force: :cascade do |t|
     t.integer  "commentable_id",   limit: 4
@@ -26,17 +26,13 @@ ActiveRecord::Schema.define(version: 20160401225547) do
   add_index "comments", ["commentable_type", "commentable_id"], name: "index_comments_on_commentable_type_and_commentable_id", using: :btree
 
   create_table "demos", force: :cascade do |t|
-    t.integer  "project_id",         limit: 4
-    t.string   "name",               limit: 255
-    t.string   "location",           limit: 255
-    t.string   "version",            limit: 255
-    t.boolean  "is_active",          limit: 1
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
-    t.string   "asset_file_name",    limit: 255
-    t.string   "asset_content_type", limit: 255
-    t.integer  "asset_file_size",    limit: 4
-    t.datetime "asset_updated_at"
+    t.integer  "project_id", limit: 4
+    t.string   "name",       limit: 255
+    t.string   "version",    limit: 255
+    t.boolean  "is_active",  limit: 1
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.string   "asset",      limit: 255
   end
 
   add_index "demos", ["project_id"], name: "index_demos_on_project_id", using: :btree
@@ -75,15 +71,12 @@ ActiveRecord::Schema.define(version: 20160401225547) do
   add_index "goals", ["project_id"], name: "index_goals_on_project_id", using: :btree
 
   create_table "pictures", force: :cascade do |t|
-    t.string   "name",               limit: 255
-    t.integer  "assetable_id",       limit: 4
-    t.string   "assetable_type",     limit: 255
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
-    t.string   "asset_file_name",    limit: 255
-    t.string   "asset_content_type", limit: 255
-    t.integer  "asset_file_size",    limit: 4
-    t.datetime "asset_updated_at"
+    t.string   "name",           limit: 255
+    t.integer  "assetable_id",   limit: 4
+    t.string   "assetable_type", limit: 255
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.string   "asset",          limit: 255
   end
 
   add_index "pictures", ["assetable_type", "assetable_id"], name: "index_pictures_on_assetable_type_and_assetable_id", using: :btree
@@ -142,8 +135,6 @@ ActiveRecord::Schema.define(version: 20160401225547) do
     t.string   "first_name",        limit: 255
     t.string   "last_name",         limit: 255
     t.integer  "gender",            limit: 4
-    t.datetime "created_at",                                    null: false
-    t.datetime "updated_at",                                    null: false
     t.string   "password_digest",   limit: 255
     t.string   "remember_digest",   limit: 255
     t.string   "activation_digest", limit: 255
@@ -151,23 +142,19 @@ ActiveRecord::Schema.define(version: 20160401225547) do
     t.datetime "activated_at"
     t.string   "reset_digest",      limit: 255
     t.datetime "reset_sent_at"
+    t.datetime "created_at",                                    null: false
+    t.datetime "updated_at",                                    null: false
   end
 
   create_table "videos", force: :cascade do |t|
-    t.integer  "asset_id",           limit: 4
-    t.string   "asset_type",         limit: 255
-    t.string   "name",               limit: 255
-    t.string   "file_extension",     limit: 255
-    t.string   "location",           limit: 255
-    t.string   "tag",                limit: 255
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
-    t.string   "asset_file_name",    limit: 255
-    t.string   "asset_content_type", limit: 255
-    t.integer  "asset_file_size",    limit: 4
-    t.datetime "asset_updated_at"
+    t.integer  "assetable_id",   limit: 4
+    t.string   "assetable_type", limit: 255
+    t.string   "name",           limit: 255
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.string   "asset",          limit: 255
   end
 
-  add_index "videos", ["asset_type", "asset_id"], name: "index_videos_on_asset_type_and_asset_id", using: :btree
+  add_index "videos", ["assetable_type", "assetable_id"], name: "index_videos_on_assetable_type_and_assetable_id", using: :btree
 
 end

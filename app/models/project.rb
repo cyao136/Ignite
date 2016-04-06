@@ -2,8 +2,8 @@ class Project < ActiveRecord::Base
 	has_many :posts
 	has_many :demos
 	has_many :goals
-	has_many :video, as: :asset
-	has_many :pictures, as: :asset
+	has_many :videos, as: :assetable
+	has_many :pictures, as: :assetable
 	has_and_belongs_to_many :genres
 	accepts_nested_attributes_for :demos
 	

@@ -4,7 +4,6 @@ class CreateDemos < ActiveRecord::Migration
 	  t.belongs_to :project, index: true
 	  
 	  t.string :name
-	  t.string :location
 	  t.string :version
 	  t.boolean :is_active
 	  

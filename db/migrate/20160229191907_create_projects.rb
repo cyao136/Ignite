@@ -8,7 +8,7 @@ class CreateProjects < ActiveRecord::Migration
 	  t.text :full_desc
 	  t.text :team_desc
 	  t.text :creator_desc
-	  t.integer :state
+	  t.integer :state,   default: 0
 	  t.decimal :funding
 	  
       t.timestamps null: false
