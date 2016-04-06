@@ -18,7 +18,7 @@ gem 'simple_form'
 gem 'bcrypt'
 gem 'will_paginate'
 gem 'bootstrap-will_paginate'
-gem 'paperclip'
+gem 'carrierwave'
 gem 'aws-sdk', '>= 2.0.34'
 
 source 'http://rails-assets.org' do
