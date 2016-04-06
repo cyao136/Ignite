@@ -7,10 +7,8 @@ class PicturesController < ApplicationController
 		@picture = Picture.new(picture_params)
 		if @picture.save
 			flash[:success] = "The picture was added!"
-			redirect_to user_path(current_user)
 		else
 			flash[:danger] = @picture.errors.full_messages.to_sentence
-			redirect_to user_path(current_user)
 		end
 	end
 
