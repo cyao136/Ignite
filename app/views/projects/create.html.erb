@@ -2,7 +2,7 @@
 <div class="container">
 	<h1>New Project</h1>
 	<%= render 'shared/error_messages', object: @project %>
-	<%= form_for(:project, :url => {:controller => 'projects', :action => 'submit', :id => project_id, :has_demo => @has_demo}) do |f| %>
+	<%= form_for(:project, :url => {:controller => 'projects', :action => 'submit', :id => project_id, :has_demo => @has_demo}, :html => { :multipart => true }) do |f| %>
 		
 		<%= f.label :small_description %>
 		<%= f.text_field :small_desc, class: 'form-control' %>
@@ -24,36 +24,35 @@
 		<hr>
 		<h3> Demo </h3>
 
-		<%= f.fields_for :demos_attributes, :html => {:multipart => true} do |d| %>
-			<div class="form-group">
-				<%= d.label :demo %>
-				<%= d.file_field :asset, class: 'form-control' %>
-			</div>
-		<% end%>
-		
-		<%= f.submit :Upload, class: 'form-control' %>
+		<div class="form-group">
+			<%= label_tag 'name', 'Demo Name' %>
+			<%= text_field_tag "demo_name", nil, class: 'form-control' %>
+
+			<%= label_tag 'version', 'Demo Version' %>
+			<%= text_field_tag "demo_version", nil, class: 'form-control' %>
+
+			<%= label_tag 'file', 'Demo Exe File' %>
+			<%= file_field_tag "demo_asset", type: :file, class: 'form-control' %>
+
+			<%= f.submit :demo, value: demo_button, class: 'form-control' %>
+		</div>
 
 		<hr>
+		<div class="form-group">
+			<%= label_tag 'pictures', 'Picture Files' %>
+			<%= file_field_tag "pictures[]", type: :file, multiple: true, class: 'form-control' %>
+			<%= f.submit :pictures, value: pictures_button, class: 'form-control' %>
+		</div>
 
-		<%= f.fields_for :pictures_attributes, :html => {:multipart => true} do |p| %>
-			<div class="form-group">
-				<%= p.label :pictures %>
-				<%= p.file_field :asset, class: 'form-control', multiple: true %>
-			</div>
-		<% end%>
-		<%= f.submit :Upload, class: 'form-control' %>
-
-		<%= f.fields_for :videos_attributes, :html => {:multipart => true} do |v| %>
-			<div class="form-group">
-				<%= v.label :videos %>
-				<%= v.file_field :asset, class: 'form-control', multiple: true %>
-			</div>
-		<% end%>
-		<%= f.submit :Upload, class: 'form-control' %>
+		<div class="form-group">
+			<%= label_tag 'video', 'Video File' %>
+			<%= file_field_tag "video", type: :file, class: 'form-control' %>
+			<%= f.submit :video, value: video_button, class: 'form-control' %>
+		</div>
 		
 		<hr>
 
-		<%= f.submit :Create, name: 'create', class: 'form-control' %>
-		<%= f.submit :Save, class: 'form-control' %>
+		<%= f.submit :create, value: create_button, class: 'form-control' %>
+		<%= f.submit :save, value: save_button, class: 'form-control' %>
 	<% end %>
 </div>

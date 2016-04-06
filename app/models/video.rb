@@ -1,5 +1,5 @@
 class Video < ActiveRecord::Base
-	belongs_to :asset, polymorphic: true
+	belongs_to :assetable, polymorphic: true
 	mount_uploader :asset, VideoUploader
 	validate :video_size_validation
 	validates_presence_of :asset

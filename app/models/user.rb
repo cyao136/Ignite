@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
   before_save   :downcase_fields
   before_create :create_activation_digest
   has_many :posts
-  has_one :picture, as: :assetable
+  has_one :picture, as: :assetable, :dependent => :destroy
   accepts_nested_attributes_for :picture
   has_and_belongs_to_many :pledges
   validates :username, presence: true, :length => { :in => 4..12 }, uniqueness: { case_sensitive: false }
