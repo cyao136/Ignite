@@ -49,6 +49,22 @@
 			<%= file_field_tag "video", type: :file, class: 'form-control' %>
 			<%= f.submit :video, value: video_button, class: 'form-control' %>
 		</div>
+
+		<div class="form-group">
+			<%= label_tag 'name', 'Pledge Name' %>
+			<%= text_field_tag "pledge_name", nil, class: 'form-control' %>
+
+			<%= label_tag 'name', 'Pledge Description' %>
+			<%= text_field_tag "pledge_desc", nil, class: 'form-control' %>
+
+			<%= label_tag 'name', 'Pledge Max' %>
+			<%= number_field_tag "pledge_max", nil, class: 'form-control' %>
+
+			<%= label_tag 'name', 'Pledge Cost' %>
+			<%= number_field_tag "pledge_cost", nil, step: 0.01, class: 'form-control' %>
+
+			<%= f.submit :pledge, value: pledge_button, class: 'form-control' %>
+		</div>
 		
 		<hr>
 

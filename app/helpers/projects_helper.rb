@@ -27,6 +27,9 @@ module ProjectsHelper
 	def video_button
 		"Upload Video"
 	end
+	def pledge_button
+		"Add Pledge"
+	end
 	def create_button
 		"Create Project!"
 	end
