@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
   before_save   :downcase_fields
   before_create :create_activation_digest
   has_many :posts
+  has_many :projects
   has_one :picture, as: :assetable, :dependent => :destroy
   accepts_nested_attributes_for :picture
   has_and_belongs_to_many :pledges

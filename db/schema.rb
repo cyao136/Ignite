@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160406072133) do
+ActiveRecord::Schema.define(version: 20160413005330) do
 
   create_table "comments", force: :cascade do |t|
     t.integer  "commentable_id",   limit: 4
@@ -54,21 +54,6 @@ ActiveRecord::Schema.define(version: 20160406072133) do
 
   add_index "genres_projects", ["genre_id"], name: "index_genres_projects_on_genre_id", using: :btree
   add_index "genres_projects", ["project_id"], name: "index_genres_projects_on_project_id", using: :btree
-
-  create_table "goals", force: :cascade do |t|
-    t.integer  "project_id",        limit: 4
-    t.decimal  "goal_value",                  precision: 10
-    t.decimal  "cur_value",                   precision: 10
-    t.boolean  "goal_overflowable", limit: 1
-    t.boolean  "goal_is_met",       limit: 1
-    t.boolean  "is_monetary",       limit: 1
-    t.boolean  "is_active",         limit: 1
-    t.integer  "activating_state",  limit: 4
-    t.datetime "created_at",                                 null: false
-    t.datetime "updated_at",                                 null: false
-  end
-
-  add_index "goals", ["project_id"], name: "index_goals_on_project_id", using: :btree
 
   create_table "pictures", force: :cascade do |t|
     t.string   "name",           limit: 255

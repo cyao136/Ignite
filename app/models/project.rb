@@ -1,7 +1,6 @@
 class Project < ActiveRecord::Base
 	has_many :posts, :dependent => :destroy
 	has_many :demos, :dependent => :destroy
-	has_many :goals, :dependent => :destroy
 	has_many :pledges
 	has_many :videos, as: :assetable, :dependent => :destroy
 	has_many :pictures, as: :assetable, :dependent => :destroy
