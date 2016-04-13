@@ -33,6 +33,8 @@ Old dropdown code:
 				
 				
 -------------------------------------------------------------------------------------------------------------------------------
+https://github.com/thredded/thredded
+https://github.com/ryanto/acts_as_votable
 				
 For Chong:
 -do a "gem update --system" to update gem, if things aren't working.
