@@ -2,12 +2,14 @@ class Project < ActiveRecord::Base
 	has_many :posts, :dependent => :destroy
 	has_many :demos, :dependent => :destroy
 	has_many :goals, :dependent => :destroy
+	has_many :pledges
 	has_many :videos, as: :assetable, :dependent => :destroy
 	has_many :pictures, as: :assetable, :dependent => :destroy
 	has_and_belongs_to_many :genres
 	accepts_nested_attributes_for :demos
 	accepts_nested_attributes_for :pictures
 	accepts_nested_attributes_for :videos
+	accepts_nested_attributes_for :pledges
 
 	enum state: [
 					:incomplete,
@@ -33,6 +35,7 @@ class Project < ActiveRecord::Base
 		v.validates :creator_desc, presence: true, length: { minimum: 2 }
 		v.validates :funding, presence: true
 		v.validates_presence_of :pictures
+		v.validates_presence_of :pledges
 	end
 	
 	with_options if: :stage_2_funding? do |v|

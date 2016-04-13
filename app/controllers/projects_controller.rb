@@ -38,7 +38,7 @@ class ProjectsController < ApplicationController
 	def create
 		@project = Project.new(project_params)
 		@project.user_id = current_user.id
-		@has_demo = false
+		@has_demo = nil
 		if params[:demo]
 			@has_demo = true
 		end
@@ -57,6 +57,7 @@ class ProjectsController < ApplicationController
 	def submit
 		@project = Project.find(params[:id])
 		@has_demo = params[:has_demo]
+		p @has_demo
 		case params[:commit]
 		# For project creation
 		when create_button
@@ -79,15 +80,18 @@ class ProjectsController < ApplicationController
 				flash.now[:danger] = "Fail to Save Project!"
 				render "create"
 			end
+		# For uploading demo
 		when demo_button
 			@project.update(project_params)
 			if not params[:demo_asset].blank?
 				begin 
-					@project.demos.create!(:asset => params[:demo_asset],
-					  :name => params[:demo_name],
-					  :version => params[:demo_version],
-					  :is_active => true,
-					  :project_id => @project.id)
+					@project.demos.create!(
+						:asset => params[:demo_asset],
+						:name => params[:demo_name],
+						:version => params[:demo_version],
+						:is_active => true,
+						:project_id => @project.id
+						)
 					
 					flash.now[:success] = "Demo Uploaded Successfully!"
 					return render "create"
@@ -98,6 +102,7 @@ class ProjectsController < ApplicationController
 			end
 			flash.now[:warning] = "No Demo Selected!"
 			render "create"
+		# For uploading pictures
 		when pictures_button
 			@project.update(project_params)
 			if not params[:pictures].blank?
@@ -116,6 +121,7 @@ class ProjectsController < ApplicationController
 			end
 			flash.now[:warning] = "No Pictures Selected!"
 			render "create"
+		# For uploading video
 		when video_button
 			@project.update(project_params)
 			if not params[:video].blank?
@@ -129,6 +135,24 @@ class ProjectsController < ApplicationController
 				end
 			end
 			flash.now[:warning] = "No Video Selected!"
+			render "create"
+		# For creating pledge
+		when pledge_button
+			@project.update(project_params)
+			begin
+				@project.pledges.create!(
+					project_id: @project.id,
+					name: params[:pledge_name],
+					description: params[:pledge_desc],
+					max_number: params[:pledge_max],
+					cost: params[:pledge_cost]
+					)
+				flash.now[:success] = "Pledge Created Successfully!"
+				return render "create"
+			rescue => e
+				flash.now[:danger] = e.message
+				return render "create"
+			end
 			render "create"
 		end
 	end
