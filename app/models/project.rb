@@ -1,4 +1,5 @@
 class Project < ActiveRecord::Base
+	belongs_to :user
 	has_many :posts, :dependent => :destroy
 	has_many :demos, :dependent => :destroy
 	has_many :pledges
@@ -12,11 +13,10 @@ class Project < ActiveRecord::Base
 
 	enum state: [
 					:incomplete,
-					:stage_1_funding,
-					:stage_1_funded,
-					:stage_2_funding,
-					:stage_2_funded,
-					:archived
+					:funding,
+					:funded,
+					:archived,
+					:deleted
 				]
 	
 	# Validations
@@ -35,10 +35,6 @@ class Project < ActiveRecord::Base
 		v.validates :funding, presence: true
 		v.validates_presence_of :pictures
 		v.validates_presence_of :pledges
-	end
-	
-	with_options if: :stage_2_funding? do |v|
-		v.validates_presence_of :demos
 	end
 	
 	def not_incomplete?

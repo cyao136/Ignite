@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160413005330) do
+ActiveRecord::Schema.define(version: 20160608030858) do
 
   create_table "comments", force: :cascade do |t|
     t.integer  "commentable_id",   limit: 4
@@ -100,16 +100,22 @@ ActiveRecord::Schema.define(version: 20160413005330) do
   add_index "posts", ["user_id"], name: "index_posts_on_user_id", using: :btree
 
   create_table "projects", force: :cascade do |t|
-    t.integer  "user_id",      limit: 4
-    t.string   "name",         limit: 255
-    t.text     "small_desc",   limit: 65535
-    t.text     "full_desc",    limit: 65535
-    t.text     "team_desc",    limit: 65535
-    t.text     "creator_desc", limit: 65535
-    t.integer  "state",        limit: 4,                    default: 0
-    t.decimal  "funding",                    precision: 10
-    t.datetime "created_at",                                            null: false
-    t.datetime "updated_at",                                            null: false
+    t.integer  "user_id",           limit: 4
+    t.string   "name",              limit: 255
+    t.text     "small_desc",        limit: 65535
+    t.text     "full_desc",         limit: 65535
+    t.text     "team_desc",         limit: 65535
+    t.text     "creator_desc",      limit: 65535
+    t.integer  "state",             limit: 4,                    default: 0
+    t.decimal  "funding",                         precision: 10
+    t.datetime "created_at",                                                 null: false
+    t.datetime "updated_at",                                                 null: false
+    t.integer  "num_supporter",     limit: 4
+    t.string   "crowdfunding_link", limit: 255
+    t.string   "facebook_link",     limit: 255
+    t.string   "twitter_link",      limit: 255
+    t.string   "website_link",      limit: 255
+    t.string   "youtube_link",      limit: 255
   end
 
   add_index "projects", ["user_id"], name: "index_projects_on_user_id", using: :btree
