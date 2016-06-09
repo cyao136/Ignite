@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160413005330) do
+ActiveRecord::Schema.define(version: 20160608210614) do
 
   create_table "comments", force: :cascade do |t|
     t.integer  "commentable_id",   limit: 4
@@ -36,24 +36,6 @@ ActiveRecord::Schema.define(version: 20160413005330) do
   end
 
   add_index "demos", ["project_id"], name: "index_demos_on_project_id", using: :btree
-
-  create_table "genres", force: :cascade do |t|
-    t.integer  "project_id",  limit: 4
-    t.string   "name",        limit: 255
-    t.text     "description", limit: 65535
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
-  end
-
-  add_index "genres", ["project_id"], name: "index_genres_on_project_id", using: :btree
-
-  create_table "genres_projects", id: false, force: :cascade do |t|
-    t.integer "genre_id",   limit: 4
-    t.integer "project_id", limit: 4
-  end
-
-  add_index "genres_projects", ["genre_id"], name: "index_genres_projects_on_genre_id", using: :btree
-  add_index "genres_projects", ["project_id"], name: "index_genres_projects_on_project_id", using: :btree
 
   create_table "pictures", force: :cascade do |t|
     t.string   "name",           limit: 255
@@ -100,19 +82,45 @@ ActiveRecord::Schema.define(version: 20160413005330) do
   add_index "posts", ["user_id"], name: "index_posts_on_user_id", using: :btree
 
   create_table "projects", force: :cascade do |t|
-    t.integer  "user_id",      limit: 4
-    t.string   "name",         limit: 255
-    t.text     "small_desc",   limit: 65535
-    t.text     "full_desc",    limit: 65535
-    t.text     "team_desc",    limit: 65535
-    t.text     "creator_desc", limit: 65535
-    t.integer  "state",        limit: 4,                    default: 0
-    t.decimal  "funding",                    precision: 10
-    t.datetime "created_at",                                            null: false
-    t.datetime "updated_at",                                            null: false
+    t.integer  "user_id",            limit: 4
+    t.string   "name",               limit: 255
+    t.text     "small_desc",         limit: 65535
+    t.text     "full_desc",          limit: 65535
+    t.text     "creator_desc",       limit: 65535
+    t.integer  "state",              limit: 4,                    default: 0
+    t.decimal  "funding",                          precision: 10
+    t.datetime "created_at",                                                  null: false
+    t.datetime "updated_at",                                                  null: false
+    t.integer  "num_supporter",      limit: 4
+    t.string   "crowdfunding_link",  limit: 255
+    t.string   "facebook_link",      limit: 255
+    t.string   "twitter_link",       limit: 255
+    t.string   "website_link",       limit: 255
+    t.string   "embeded_video_link", limit: 255
+    t.string   "creator_name",       limit: 255
   end
 
   add_index "projects", ["user_id"], name: "index_projects_on_user_id", using: :btree
+
+  create_table "taggings", force: :cascade do |t|
+    t.integer  "tag_id",        limit: 4
+    t.integer  "taggable_id",   limit: 4
+    t.string   "taggable_type", limit: 255
+    t.integer  "tagger_id",     limit: 4
+    t.string   "tagger_type",   limit: 255
+    t.string   "context",       limit: 128
+    t.datetime "created_at"
+  end
+
+  add_index "taggings", ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true, using: :btree
+  add_index "taggings", ["taggable_id", "taggable_type", "context"], name: "index_taggings_on_taggable_id_and_taggable_type_and_context", using: :btree
+
+  create_table "tags", force: :cascade do |t|
+    t.string  "name",           limit: 255
+    t.integer "taggings_count", limit: 4,   default: 0
+  end
+
+  add_index "tags", ["name"], name: "index_tags_on_name", unique: true, using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "username",          limit: 255

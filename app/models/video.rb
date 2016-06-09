@@ -4,6 +4,15 @@ class Video < ActiveRecord::Base
 	validate :video_size_validation
 	validates_presence_of :asset
   
+  	def to_jq_upload
+		{
+		  "url" => asset.medium.url,
+		  "delete_url" => id,
+		  "picture_id" => id,
+		  "delete_type" => "DELETE"
+		}.to_json
+	end
+	
 	private
   
 	def video_size_validation

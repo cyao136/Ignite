@@ -2,55 +2,57 @@
 <div class="container">
 	<h1>New Project</h1>
 	<%= render 'shared/error_messages', object: @project %>
-	<%= form_for(:project, :url => {:controller => 'projects', :action => 'submit', :id => project_id, :has_demo => @has_demo}, :html => { :multipart => true }) do |f| %>
-		
-		<%= f.label :small_description %>
-		<%= f.text_field :small_desc, class: 'form-control' %>
+	<%= simple_form_for @project, :url => {:controller => 'projects', :action => 'submit', :id => project_id}, html: { :multipart => true } do |f| %>
+		<%= f.input :small_desc, label: 'Short Description' %>
 
-		<%= f.label :full_description %>
-		<%= f.text_field :full_desc, class: 'form-control' %>
+		<%= f.input :full_desc, label: 'Description' %>
 
 		<hr>
-		<%= f.label :team_description %>
-		<%= f.text_field :team_desc, class: 'form-control' %>
+		<%= f.input :creator_name, label: 'Creator Name' %>
 
-		<%= f.label :creator_description %>
-		<%= f.text_field :creator_desc, class: 'form-control' %>
+		<%= f.input :creator_desc, label: 'Creator Description' %>
 
 		<hr>
-		<%= f.label :funding %>
-		<%= f.number_field :funding, class: 'form-control' %>
+		<%= f.input :crowdfunding_link, label: 'Campaign Link' %>
+
+		<%= f.input :facebook_link, label: 'Facebook Link' %>
+
+		<%= f.input :twitter_link, label: 'Twitter Link' %>
+
+		<%= f.input :website_link, label: 'Website Link' %>
+
+		<hr>
+		<%= f.input :embeded_video_link, label: 'Embeded Video Link' %>
+
+		<hr>
+		<%= f.input :tag_list, as: :select, label:'Genres', collection: Project.tag_counts_on(:tags).limit(7), input_html: { multiple: true, class: 'tags' } %>
 
 		<hr>
 		<h3> Demo </h3>
 
-		<div class="form-group">
-			<%= label_tag 'name', 'Demo Name' %>
-			<%= text_field_tag "demo_name", nil, class: 'form-control' %>
-
-			<%= label_tag 'version', 'Demo Version' %>
-			<%= text_field_tag "demo_version", nil, class: 'form-control' %>
-
-			<%= label_tag 'file', 'Demo Exe File' %>
-			<%= file_field_tag "demo_asset", type: :file, class: 'form-control' %>
-
-			<%= f.submit :demo, value: demo_button, class: 'form-control' %>
-		</div>
+		<input id="demo_ids" name="demos" type="hidden" value="">
+		Name
+		<input name="demo_name" type="string" class="form-control"></input>
+		Version
+		<input name="demo_version" type="string" class="form-control"></input>
+		File
+		<input data-url="/demos" id="demo_upload" name="demo_asset" type="file" class="form-control"></input>
+		<%= f.button :submit, value: demo_button %>
 
 		<hr>
-		<div class="form-group">
-			<%= label_tag 'pictures', 'Picture Files' %>
-			<%= file_field_tag "pictures[]", type: :file, multiple: true, class: 'form-control' %>
-			<%= f.submit :pictures, value: pictures_button, class: 'form-control' %>
-		</div>
+		<h3> Pictures </h3>
+		<input id="picture_ids" name="pictures" type="hidden" value=""></input>
+		File
+		<input data-url="/pictures" id="picture_upload" multiple="multiple" name="picture_assets[]" type="file" class="form-control"></input>
+		<%= f.button :submit, value: pictures_button %>
 
-		<div class="form-group">
-			<%= label_tag 'video', 'Video File' %>
-			<%= file_field_tag "video", type: :file, class: 'form-control' %>
-			<%= f.submit :video, value: video_button, class: 'form-control' %>
-		</div>
+		<h3> Video </h3>
+		<input id="video_ids" name="videos" type="hidden" value=""></input>
+		File
+		<input data-url="/videos" id="video_upload" name="video_asset" type="file" class="form-control"></input>
+		<%= f.button :submit, value: video_button %>
 
-		<div class="form-group">
+<!-- 		<div class="form-group">
 			<%= label_tag 'name', 'Pledge Name' %>
 			<%= text_field_tag "pledge_name", nil, class: 'form-control' %>
 
@@ -63,12 +65,19 @@
 			<%= label_tag 'name', 'Pledge Cost' %>
 			<%= number_field_tag "pledge_cost", nil, step: 0.01, class: 'form-control' %>
 
-			<%= f.submit :pledge, value: pledge_button, class: 'form-control' %>
-		</div>
+			<%= f.submit :submit, value: pledge_button, class: 'form-control' %>
+		</div> -->
 		
 		<hr>
 
-		<%= f.submit :create, value: create_button, class: 'form-control' %>
-		<%= f.submit :save, value: save_button, class: 'form-control' %>
+		<%= f.button :submit, value: create_button %>
+		<%= f.button :submit, value: save_button %>
 	<% end %>
+	<script type="text/javascript">
+	$('.tags').select2({
+		placeholder: "Add a genre",
+		tags: true,
+		tokenSeparators: [',', ' ']
+	});
+	</script>
 </div>

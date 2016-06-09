@@ -4,11 +4,14 @@ class DemosController < ApplicationController
 	end
 
 	def create
-		@demo = Demo.new(demo_params)
+		@demo = Demo.create(asset: params[:asset])
 		if @demo.save
-			flash[:success] = "The demo was added!"
+		    respond_to do |format|
+		      format.html { render json: @demo.to_jq_upload, content_type: 'text/html', layout: false }
+		      format.json { render json: @demo.to_jq_upload }
+		    end
 		else
-			flash[:danger] = @demo.errors.full_messages.to_sentence
+		    render json: { error: @demo.errors.full_messages }, status: 304
 		end
 	end
 

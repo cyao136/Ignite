@@ -2,3 +2,30 @@
   Place all the styles related to the matching controller here.
   They will automatically be included in application.css.
 */
+#menu-items{
+  padding-top: 15px;
+}
+
+#video{
+  position: relative;
+  width: 100%;
+  height: 0px;
+  padding-bottom: 56%;
+}
+
+
+#side{
+  position: relative;
+  height: 0px;
+  padding-bottom: 36%;
+}
+
+
+#links{
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  width: 100%;
+  padding-left: 15px;
+  padding-right: 15px;
+}
