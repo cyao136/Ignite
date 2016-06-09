@@ -4,11 +4,14 @@ class VideosController < ApplicationController
 	end
 
 	def create
-		@video = Video.new(video_params)
+		@video = Video.create(asset: params[:asset])
 		if @video.save
-			flash[:success] = "The video was added!"
+		    respond_to do |format|
+		      format.html { render json: @video.to_jq_upload, content_type: 'text/html', layout: false }
+		      format.json { render json: @video.to_jq_upload }
+		    end
 		else
-			flash[:danger] = @video.errors.full_messages.to_sentence
+		    render json: { error: @video.errors.full_messages }, status: 304
 		end
 	end
 

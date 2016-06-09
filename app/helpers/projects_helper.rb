@@ -36,4 +36,16 @@ module ProjectsHelper
 	def save_button
 		"Save Project"
 	end
+	
+	def has_facebook?()
+		@project.facebook_link=='' ? "disabled" : ""
+  	end
+
+	def has_twitter?()
+		@project.twitter_link=='' ? "disabled" : ""
+  	end
+
+	def has_website?()
+		@project.website_link=='' ? "disabled" : ""
+  	end
 end

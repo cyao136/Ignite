@@ -13,6 +13,7 @@ class ProjectsController < ApplicationController
 	
 	def new
 		@project = Project.new
+    	@tags = ActsAsTaggableOn::Tag.all
 	end
 	
 	def edit
@@ -28,7 +29,8 @@ class ProjectsController < ApplicationController
 	end
 	
 	def show
-      @project = Project.find(params[:id])
+      	@project = Project.find(params[:id])
+    	@tags = ActsAsTaggableOn::Tag.all
     end
 	
 	####################################################
@@ -38,10 +40,6 @@ class ProjectsController < ApplicationController
 	def create
 		@project = Project.new(project_params)
 		@project.user_id = current_user.id
-		@has_demo = nil
-		if params[:demo]
-			@has_demo = true
-		end
 		if @project.save
 			flash.now[:success] = "Let's build your project together!"
 		else
@@ -56,15 +54,10 @@ class ProjectsController < ApplicationController
 	
 	def submit
 		@project = Project.find(params[:id])
-		@has_demo = params[:has_demo]
-		p @has_demo
 		case params[:commit]
 		# For project creation
 		when create_button
-			@project.state = "stage_1_funding"
-			if @has_demo
-				@project.state = "stage_2_funding"
-			end
+			@project.state = "funding_ext"
 			if @project.update(project_params)
 				flash[:success] = "Project Created!"
 				redirect_to root_url
@@ -105,28 +98,27 @@ class ProjectsController < ApplicationController
 		# For uploading pictures
 		when pictures_button
 			@project.update(project_params)
-			if not params[:pictures].blank?
-				params[:pictures].each do |a|
+			if not params[:picture_assets].blank?
+				params[:picture_assets].each do |a|
 					if not a.blank?
 						begin
 							@project.pictures.create!(:asset => a)
 							flash.now[:success] = "Pictures Uploaded Successfully!"
-							return render "create"
 						rescue => e
 							flash.now[:danger] = e.message
-							return render "create"
 						end
 					end
 				end
+				return render "create"
 			end
 			flash.now[:warning] = "No Pictures Selected!"
 			render "create"
 		# For uploading video
 		when video_button
 			@project.update(project_params)
-			if not params[:video].blank?
+			if not params[:video_asset].blank?
 				begin
-					@project.videos.create!(:asset => params[:video])
+					@project.videos.create!(:asset => params[:video_asset])
 					flash.now[:success] = "Video Uploaded Successfully!"
 					return render "create"
 				rescue => e
@@ -137,23 +129,23 @@ class ProjectsController < ApplicationController
 			flash.now[:warning] = "No Video Selected!"
 			render "create"
 		# For creating pledge
-		when pledge_button
-			@project.update(project_params)
-			begin
-				@project.pledges.create!(
-					project_id: @project.id,
-					name: params[:pledge_name],
-					description: params[:pledge_desc],
-					max_number: params[:pledge_max],
-					cost: params[:pledge_cost]
-					)
-				flash.now[:success] = "Pledge Created Successfully!"
-				return render "create"
-			rescue => e
-				flash.now[:danger] = e.message
-				return render "create"
-			end
-			render "create"
+		# when pledge_button
+		# 	@project.update(project_params)
+		# 	begin
+		# 		@project.pledges.create!(
+		# 			project_id: @project.id,
+		# 			name: params[:pledge_name],
+		# 			description: params[:pledge_desc],
+		# 			max_number: params[:pledge_max],
+		# 			cost: params[:pledge_cost]
+		# 			)
+		# 		flash.now[:success] = "Pledge Created Successfully!"
+		# 		return render "create"
+		# 	rescue => e
+		# 		flash.now[:danger] = e.message
+		# 		return render "create"
+		# 	end
+		# 	render "create"
 		end
 	end
 
@@ -165,6 +157,10 @@ class ProjectsController < ApplicationController
 		# allow the view to modify the parameters
 		
 		def project_params
-			params.require(:project).permit(:id, :name, :small_desc, :full_desc, :team_desc, :creator_desc, :funding, :state)
+			params.require(:project).permit(:id, :name, :small_desc, :full_desc, :creator_name, :creator_desc,
+				:funding, :state, :num_supporter, :embeded_video_link, :crowdfunding_link, :facebook_link,
+				:twitter_link, :website_link, tag_list: [],
+				demos_attributes: [:name, :version, :asset], videos_attributes: [:asset], pictures_attributes: [:asset => []])
 		end
+
 end

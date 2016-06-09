@@ -4,12 +4,17 @@ class PicturesController < ApplicationController
 	end
 
 	def create
-		@picture = Picture.new(picture_params)
-		if @picture.save
-			flash[:success] = "The picture was added!"
-		else
-			flash[:danger] = @picture.errors.full_messages.to_sentence
-		end
+		params[:assets].each{ |asset|
+		@picture = Picture.create(asset: asset)
+		  if @picture.save
+		    respond_to do |format|
+		      format.html { render json: @picture.to_jq_upload, content_type: 'text/html', layout: false }
+		      format.json { render json: @picture.to_jq_upload }
+		    end
+		  else
+		    render json: { error: @picture.errors.full_messages }, status: 304
+		  end
+		}
 	end
 
 	private
