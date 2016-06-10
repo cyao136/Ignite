@@ -1,0 +1,13 @@
+<% provide(:title, "Browse") %>
+<div class="container">
+	<form action="projects.search" method="POST">
+		<select name="genre" id="genre" onchange="this.form.submit()">
+			<% Project.tag_counts_on(:tags).limit(7).each do |tag| %>
+				<option value=<%= tag.name %> ><%= tag.name %></option>
+			<% end %>
+		</select>
+	</form>
+	<% @projects.each do |project| %>
+		<li><%= project.name %></li>
+	<% end %>
+</div>
