@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   include SessionsHelper
 
   # Actions require the user to be logged in
-  before_action :require_login
+  # before_action :require_login
   
 	def require_login
 		unless logged_in?
