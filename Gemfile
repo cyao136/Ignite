@@ -29,6 +29,9 @@ gem "font-awesome-rails"
 gem 'devise'
 gem 'ckeditor'
 gem "thredded", '~> 0.4.0'
+gem 'nokogiri'
+gem 'open_uri_redirections'
+gem 'money'
 
 source 'http://rails-assets.org' do
   gem 'rails-assets-tether', '>= 1.1.0'
