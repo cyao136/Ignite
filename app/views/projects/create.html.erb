@@ -25,7 +25,7 @@
 		<%= f.input :embeded_video_link, label: 'Embeded Video Link' %>
 
 		<hr>
-		<%= f.input :tag_list, as: :select, label:'Genres', collection: Project.tag_counts_on(:tags).limit(7), input_html: { multiple: true, class: 'tags' } %>
+		<%= f.input :tag_list, as: :string, label:'Genres', input_html: { multiple: true, class: 'tags', data: {options: Project.tag_counts_on(:tags).limit(7).map(&:name)}, placeholder: "Add a genre"} %>
 
 		<hr>
 		<h3> Demo </h3>
@@ -74,10 +74,16 @@
 		<%= f.button :submit, value: save_button %>
 	<% end %>
 	<script type="text/javascript">
-	$('.tags').select2({
-		placeholder: "Add a genre",
-		tags: true,
-		tokenSeparators: [',', ' ']
+	$(document).ready(function() {
+	    $('.tags').each(function() {
+	        var placeholder = $(this).data('placeholder');
+	        var options = $(this).data('options');
+	        $(this).select2({
+	            tags: options,
+	            placeholder: placeholder,
+	            tokenSeparators: [',']
+	        });
+	    });
 	});
 	</script>
 </div>

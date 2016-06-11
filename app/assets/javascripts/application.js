@@ -18,5 +18,6 @@
 //= require bootstrap-sprockets
 //= require select2
 //= require ckeditor/init
+//= require thredded
 //= require turbolinks
 //= require_tree .

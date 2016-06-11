@@ -9,14 +9,18 @@ Things you may want to cover:
 
 * System dependencies
 -Requires MySQL installed on machine. For Windows, just use the mysql installer.
+-Requires Node.js on Windows
 
 * Configuration
+-On a new pull, run "bundle update" to reinstall gems based on dependencies
 
 * Database creation
 -Run these commands for the first time:
 rake db:create
 rake db:migrate
 -After that, everytime there's a new migration, only need to do "rake db:migrate"
+-To drop a database due to corruption run "rake db:drop"
+-PS: You might need to include "bundle exec" in front of the rake commands
 
 * Database initialization
 
@@ -27,9 +31,6 @@ rake db:migrate
 * Deployment instructions
 
 * ...
-
-* Paperclip instructions
-https://richonrails.com/articles/getting-started-with-paperclip
 
 Please feel free to use a different markup language if you do not plan to run
 <tt>rake doc:app</tt>.

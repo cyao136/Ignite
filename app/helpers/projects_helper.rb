@@ -48,4 +48,11 @@ module ProjectsHelper
 	def has_website?()
 		@project.website_link=='' ? "disabled" : ""
   	end
+
+  	def popular_tags()
+  		num_limit = 7
+  		@tags = Array.new(num_limit)
+  		Project.tag_counts_on(:tags).limit(num_limit).map{|t| tags.push(t.name)}
+  		return @tags
+  	end
 end
