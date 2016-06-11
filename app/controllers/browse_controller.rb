@@ -1,5 +1,5 @@
 class BrowseController < ApplicationController
-	skip_before_action :require_login
+	skip_before_filter :authenticate_user!
 
 	####################################################
 	# category
