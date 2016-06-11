@@ -61,7 +61,7 @@ class ProjectsController < ApplicationController
 			@project.state = "funding_ext"
 			if @project.update(project_params)
 				flash[:success] = "Project Created!"
-				ParserJob.perform_later(@projects)
+				ParserJob.perform_later([@project])
 				redirect_to root_url
 			else
 				render "create"
