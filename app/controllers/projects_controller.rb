@@ -1,7 +1,7 @@
 class ProjectsController < ApplicationController
 	include ProjectsHelper
 	before_filter :verify_project_owner
-  	skip_before_filter :verify_project_owner, only: [:new, :create]
+  	skip_before_filter :verify_project_owner, only: [:new, :create, :search]
 
 	def verify_project_owner
 		if current_user.id != Project.find(params[:id]).user_id
@@ -148,7 +148,6 @@ class ProjectsController < ApplicationController
 		# 	render "create"
 		end
 	end
-
 	
 	private
 		

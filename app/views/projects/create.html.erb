@@ -5,7 +5,7 @@
 	<%= simple_form_for @project, :url => {:controller => 'projects', :action => 'submit', :id => project_id}, html: { :multipart => true } do |f| %>
 		<%= f.input :small_desc, label: 'Short Description' %>
 
-		<%= f.input :full_desc, label: 'Description' %>
+		<%= f.input :full_desc, as: :ckeditor, :input_html => { :ckeditor => {:toolbar => 'Full'} }, label: 'Description' %>
 
 		<hr>
 		<%= f.input :creator_name, label: 'Creator Name' %>

@@ -1,0 +1,32 @@
+<% provide(:title, @cur_genre + " Games") %>
+<div class="container">
+	<form action="category" method="GET">
+		Genre: <select name="genre" id="genre" class="select" onchange="this.form.submit()">
+			<option value='All'>Everything</option>
+			<% Project.tag_counts_on(:tags).limit(7).each do |tag| %>
+				<option value=<%= tag.name %> ><%= tag.name %></option>
+			<% end %>
+		</select>
+		Sort: <select name="sort" id="sort" class="select" onchange="this.form.submit()">
+			<option value='random'>Random</option>
+			<option value='newest'>Newest</option>
+			<option value='most_popular'>Most Popular</option>
+			<option value='soon_ending'>Soon Ending</option>
+		</select>
+	</form>
+
+	<% @projects.each do |project| %>
+		<li><%= project.name %></li>
+	<% end %>
+
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$(".select").select2({
+				minimumResultsForSearch: Infinity
+			});
+			
+			$("#genre").select2("val", "<%= @cur_genre %>");
+			$("#sort").select2("val", "<%= @cur_sort %>");
+		});
+	</script>
+</div>

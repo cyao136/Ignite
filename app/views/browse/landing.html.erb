@@ -1,0 +1,7 @@
+<% provide(:title, "Browse") %>
+<div class="container">
+	<%= button_to 'Everything', {:controller => "browse", :action => "category"}, params:{ :genre => "All", :sort => "random"} , :method=>:get  %>
+	<%= button_to 'Action', {:controller => "browse", :action => "category"}, params:{ :genre => "Action", :sort => "random"} , :method=>:get  %>
+	<%= button_to 'Adventure', {:controller => "browse", :action => "category"}, params:{ :genre => "Adventure", :sort => "random"} , :method=>:get  %>
+	<%= button_to 'RPG', {:controller => "browse", :action => "category"}, params:{ :genre => "RPG", :sort => "random"} , :method=>:get  %>
+</div>

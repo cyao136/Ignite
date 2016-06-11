@@ -1,0 +1,32 @@
+<% provide(:title, "Search Games") %>
+<div class="container">
+	<form action="search" method="GET">
+		Name: <input name="name" id="name"></input>
+		Genres: <input name="genres" id="genres" class="tags" multiple="multiple"></input>
+		Sort: <select name="sort" id="sort" class="select">
+			<option value='random'>Random</option>
+			<option value='newest'>Newest</option>
+			<option value='most_popular'>Most Popular</option>
+			<option value='soon_ending'>Soon Ending</option>
+		</select>
+		<input type="submit" value="Search">
+	</form>
+
+	<% @projects.each do |project| %>
+		<li><%= project.name %></li>
+	<% end %>
+
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$(".tags").select2({
+				placeholder: "Add a genre",
+				minimumResultsForSearch: Infinity,
+				tags: [],
+				tokenSeparators: [',']
+			});
+			$(".select").select2({
+				minimumResultsForSearch: Infinity
+			});
+		});
+	</script>
+</div>
