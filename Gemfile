@@ -19,7 +19,7 @@ gem 'sdoc',         '0.4.0', group: :doc
 gem 'acts-as-taggable-on', '~> 3.4'
 gem 'mail_form'
 gem 'simple_form'
-gem 'bcrypt'
+gem 'bcrypt', '~> 3.1.11'
 gem 'will_paginate'
 gem 'bootstrap-will_paginate'
 gem 'carrierwave'

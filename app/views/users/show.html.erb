@@ -18,5 +18,5 @@
 
 <a href="<%= project_path(@user, current_project) %>">My Project</a>
 
-<a href="<%= edit_user_path(current_user) %>">Settings</a>
-<a href="<%= logout_path %>" data-method="delete" rel="nofollow">Log out</a>
+<li><%= link_to 'Log out', destroy_user_session_path, method: :delete %></li>
+<li><%= link_to 'Edit', edit_user_registration_path %></li>
