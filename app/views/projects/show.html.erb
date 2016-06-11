@@ -33,31 +33,34 @@
 
           <div>
             <p>
-            <%= @project.creator_name %>
+            <b><%= @project.creator_name %></b>
             <br>
             <%= @project.creator_desc %>
             </p>
           </div>
           <div id="links">
-            <a style="width: 100%" href="<%= @project.crowdfunding_link %>" target="_blank" class="btn btn-success-outline btn-lg">
-                <span class="fa fa-usd fa-fw" aria-hidden="true"></span> 
-                <span> Campaign </span>
-            </a>
-            <div class="btn-group btn-group-sm btn-group-justified" role="group" aria-label="External Site">
-              <a href="<%= @project.facebook_link %>" target="_blank" class="btn btn-primary-outline <%= has_facebook?() %>">
-                <span class="fa fa-facebook fa-fw" aria-hidden="true"></span> 
-                <span class="hidden-lg-down"> Facebook </span>
+            <h3 align="center"><%= @project.num_supporter %> Supporters<h3>
+            <div>
+              <a style="width: 100%" href="<%= @project.crowdfunding_link %>" target="_blank" class="btn btn-success-outline btn-lg">
+                  <span class="fa fa-usd fa-fw" aria-hidden="true"></span> 
+                  <span> Campaign </span>
               </a>
+              <div class="btn-group btn-group-sm btn-group-justified" role="group" aria-label="External Site">
+                <a href="<%= @project.facebook_link %>" target="_blank" class="btn btn-primary-outline <%= has_facebook?() %>">
+                  <span class="fa fa-facebook fa-fw" aria-hidden="true"></span> 
+                  <span class="hidden-lg-down"> Facebook </span>
+                </a>
 
-              <a href="<%= @project.twitter_link %>" target="_blank" class="btn btn-primary-outline <%= has_twitter?() %>">
-                <span class="fa fa-twitter fa-fw" aria-hidden="true"></span>
-                <span class="hidden-lg-down"> Twitter </span>
-              </a>
+                <a href="<%= @project.twitter_link %>" target="_blank" class="btn btn-primary-outline <%= has_twitter?() %>">
+                  <span class="fa fa-twitter fa-fw" aria-hidden="true"></span>
+                  <span class="hidden-lg-down"> Twitter </span>
+                </a>
 
-              <a href="<%= @project.website_link %>" target="_blank" class="btn btn-primary-outline <%= has_website?() %>">
-                <span class="fa fa-home fa-fw" aria-hidden="true"></span>
-                <span class="hidden-lg-down"> Website </span>
-              </a>
+                <a href="<%= @project.website_link %>" target="_blank" class="btn btn-primary-outline <%= has_website?() %>">
+                  <span class="fa fa-home fa-fw" aria-hidden="true"></span>
+                  <span class="hidden-lg-down"> Website </span>
+                </a>
+              </div>
             </div>
           </div>
         </div>
@@ -66,9 +69,7 @@
       <hr>
 
       <div>
-        <p>
-        <%= @project.full_desc %>
-        </p>
+        <%= @project.full_desc.html_safe %>
       </div>
 
       

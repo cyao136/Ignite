@@ -1,7 +1,7 @@
 class ProjectsController < ApplicationController
 	include ProjectsHelper
 	before_filter :verify_project_owner
-  	skip_before_filter :verify_project_owner, only: [:new, :create]
+  	skip_before_filter :verify_project_owner, only: [:new, :create, :search]
 
 	def verify_project_owner
 		if current_user.id != Project.find(params[:id]).user_id
@@ -57,9 +57,11 @@ class ProjectsController < ApplicationController
 		case params[:commit]
 		# For project creation
 		when create_button
+			# Currently only have external projects
 			@project.state = "funding_ext"
 			if @project.update(project_params)
 				flash[:success] = "Project Created!"
+				ParserJob.perform_later(@projects)
 				redirect_to root_url
 			else
 				render "create"
@@ -148,7 +150,6 @@ class ProjectsController < ApplicationController
 		# 	render "create"
 		end
 	end
-
 	
 	private
 		
@@ -157,9 +158,10 @@ class ProjectsController < ApplicationController
 		# allow the view to modify the parameters
 		
 		def project_params
+			p params
 			params.require(:project).permit(:id, :name, :small_desc, :full_desc, :creator_name, :creator_desc,
 				:funding, :state, :num_supporter, :embeded_video_link, :crowdfunding_link, :facebook_link,
-				:twitter_link, :website_link, tag_list: [],
+				:twitter_link, :website_link, :tag_list,
 				demos_attributes: [:name, :version, :asset], videos_attributes: [:asset], pictures_attributes: [:asset => []])
 		end
 
