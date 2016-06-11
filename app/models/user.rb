@@ -1,16 +1,20 @@
 class User < ActiveRecord::Base
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable and :omniauthable
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :trackable, :validatable, :confirmable
   attr_accessor :remember_token, :activation_token, :reset_token
-  before_save   :downcase_fields
-  before_create :create_activation_digest
+  # before_save   :downcase_fields
+  # before_create :create_activation_digest
   has_many :posts
   has_many :projects
   has_one :picture, as: :assetable, :dependent => :destroy
   accepts_nested_attributes_for :picture
   has_and_belongs_to_many :pledges
-  validates :username, presence: true, :length => { :in => 4..12 }, uniqueness: { case_sensitive: false }
+  # validates :username, presence: true, :length => { :in => 4..12 }, uniqueness: { case_sensitive: false }
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :email, presence: true, :length => { maximum: 255 }, format: { with: VALID_EMAIL_REGEX }, uniqueness: { case_sensitive: false }
-  has_secure_password
+  # has_secure_password - no longer needed with devise
   validates :password, presence: true, length: { minimum: 4 }, allow_nil: true
   
   # Returns the hash digest of the given string.
@@ -74,10 +78,10 @@ class User < ActiveRecord::Base
   private
 
     # Converts username and email to all lower-case.
-    def downcase_fields
-      self.username = username.downcase
-	  self.email = email.downcase
-    end
+    # def downcase_fields
+    #  self.username = username.downcase
+	#  self.email = email.downcase
+    # end
 
     # Creates and assigns the activation token and digest.
     def create_activation_digest

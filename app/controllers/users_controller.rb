@@ -1,8 +1,8 @@
 class UsersController < ApplicationController
   #Verifies that a user is logged in and is the correct user before performing actions
-  before_action :logged_in_user, only: [:index, :edit, :update]
-  before_action :correct_user,   only: [:edit, :update]
-  skip_before_action :require_login, only: [:new, :create]
+  # before_action :logged_in_user, only: [:index, :edit, :update]
+  # before_action :correct_user,   only: [:edit, :update]
+  # skip_before_action :require_login, only: [:new, :create]
   
   def index
     @users = User.paginate(page: params[:page])
