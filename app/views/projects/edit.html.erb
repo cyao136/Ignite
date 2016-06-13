@@ -1,0 +1,49 @@
+<% provide(:title, @project.name) %>
+<div class="container">
+	<h1><%= @project.name %></h1>
+	<%= render 'shared/error_messages', object: @project %>
+	<%= simple_form_for @project, :url => {:controller => 'projects', :action => 'update', :id => project_id}, html: { :multipart => true } do |f| %>
+		<%= f.input :small_desc, label: 'Short Description' %>
+
+		<%= f.input :full_desc, as: :ckeditor, :input_html => { :ckeditor => {:toolbar => 'Full'} }, label: 'Description' %>
+
+		<hr>
+		<%= f.input :creator_name, label: 'Creator Name' %>
+
+		<%= f.input :creator_desc, label: 'Creator Description' %>
+
+		<hr>
+		<%= f.input :crowdfunding_link, label: 'Campaign Link' %>
+
+		<%= f.input :facebook_link, label: 'Facebook Link' %>
+
+		<%= f.input :twitter_link, label: 'Twitter Link' %>
+
+		<%= f.input :website_link, label: 'Website Link' %>
+
+		<hr>
+		<%= f.input :embeded_video_link, label: 'Embeded Video Link' %>
+
+		<hr>
+		<%= f.input :tag_list, label:'Genres', input_html: { class: 'tags', data: {options: Project.tag_counts_on(:tags).limit(7).map(&:name), placeholder: "Add a genre", tagged: @project.tag_list}} %>
+		
+		<hr>
+
+		<%= f.button :submit, value: save_button %>
+	<% end %>
+	<script type="text/javascript">
+	$(document).ready(function() {
+	    $('.tags').each(function() {
+	        var placeholder = $(this).data('placeholder');
+	        var options = $(this).data('options');
+	        var value = $(this).data('tagged');
+	        $(this).select2({
+	            tags: options,
+	            placeholder: placeholder,
+	            tokenSeparators: [',', ' '],
+	        });
+	        $(this).select2('val', value);
+	    });
+	});
+	</script>
+</div>

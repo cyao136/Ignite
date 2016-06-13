@@ -26,6 +26,7 @@ class ProjectsController < ApplicationController
 			render 'edit'
 			flash.now[:danger] = @project.errors.full_messages.to_sentence
 		end
+		redirect_to @project
 	end
 	
 	def show
@@ -62,7 +63,7 @@ class ProjectsController < ApplicationController
 			if @project.update(project_params)
 				flash[:success] = "Project Created!"
 				ParserJob.perform_later([@project])
-				redirect_to root_url
+				redirect_to @project
 			else
 				render "create"
 			end
