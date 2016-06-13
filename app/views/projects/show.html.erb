@@ -1,5 +1,7 @@
 <% provide(:title, @project.name) %>
 
+<%= button_to 'Edit', {:controller => "projects", :action => "edit"}, params:{ :id => project_id } , :method=>:get  %>
+
 <div align="center">
   <h1><%= @project.name %></h1>
   <%= @project.small_desc %>
