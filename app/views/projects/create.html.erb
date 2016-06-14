@@ -27,31 +27,7 @@
 		<hr>
 		<%= f.input :tag_list, label:'Genres', input_html: { class: 'tags', data: {options: Project.tag_counts_on(:tags).limit(7).map(&:name), placeholder: "Add a genre", tagged: @project.tag_list}} %>
 
-		<hr>
-		<h3> Demo </h3>
-
-		<input id="demo_ids" name="demos" type="hidden" value="">
-		Name
-		<input name="demo_name" type="string" class="form-control"></input>
-		Version
-		<input name="demo_version" type="string" class="form-control"></input>
-		File
-		<input data-url="/demos" id="demo_upload" name="demo_asset" type="file" class="form-control"></input>
-		<%= f.button :submit, value: demo_button %>
-
-		<hr>
-		<h3> Pictures </h3>
-		<input id="picture_ids" name="pictures" type="hidden" value=""></input>
-		File
-		<input data-url="/pictures" id="picture_upload" multiple="multiple" name="picture_assets[]" type="file" class="form-control"></input>
-		<%= f.button :submit, value: pictures_button %>
-
-		<h3> Video </h3>
-		<input id="video_ids" name="videos" type="hidden" value=""></input>
-		File
-		<input data-url="/videos" id="video_upload" name="video_asset" type="file" class="form-control"></input>
-		<%= f.button :submit, value: video_button %>
-
+	
 <!-- 		<div class="form-group">
 			<%= label_tag 'name', 'Pledge Name' %>
 			<%= text_field_tag "pledge_name", nil, class: 'form-control' %>

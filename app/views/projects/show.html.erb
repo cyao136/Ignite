@@ -1,22 +1,22 @@
 <% provide(:title, @project.name) %>
 
-<%= button_to 'Edit', {:controller => "projects", :action => "edit"}, params:{ :id => project_id } , :method=>:get  %>
-
-<div align="center">
-  <h1><%= @project.name %></h1>
-  <%= @project.small_desc %>
-</div>
-
 <div class="container">
+  <%= button_to 'Edit', {:controller => "projects", :action => "edit"}, params:{ :id => project_id } , :method=>:get  %>
+
+  <div align="center">
+    <h1><%= @project.name %></h1>
+    <%= @project.small_desc %>
+  </div>
+
   <ul class="nav nav-tabs">
     <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#project">
                 <span class="fa fa-gamepad fa-fw" aria-hidden="true"></span> Project </a></li>
     <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#gallery">
-                <span class="fa fa-picture-o fa-fw" aria-hidden="true"></span> Gallery</a></li>
+                <span class="fa fa-picture-o fa-fw" aria-hidden="true"></span> Gallery </a></li>
     <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#discussion">
-                <span class="fa fa-comments fa-fw" aria-hidden="true"></span> Discussion</a></li>
+                <span class="fa fa-comments fa-fw" aria-hidden="true"></span> Discussion </a></li>
     <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#feedback">
-                <span class="fa fa-exclamation-circle fa-fw" aria-hidden="true"></span> Feedback</a></li>
+                <span class="fa fa-exclamation-circle fa-fw" aria-hidden="true"></span> Feedback </a></li>
   </ul>
 
   <div class="tab-content" id="menu-items">
@@ -73,15 +73,22 @@
       <div>
         <%= @project.full_desc.html_safe %>
       </div>
-
       
     </div>
     <div id="gallery" class="tab-pane fade">
-      <h3>Menu 1</h3>
-      <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+      <% @project.pictures.each do |pic| %>
+        <a>Picture: <%= pic.asset.url %></a>
+      <% end %>
+      <% @project.videos.each do |vid| %>
+        <a>Video: <%= vid.asset.url %></a>
+      <% end %>
+      <% @project.demos.each do |demo| %>
+        <a>Demo: <%= demo.name %></a>
+      <% end %>
     </div>
     <div id="discussion" class="tab-pane fade">
       <%= yield %>
+    </div>
     <div id="feedback" class="tab-pane fade">
       <h3>Menu 3</h3>
       <p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
