@@ -76,61 +76,6 @@ class ProjectsController < ApplicationController
 				flash.now[:danger] = "Fail to Save Project!"
 				render "create"
 			end
-		# For uploading demo
-		when demo_button
-			@project.update(project_params)
-			if not params[:demo_asset].blank?
-				begin 
-					@project.demos.create!(
-						:asset => params[:demo_asset],
-						:name => params[:demo_name],
-						:version => params[:demo_version],
-						:is_active => true,
-						:project_id => @project.id
-						)
-					
-					flash.now[:success] = "Demo Uploaded Successfully!"
-					return render "create"
-				rescue => e
-					flash.now[:danger] = e.message
-					return render "create"
-				end
-			end
-			flash.now[:warning] = "No Demo Selected!"
-			render "create"
-		# For uploading pictures
-		when pictures_button
-			@project.update(project_params)
-			if not params[:picture_assets].blank?
-				params[:picture_assets].each do |a|
-					if not a.blank?
-						begin
-							@project.pictures.create!(:asset => a)
-							flash.now[:success] = "Pictures Uploaded Successfully!"
-						rescue => e
-							flash.now[:danger] = e.message
-						end
-					end
-				end
-				return render "create"
-			end
-			flash.now[:warning] = "No Pictures Selected!"
-			render "create"
-		# For uploading video
-		when video_button
-			@project.update(project_params)
-			if not params[:video_asset].blank?
-				begin
-					@project.videos.create!(:asset => params[:video_asset])
-					flash.now[:success] = "Video Uploaded Successfully!"
-					return render "create"
-				rescue => e
-					flash.now[:danger] = e.message
-					return render "create"
-				end
-			end
-			flash.now[:warning] = "No Video Selected!"
-			render "create"
 		# For creating pledge
 		# when pledge_button
 		# 	@project.update(project_params)
@@ -149,6 +94,65 @@ class ProjectsController < ApplicationController
 		# 		return render "create"
 		# 	end
 		# 	render "create"
+		end
+	end
+
+	def media_upload
+		@project = Project.find(params[:id])
+		case params[:commit]
+
+		# For uploading demo
+		when demo_button
+			if not params[:demo_asset].blank?
+				begin 
+					@project.demos.create!(
+						:asset => params[:demo_asset],
+						:name => params[:demo_name],
+						:version => params[:demo_version],
+						:is_active => true,
+						:project_id => @project.id
+						)
+					
+					flash.now[:success] = "Demo Uploaded Successfully!"
+					return render "media_upload"
+				rescue => e
+					flash.now[:danger] = e.message
+					return render "media_upload"
+				end
+			end
+			flash.now[:warning] = "No Demo Selected!"
+			render "media_upload"
+		# For uploading pictures
+		when pictures_button
+			if not params[:picture_assets].blank?
+				params[:picture_assets].each do |a|
+					if not a.blank?
+						begin
+							@project.pictures.create!(:asset => a)
+							flash.now[:success] = "Pictures Uploaded Successfully!"
+						rescue => e
+							flash.now[:danger] = e.message
+						end
+					end
+				end
+				return render "media_upload"
+			end
+			flash.now[:warning] = "No Pictures Selected!"
+			render "media_upload"
+		# For uploading video
+		when video_button
+			if not params[:video_asset].blank?
+				begin
+					@project.videos.create!(:asset => params[:video_asset])
+					flash.now[:success] = "Video Uploaded Successfully!"
+					return render "media_upload"
+				rescue => e
+					flash.now[:danger] = e.message
+					return render "media_upload"
+				end
+			end
+			flash.now[:warning] = "No Video Selected!"
+			render "media_upload"
 		end
 	end
 	

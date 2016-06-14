@@ -1,0 +1,50 @@
+<div class='container'>
+	<ul class="nav nav-tabs">
+		<li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#picture_upload">
+		            <span class="fa fa-picture-o fa-fw" aria-hidden="true"></span> Picture </a>
+        </li>
+		<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#video_upload">
+		            <span class="fa fa-play fa-fw" aria-hidden="true"></span> Video </a>
+        </li>
+		<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#demo_upload">
+		            <span class="fa fa-gamepad fa-fw" aria-hidden="true"></span> Demo </a>
+		</li>
+	</ul>
+
+	<div class="tab-content" id="menu-items">
+		<div id="picture_upload" class="tab-pane fade in active">
+			<%= simple_form_for @project, :url => {:controller => 'projects', :action => 'media_upload', :id => project_id}, html: { :multipart => true } do |f| %>
+				<h3> Pictures </h3>
+				<input id="picture_ids" name="pictures" type="hidden" value=""></input>
+				File
+				<input data-url="/pictures" id="picture_upload" multiple="multiple" name="picture_assets[]" type="file" class="form-control"></input>
+				<%= f.button :submit, value: pictures_button %>
+			<% end %>
+		</div>
+
+		<div id="video_upload" class="tab-pane fade">
+			<%= simple_form_for @project, :url => {:controller => 'projects', :action => 'media_upload', :id => project_id}, html: { :multipart => true } do |f| %>
+				<h3> Video </h3>
+				<input id="video_ids" name="videos" type="hidden" value=""></input>
+				File
+				<input data-url="/videos" id="video_upload" name="video_asset" type="file" class="form-control"></input>
+				<%= f.button :submit, value: video_button %>
+			<% end %>
+		</div>
+
+		<div id="demo_upload" class="tab-pane fade">
+			<%= simple_form_for @project, :url => {:controller => 'projects', :action => 'media_upload', :id => project_id}, html: { :multipart => true } do |f| %>
+			<h3> Demo </h3>
+
+				<input id="demo_ids" name="demos" type="hidden" value="">
+				Name
+				<input name="demo_name" type="string" class="form-control"></input>
+				Version
+				<input name="demo_version" type="string" class="form-control"></input>
+				File
+				<input data-url="/demos" id="demo_upload" name="demo_asset" type="file" class="form-control"></input>
+				<%= f.button :submit, value: demo_button %>
+			<% end %>
+		</div>
+	</div>
+</div>
