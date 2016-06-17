@@ -8,6 +8,8 @@ class Comment < ActiveRecord::Base
   # want user to vote on the quality of comments.
   acts_as_votable
 
+  acts_as_taggable
+
   belongs_to :commentable, :polymorphic => true
 
   # NOTE: Comments belong to a user

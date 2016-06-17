@@ -98,21 +98,13 @@
       <div class="tab-content" id="dicussion-items">
         <div id="g_dis" class="tab-pane fade in active">
           <h3>General</h3>
-          <% @general_discussion.root_comments.each do |c| %>
-          <a>c.user + ':' + c.body</a>
-          <% end %>
+          <%= render partial: "comments/comment", locals: {commentable: @project, new_comment: @comment} %>  
         </div>
         <div id="b_dis" class="tab-pane fade">
           <h3>Bug</h3>
-          <% @bug_discussion.root_comments.each do |c| %>
-          <a>c.user + ':' + c.body</a>
-          <% end %>
         </div>
         <div id="s_dis" class="tab-pane fade">
           <h3>Suggestion</h3>
-          <% @suggestion_discussion.root_comments.each do |c| %>
-          <a>c.user + ':' + c.body</a>
-          <% end %>
         </div>
       </div>
     </div>
