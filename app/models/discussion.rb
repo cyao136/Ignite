@@ -1,11 +1,11 @@
-class Thread < ActiveRecord::Base
+class Discussion < ActiveRecord::Base
 	belongs_to :project
 
 	acts_as_commentable
 
-	enum type: [
+	enum topic: [
 					:general,
-					:bugs,
+					:bug,
 					:suggestion
 				]
 end

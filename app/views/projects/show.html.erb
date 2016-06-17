@@ -87,6 +87,33 @@
       <% end %>
     </div>
     <div id="discussion" class="tab-pane fade">
+      <ul class="nav nav-tabs">
+        <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#g_dis">
+                    <span class="fa fa-gamepad fa-fw" aria-hidden="true"></span> General </a></li>
+        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#b_dis">
+                    <span class="fa fa-picture-o fa-fw" aria-hidden="true"></span> Bugs </a></li>
+        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#s_dis">
+                    <span class="fa fa-comments fa-fw" aria-hidden="true"></span> Suggestions </a></li>
+      </ul>
+    <div class="tab-content" id="menu-items">
+      <div id="g_dis" class="tab-pane fade in active">
+        <h3>General</h3>
+        <% @general_discussion.root_comments.each do |c| %>
+          <a>c.user + ':' + c.body</a>
+        <% end %>
+      </div>
+      <div id="b_dis" class="tab-pane fade">
+        <h3>Bug</h3>
+        <% @bug_discussion.root_comments.each do |c| %>
+          <a>c.user + ':' + c.body</a>
+        <% end %>
+      </div>
+      <div id="s_dis" class="tab-pane fade">
+        <h3>Suggestion</h3>
+        <% @suggestion_discussion.root_comments.each do |c| %>
+          <a>c.user + ':' + c.body</a>
+        <% end %>
+      </div>
     </div>
     <div id="feedback" class="tab-pane fade">
       <h3>Menu 3</h3>
