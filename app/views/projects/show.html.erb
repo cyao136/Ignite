@@ -1,88 +1,122 @@
 <% provide(:title, @project.name) %>
-
-<div align="center">
-  <h1><%= @project.name %></h1>
-  <%= @project.small_desc %>
-</div>
-
 <div class="container">
+  <%= button_to 'Edit', {:controller => "projects", :action => "edit"}, params:{ :id => project_id } , :method=>:get  %>
+  <div align="center">
+    <h1><%= @project.name %></h1>
+    <%= @project.small_desc %>
+  </div>
   <ul class="nav nav-tabs">
-    <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#project">
-                <span class="fa fa-gamepad fa-fw" aria-hidden="true"></span> Project </a></li>
-    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#menu1">
-                <span class="fa fa-picture-o fa-fw" aria-hidden="true"></span> Gallery</a></li>
-    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#menu2">
-                <span class="fa fa-comments fa-fw" aria-hidden="true"></span> Discussion</a></li>
-    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#menu3">
-                <span class="fa fa-exclamation-circle fa-fw" aria-hidden="true"></span> Feedback</a></li>
+    <li class="nav-item">
+      <a class="nav-link active" data-toggle="tab" href="#project">
+      <span class="fa fa-gamepad fa-fw" aria-hidden="true"></span> Project </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="tab" href="#gallery">
+      <span class="fa fa-picture-o fa-fw" aria-hidden="true"></span> Gallery </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="tab" href="#discussion">
+      <span class="fa fa-comments fa-fw" aria-hidden="true"></span> Discussion </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="tab" href="#feedback">
+      <span class="fa fa-exclamation-circle fa-fw" aria-hidden="true"></span> Feedback </a>
+    </li>
   </ul>
-
   <div class="tab-content" id="menu-items">
     <div id="project" class="tab-pane fade in active">
-
       <div class="row">
-
         <div class="col-sm-8 col-md-8 col-xs-12">
           <div id="video">
             <iframe style="position: absolute; left: 0px; top: 0px; width: 100%; height: 100%" src="<%= @project.embeded_video_link %>" frameborder="0" scrolling="no">
             </iframe>
           </div>
         </div>
-
         <div id="side" class="col-sm-4 col-md-4 col-xs-12">
-
           <div>
             <p>
-            <b><%= @project.creator_name %></b>
-            <br>
-            <%= @project.creator_desc %>
+              <b><%= @project.creator_name %></b>
+              <br>
+              <%= @project.creator_desc %>
             </p>
           </div>
           <div id="links">
-            <h3 align="center"><%= @project.num_supporter %> Supporters<h3>
+            <h3 align="center">
+            <%= @project.num_supporter %> Supporters
+            <h3>
             <div>
               <a style="width: 100%" href="<%= @project.crowdfunding_link %>" target="_blank" class="btn btn-success-outline btn-lg">
-                  <span class="fa fa-usd fa-fw" aria-hidden="true"></span> 
-                  <span> Campaign </span>
+              <span class="fa fa-usd fa-fw" aria-hidden="true"></span> 
+              <span> Campaign </span>
               </a>
               <div class="btn-group btn-group-sm btn-group-justified" role="group" aria-label="External Site">
                 <a href="<%= @project.facebook_link %>" target="_blank" class="btn btn-primary-outline <%= has_facebook?() %>">
-                  <span class="fa fa-facebook fa-fw" aria-hidden="true"></span> 
-                  <span class="hidden-lg-down"> Facebook </span>
+                <span class="fa fa-facebook fa-fw" aria-hidden="true"></span> 
+                <span class="hidden-lg-down"> Facebook </span>
                 </a>
-
                 <a href="<%= @project.twitter_link %>" target="_blank" class="btn btn-primary-outline <%= has_twitter?() %>">
-                  <span class="fa fa-twitter fa-fw" aria-hidden="true"></span>
-                  <span class="hidden-lg-down"> Twitter </span>
+                <span class="fa fa-twitter fa-fw" aria-hidden="true"></span>
+                <span class="hidden-lg-down"> Twitter </span>
                 </a>
-
                 <a href="<%= @project.website_link %>" target="_blank" class="btn btn-primary-outline <%= has_website?() %>">
-                  <span class="fa fa-home fa-fw" aria-hidden="true"></span>
-                  <span class="hidden-lg-down"> Website </span>
+                <span class="fa fa-home fa-fw" aria-hidden="true"></span>
+                <span class="hidden-lg-down"> Website </span>
                 </a>
               </div>
             </div>
           </div>
         </div>
       </div>
-
       <hr>
-
       <div>
         <%= @project.full_desc.html_safe %>
       </div>
-
-      
     </div>
-    <div id="menu1" class="tab-pane fade">
-      <h3>Menu 1</h3>
-      <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+    <div id="gallery" class="tab-pane fade">
+      <% @project.pictures.each do |pic| %>
+      <a>Picture: <%= pic.asset.url %></a>
+      <% end %>
+      <% @project.videos.each do |vid| %>
+      <a>Video: <%= vid.asset.url %></a>
+      <% end %>
+      <% @project.demos.each do |demo| %>
+      <a>Demo: <%= demo.name %></a>
+      <% end %>
     </div>
-    <div id="menu2" class="tab-pane fade">
-      <h3>Menu 2</h3>
-      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+    <div id="discussion" class="tab-pane fade">
+      <ul class="nav nav-tabs">
+        <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#g_dis">
+          <span class="fa fa-gamepad fa-fw" aria-hidden="true"></span> General </a>
+        </li>
+        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#b_dis">
+          <span class="fa fa-picture-o fa-fw" aria-hidden="true"></span> Bugs </a>
+        </li>
+        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#s_dis">
+          <span class="fa fa-comments fa-fw" aria-hidden="true"></span> Suggestions </a>
+        </li>
+      </ul>
+      <div class="tab-content" id="dicussion-items">
+        <div id="g_dis" class="tab-pane fade in active">
+          <h3>General</h3>
+          <% @general_discussion.root_comments.each do |c| %>
+          <a>c.user + ':' + c.body</a>
+          <% end %>
+        </div>
+        <div id="b_dis" class="tab-pane fade">
+          <h3>Bug</h3>
+          <% @bug_discussion.root_comments.each do |c| %>
+          <a>c.user + ':' + c.body</a>
+          <% end %>
+        </div>
+        <div id="s_dis" class="tab-pane fade">
+          <h3>Suggestion</h3>
+          <% @suggestion_discussion.root_comments.each do |c| %>
+          <a>c.user + ':' + c.body</a>
+          <% end %>
+        </div>
+      </div>
     </div>
-    <div id="menu3" class="tab-pane fade">
+    <div id="feedback" class="tab-pane fade">
       <h3>Menu 3</h3>
       <p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
     </div>

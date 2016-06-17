@@ -1,8 +1,8 @@
-<% provide(:title, "New Project") %>
+<% provide(:title, @project.name) %>
 <div class="container">
-	<h1>New Project</h1>
+	<h1><%= @project.name %></h1>
 	<%= render 'shared/error_messages', object: @project %>
-	<%= simple_form_for @project, :url => {:controller => 'projects', :action => 'submit', :id => project_id}, html: { :multipart => true } do |f| %>
+	<%= simple_form_for @project, :url => {:controller => 'projects', :action => 'update', :id => project_id}, html: { :multipart => true } do |f| %>
 		<%= f.input :small_desc, label: 'Short Description' %>
 
 		<%= f.input :full_desc, as: :ckeditor, :input_html => { :ckeditor => {:toolbar => 'Full'} }, label: 'Description' %>
@@ -26,27 +26,9 @@
 
 		<hr>
 		<%= f.input :tag_list, label:'Genres', input_html: { class: 'tags', data: {options: Project.tag_counts_on(:tags).limit(7).map(&:name), placeholder: "Add a genre", tagged: @project.tag_list}} %>
-
-	
-<!-- 		<div class="form-group">
-			<%= label_tag 'name', 'Pledge Name' %>
-			<%= text_field_tag "pledge_name", nil, class: 'form-control' %>
-
-			<%= label_tag 'name', 'Pledge Description' %>
-			<%= text_field_tag "pledge_desc", nil, class: 'form-control' %>
-
-			<%= label_tag 'name', 'Pledge Max' %>
-			<%= number_field_tag "pledge_max", nil, class: 'form-control' %>
-
-			<%= label_tag 'name', 'Pledge Cost' %>
-			<%= number_field_tag "pledge_cost", nil, step: 0.01, class: 'form-control' %>
-
-			<%= f.submit :submit, value: pledge_button, class: 'form-control' %>
-		</div> -->
 		
 		<hr>
 
-		<%= f.button :submit, value: create_button %>
 		<%= f.button :submit, value: save_button %>
 	<% end %>
 	<script type="text/javascript">
