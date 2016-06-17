@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160611012555) do
+ActiveRecord::Schema.define(version: 20160617025432) do
 
   create_table "ckeditor_assets", force: :cascade do |t|
     t.string   "data_file_name",    limit: 255, null: false
@@ -32,14 +32,19 @@ ActiveRecord::Schema.define(version: 20160611012555) do
   create_table "comments", force: :cascade do |t|
     t.integer  "commentable_id",   limit: 4
     t.string   "commentable_type", limit: 255
-    t.text     "text",             limit: 65535
-    t.integer  "type",             limit: 4
-    t.integer  "like",             limit: 4
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
+    t.string   "title",            limit: 255
+    t.text     "body",             limit: 65535
+    t.string   "subject",          limit: 255
+    t.integer  "user_id",          limit: 4,     null: false
+    t.integer  "parent_id",        limit: 4
+    t.integer  "lft",              limit: 4
+    t.integer  "rgt",              limit: 4
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
-  add_index "comments", ["commentable_type", "commentable_id"], name: "index_comments_on_commentable_type_and_commentable_id", using: :btree
+  add_index "comments", ["commentable_id", "commentable_type"], name: "index_comments_on_commentable_id_and_commentable_type", using: :btree
+  add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
 
   create_table "demos", force: :cascade do |t|
     t.integer  "project_id", limit: 4
@@ -139,6 +144,12 @@ ActiveRecord::Schema.define(version: 20160611012555) do
 
   add_index "tags", ["name"], name: "index_tags_on_name", unique: true, using: :btree
 
+  create_table "threads", force: :cascade do |t|
+    t.integer  "type",       limit: 4, default: 0
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string   "username",               limit: 255
     t.string   "email",                  limit: 255
@@ -177,5 +188,20 @@ ActiveRecord::Schema.define(version: 20160611012555) do
   end
 
   add_index "videos", ["assetable_type", "assetable_id"], name: "index_videos_on_assetable_type_and_assetable_id", using: :btree
+
+  create_table "votes", force: :cascade do |t|
+    t.integer  "votable_id",   limit: 4
+    t.string   "votable_type", limit: 255
+    t.integer  "voter_id",     limit: 4
+    t.string   "voter_type",   limit: 255
+    t.boolean  "vote_flag",    limit: 1
+    t.string   "vote_scope",   limit: 255
+    t.integer  "vote_weight",  limit: 4
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "votes", ["votable_id", "votable_type", "vote_scope"], name: "index_votes_on_votable_id_and_votable_type_and_vote_scope", using: :btree
+  add_index "votes", ["voter_id", "voter_type", "vote_scope"], name: "index_votes_on_voter_id_and_voter_type_and_vote_scope", using: :btree
 
 end

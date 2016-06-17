@@ -32,6 +32,7 @@ gem 'nokogiri'
 gem 'open_uri_redirections'
 gem 'money'
 gem 'acts_as_commentable_with_threading'
+gem 'acts_as_votable', '~> 0.10.0'
 
 source 'http://rails-assets.org' do
   gem 'rails-assets-tether', '>= 1.1.0'
