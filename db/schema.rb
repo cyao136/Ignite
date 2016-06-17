@@ -145,10 +145,13 @@ ActiveRecord::Schema.define(version: 20160617025432) do
   add_index "tags", ["name"], name: "index_tags_on_name", unique: true, using: :btree
 
   create_table "threads", force: :cascade do |t|
+    t.integer  "project_id", limit: 4
     t.integer  "type",       limit: 4, default: 0
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
   end
+
+  add_index "threads", ["project_id"], name: "index_threads_on_project_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "username",               limit: 255
