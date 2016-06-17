@@ -47,4 +47,5 @@
 			<% end %>
 		</div>
 	</div>
+	<%= button_to 'Done', {:controller => "projects", :action => "show"}, params:{ :id => project_id } , :method=>:get  %>
 </div>
