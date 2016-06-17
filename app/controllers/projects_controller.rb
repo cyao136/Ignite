@@ -32,7 +32,9 @@ class ProjectsController < ApplicationController
 	def show
       	@project = Project.find(params[:id])
     	@tags = ActsAsTaggableOn::Tag.all
+    	
     	@new_comment = Comment.build_from(@project, current_user.id, "")
+    	@general_comments = @project.comment_threads.tagged_with("General")
     end
 	
 	####################################################

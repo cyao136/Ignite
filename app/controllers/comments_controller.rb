@@ -3,13 +3,15 @@ class CommentsController < ApplicationController
 	def create
 		commentable = commentable_type.constantize.find(commentable_id)
 		@comment = Comment.build_from(commentable, current_user.id, body)
+		@comment.tag_list = comment_params[:tag_list]
+		p params[:tag_list]
 
 		respond_to do |format|
 			if @comment.save
 			make_child_comment
 			format.html  { redirect_to(:back, :notice => 'Comment was successfully added.') }
 			else
-			format.html  { render :action => "new" }
+			format.html  { redirect_to(:back, :notice => 'Failed to add comment.') }
 			end
 		end
 	end
@@ -17,7 +19,7 @@ class CommentsController < ApplicationController
 	private
 
 	def comment_params
-		params.require(:comment).permit(:body, :commentable_id, :commentable_type, :comment_id)
+		params.require(:comment).permit(:body, :tag_list, :commentable_id, :commentable_type, :comment_id)
 	end
 
 	def commentable_type
