@@ -28,10 +28,11 @@ gem 'aws-sdk', '>= 2.0.34'
 gem "font-awesome-rails"
 gem 'devise'
 gem 'ckeditor'
-gem "thredded", '~> 0.4.0'
 gem 'nokogiri'
 gem 'open_uri_redirections'
 gem 'money'
+gem 'acts_as_commentable_with_threading'
+gem 'acts_as_votable', '~> 0.10.0'
 
 source 'http://rails-assets.org' do
   gem 'rails-assets-tether', '>= 1.1.0'
