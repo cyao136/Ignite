@@ -1,7 +1,7 @@
 class ProjectsController < ApplicationController
 	include ProjectsHelper
 	before_filter :verify_project_owner
-  	skip_before_filter :verify_project_owner, only: [:new, :create, :search]
+  	skip_before_filter :verify_project_owner, only: [:new, :create, :search, :write_comment]
 
 	def verify_project_owner
 		if current_user.id != Project.find(params[:id]).user_id
@@ -32,9 +32,11 @@ class ProjectsController < ApplicationController
 	def show
       	@project = Project.find(params[:id])
     	@tags = ActsAsTaggableOn::Tag.all
-    	@general_discussion = @project.discussions.find_by(:topic => "general")
-    	@bug_discussion = @project.discussions.find_by(:topic => "bug")
-    	@suggestion_discussion = @project.discussions.find_by(:topic => "suggestion")
+    	
+    	@new_comment = Comment.build_from(@project, current_user.id, "")
+    	@general_comments = @project.comment_threads.tagged_with("General")
+    	@bug_comments = @project.comment_threads.tagged_with("Bug")
+    	@suggestion_comments = @project.comment_threads.tagged_with("Suggestion")
     end
 	
 	####################################################
@@ -49,17 +51,6 @@ class ProjectsController < ApplicationController
 		else
 			flash.now[:danger] = @project.errors.full_messages.to_sentence
 			render "new"
-		end
-		# Create the threads for the project
-		begin
-			# General discussion
-			@project.discussions.create!(:topic => "general")
-			# Bug discussion
-			@project.discussions.create!(:topic => "bug")
-			# Suggestion discussion
-			@project.discussions.create!(:topic => "suggestion")
-		rescue => e
-			flash.now[:danger] = e.message
 		end
 	end
 	
@@ -169,7 +160,7 @@ class ProjectsController < ApplicationController
 			render "media_upload"
 		end
 	end
-	
+
 	private
 		
 		####################################################
@@ -179,7 +170,7 @@ class ProjectsController < ApplicationController
 		def project_params
 			params.require(:project).permit(:id, :name, :small_desc, :full_desc, :creator_name, :creator_desc,
 				:funding, :state, :num_supporter, :embeded_video_link, :crowdfunding_link, :facebook_link,
-				:twitter_link, :website_link, :tag_list, discussions_attributes: [:topic],
+				:twitter_link, :website_link, :tag_list,
 				demos_attributes: [:name, :version, :asset], videos_attributes: [:asset], pictures_attributes: [:asset => []])
 		end
 

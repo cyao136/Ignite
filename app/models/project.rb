@@ -1,16 +1,15 @@
 class Project < ActiveRecord::Base
 	belongs_to :user
 	acts_as_taggable
+	acts_as_commentable
 	has_many :posts, :dependent => :destroy
 	has_many :demos, :dependent => :destroy
-	has_many :discussions, :dependent => :destroy
 	has_many :pledges
 	has_many :videos, as: :assetable, :dependent => :destroy
 	has_many :pictures, as: :assetable, :dependent => :destroy
 	accepts_nested_attributes_for :demos
 	accepts_nested_attributes_for :pictures
 	accepts_nested_attributes_for :videos
-	accepts_nested_attributes_for :discussions
 
 	enum state: [
 					:incomplete,
