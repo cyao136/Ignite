@@ -102,9 +102,11 @@
         </div>
         <div id="b_dis" class="tab-pane fade">
           <h3>Bug</h3>
+          <%= render partial: "comments/comment", locals: {comments: @bug_comments, new_comment: @new_comment, tag: "Bug"} %>  
         </div>
         <div id="s_dis" class="tab-pane fade">
           <h3>Suggestion</h3>
+          <%= render partial: "comments/comment", locals: {comments: @suggestion_comments, new_comment: @new_comment, tag: "Suggestion"} %>  
         </div>
       </div>
     </div>

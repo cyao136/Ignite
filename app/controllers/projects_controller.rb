@@ -35,6 +35,8 @@ class ProjectsController < ApplicationController
     	
     	@new_comment = Comment.build_from(@project, current_user.id, "")
     	@general_comments = @project.comment_threads.tagged_with("General")
+    	@bug_comments = @project.comment_threads.tagged_with("Bug")
+    	@suggestion_comments = @project.comment_threads.tagged_with("Suggestion")
     end
 	
 	####################################################
