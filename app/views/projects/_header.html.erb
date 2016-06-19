@@ -1,0 +1,23 @@
+
+  <div align="center">
+    <h1><%= @project.name %></h1>
+    <%= @project.small_desc %>
+  </div>
+  <ul class="nav nav-tabs">
+    <li class="nav-item">
+      <a class="nav-link <%= is_active?("/projects/#{@project.id}") %>" href="/projects/<%= @project.id %>">
+      <span class="fa fa-gamepad fa-fw" aria-hidden="true"></span> Project </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link <%= is_active?("/projects/#{@project.id}/gallery") %>" href="/projects/<%= @project.id %>/gallery">
+      <span class="fa fa-picture-o fa-fw" aria-hidden="true"></span> Gallery </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link <%= is_active?("/projects/#{@project.id}/discussion") %>" href="/projects/<%= @project.id %>/discussion">
+      <span class="fa fa-comments fa-fw" aria-hidden="true"></span> Discussion </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link <%= is_active?("/projects/#{@project.id}/feedback") %>" href="/projects/<%= @project.id %>/feedback">
+      <span class="fa fa-exclamation-circle fa-fw" aria-hidden="true"></span> Feedback </a>
+    </li>
+  </ul>
