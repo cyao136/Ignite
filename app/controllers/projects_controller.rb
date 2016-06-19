@@ -1,7 +1,6 @@
 class ProjectsController < ApplicationController
 	include ProjectsHelper
-	before_filter :verify_project_owner
-  	skip_before_filter :verify_project_owner, only: [:new, :create, :search, :write_comment]
+	before_filter :verify_project_owner, only: [:edit, :update, :submit, :media_upload]
 
 	def verify_project_owner
 		if current_user.id != Project.find(params[:id]).user_id
@@ -13,7 +12,6 @@ class ProjectsController < ApplicationController
 	
 	def new
 		@project = Project.new
-    	@tags = ActsAsTaggableOn::Tag.all
 	end
 	
 	def edit
@@ -31,7 +29,6 @@ class ProjectsController < ApplicationController
 	
 	def show
       	@project = Project.find(params[:id])
-    	@tags = ActsAsTaggableOn::Tag.all
     	
     	@new_comment = Comment.build_from(@project, current_user.id, "")
     	@general_comments = @project.comment_threads.tagged_with("General")
@@ -159,6 +156,24 @@ class ProjectsController < ApplicationController
 			flash.now[:warning] = "No Video Selected!"
 			render "media_upload"
 		end
+	end
+
+	def gallery
+		@project = Project.find(params[:id])
+		@pictures = @project.pictures
+		@videos = @project.videos
+	end
+
+	def discussion
+		@project = Project.find(params[:id])
+    	@new_comment = Comment.build_from(@project, current_user.id, "")
+    	@general_comments = @project.comment_threads.tagged_with("General")
+    	@bug_comments = @project.comment_threads.tagged_with("Bug")
+    	@suggestion_comments = @project.comment_threads.tagged_with("Suggestion")
+	end
+
+	def feedback
+		@project = Project.find(params[:id])
 	end
 
 	private

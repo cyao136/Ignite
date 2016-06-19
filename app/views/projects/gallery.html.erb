@@ -1,0 +1,10 @@
+<% provide(:title, @project.name + " Gallery") %>
+<div class="container">
+  <%= render :partial => 'projects/header' %>
+  <% @pictures.each do |pic| %>
+  <a>Picture: <%= pic.asset.url %></a>
+  <% end %>
+  <% @videos.each do |vid| %>
+  <a>Video: <%= vid.asset.url %></a>
+  <% end %>
+</div>
