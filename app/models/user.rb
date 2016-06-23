@@ -12,8 +12,11 @@ class User < ActiveRecord::Base
   accepts_nested_attributes_for :picture
   has_and_belongs_to_many :pledges
   # validates :username, presence: true, :length => { :in => 4..12 }, uniqueness: { case_sensitive: false }
+  TEMP_EMAIL_PREFIX = 'change@m.e'
+  TEMP_EMAIL_REGEX = /\Achange@me/
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
-  validates :email, presence: true, :length => { maximum: 255 }, format: { with: VALID_EMAIL_REGEX }, uniqueness: { case_sensitive: false }, allow_nil: true
+  validates_format_of :email, :without => TEMP_EMAIL_REGEX, on: :update
+  validates :email, presence: true, :length => { maximum: 255 }, format: { with: VALID_EMAIL_REGEX }, uniqueness: { case_sensitive: false }
   # has_secure_password - no longer needed with devise
   validates :password, presence: true, length: { minimum: 4 }, allow_nil: true
   
@@ -118,9 +121,9 @@ class User < ActiveRecord::Base
       # Create the user if it's a new registration
       if user.nil?
         user = User.new(
-          # name: auth.extra.raw_info.name,
+          #name: auth.extra.raw_info.name,
           #username: auth.info.nickname || auth.uid,
-          email: "change@m.e",
+          email: email ? email : "#{TEMP_EMAIL_PREFIX}-#{auth.uid}-#{auth.provider}.com",
           password: Devise.friendly_token[0,20]
         )
         user.skip_confirmation!
@@ -134,6 +137,10 @@ class User < ActiveRecord::Base
       identity.save!
     end
     user
+  end
+
+  def email_verified?
+    self.email && self.email !~ TEMP_EMAIL_REGEX
   end
   
   private

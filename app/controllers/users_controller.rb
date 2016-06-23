@@ -34,6 +34,7 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
 	if @user.update(user_params)
+      sign_in(@user == current_user ? @user : current_user, :bypass => true)
       flash[:success] = "Profile updated"
       redirect_to @user
     else
@@ -65,6 +66,10 @@ class UsersController < ApplicationController
 
     # Before filters
 
+    def set_user
+      @user = User.find(params[:id])
+    end
+    
     # Confirms a logged-in user.
     def logged_in_user
       unless logged_in?

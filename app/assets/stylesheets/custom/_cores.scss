@@ -8,6 +8,10 @@ p {
 	color: $gray-dark;
 }
 
+h1 {
+    text-align: center;
+}
+
 /* mixins, variables, etc. */
 
 @mixin box_sizing {
@@ -177,13 +181,10 @@ input {
   }
 }
 
-.checkbox {
-  margin-top: -10px;
-  margin-bottom: 10px;
-  span {
-    margin-left: 20px;
-    font-weight: normal;
-  }
+
+
+.checkbox-inline {
+  margin-left: 0px;
 }
 
 #session_remember_me {
