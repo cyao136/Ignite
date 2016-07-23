@@ -34,13 +34,29 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
 	if @user.update(user_params)
+      sign_in(@user == current_user ? @user : current_user, :bypass => true)
       flash[:success] = "Profile updated"
       redirect_to @user
     else
       render 'edit'
     end
   end
-	
+
+	# GET/PATCH /users/:id/finish_signup
+  def finish_signup
+    # authorize! :update, @user 
+    if request.patch? && params[:user] #&& params[:user][:email]
+      @user = User.find params[:id]
+      if @user.update(user_params)
+        @user.skip_reconfirmation!
+        sign_in(@user, :bypass => true)
+        redirect_to @user, notice: 'Your profile was successfully updated.'
+      else
+        @show_errors = true
+      end
+    end
+  end
+  
   private
 
     def user_params
@@ -50,6 +66,10 @@ class UsersController < ApplicationController
 
     # Before filters
 
+    def set_user
+      @user = User.find(params[:id])
+    end
+    
     # Confirms a logged-in user.
     def logged_in_user
       unless logged_in?
