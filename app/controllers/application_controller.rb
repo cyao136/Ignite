@@ -5,5 +5,4 @@ class ApplicationController < ActionController::Base
 
   # Actions require the user to be logged in
   before_filter :authenticate_user!
-  
 end

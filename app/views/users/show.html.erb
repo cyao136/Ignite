@@ -4,9 +4,9 @@
 <h1>
   <%= @user.username %>
 </h1>
-<% if @user.picture.nil? %>
+<% if @user.pictures[0].nil? %>
 <% else %>
-  <%= image_tag @user.picture.asset.url %>
+  <%= image_tag @user.pictures[0].asset.url %>
 <% end %>
 <%= @user.username %>, <%= @user.email %>
 
@@ -20,3 +20,47 @@
 
 <li><%= link_to 'Log out', destroy_user_session_path, method: :delete %></li>
 <li><%= link_to 'Edit', edit_user_registration_path %></li>
+
+<hr>
+
+<div class="container">
+    <div class="row profile">
+    <div class="col-md-3">
+      <div class="profile-sidebar">
+        <div class="profile-userpic">
+          <% if @user.pictures[0].nil? %>
+          <% else %>
+            <%= image_tag @user.pictures[0].asset.url %>
+          <% end %>
+        </div>
+        <div class="profile-usertitle">
+          <div class="profile-usertitle-name">
+            <% if @user.username.nil? %>
+              <%= link_to 'Add a username', edit_user_registration_path %>
+            <% else %>
+              <%= @user.username %>
+            <% end %>
+          </div>
+          <div class="profile-usertitle-job">
+            Sample title
+          </div>
+        </div>
+        <div class="profile-userbuttons">
+          <button type="button" class="btn btn-success btn-sm">Follow</button>
+          <button type="button" class="btn btn-danger btn-sm">Message</button>
+        </div>
+
+
+
+
+        <!-- END MENU -->
+      </div>
+    </div>
+    <div class="col-md-9">
+            <div class="profile-content">
+         <%= render :partial => 'users/header' %>
+            </div>
+    </div>
+  </div>
+</div>
+<br>
