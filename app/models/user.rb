@@ -8,8 +8,8 @@ class User < ActiveRecord::Base
   # before_create :create_activation_digest
   has_many :posts
   has_many :projects
-  has_one :picture, as: :assetable, :dependent => :destroy
-  accepts_nested_attributes_for :picture
+  has_many :pictures, as: :assetable, :dependent => :destroy
+  accepts_nested_attributes_for :pictures
   has_and_belongs_to_many :pledges
   # validates :username, presence: true, :length => { :in => 4..12 }, uniqueness: { case_sensitive: false }
   TEMP_EMAIL_PREFIX = 'change@m.e'
@@ -18,38 +18,38 @@ class User < ActiveRecord::Base
   validates_format_of :email, :without => TEMP_EMAIL_REGEX, on: :update
   validates :email, presence: true, :length => { maximum: 255 }, format: { with: VALID_EMAIL_REGEX }, uniqueness: { case_sensitive: false }
   # has_secure_password - no longer needed with devise
-  validates :password, presence: true, length: { minimum: 4 }, allow_nil: true
-  
+  validates :password, presence: true, length: { minimum: 4 }, allow_nil: true, allow_blank: true
+
   # Returns the hash digest of the given string.
   def User.digest(string)
     cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
                                                   BCrypt::Engine.cost
     BCrypt::Password.create(string, cost: cost)
   end
-  
+
   # Returns a random token.
   def User.new_token
     SecureRandom.urlsafe_base64
   end
-  
+
   # Remembers a user in the database for use in persistent sessions.
   def remember
     self.remember_token = User.new_token
     update_attribute(:remember_digest, User.digest(remember_token))
   end
-  
+
   # Returns true if the given token matches the digest.
   def authenticated?(attribute, token)
     digest = send("#{attribute}_digest")
     return false if digest.nil?
     BCrypt::Password.new(digest).is_password?(token)
   end
-  
+
   # Forgets a user.
   def forget
     update_attribute(:remember_digest, nil)
   end
-  
+
   # Activates an account.
   def activate
     update_attribute(:activated,    true)
@@ -72,7 +72,7 @@ class User < ActiveRecord::Base
   def send_password_reset_email
     UserMailer.password_reset(self).deliver_now
   end
-  
+
   # Returns true if a password reset has expired.
   def password_reset_expired?
     reset_sent_at < 2.hours.ago
@@ -142,7 +142,7 @@ class User < ActiveRecord::Base
   def email_verified?
     self.email && self.email !~ TEMP_EMAIL_REGEX
   end
-  
+
   private
 
     # Converts username and email to all lower-case.

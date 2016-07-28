@@ -1,6 +1,31 @@
 class Users::RegistrationsController < Devise::RegistrationsController
 # before_action :configure_sign_up_params, only: [:create]
 # before_action :configure_account_update_params, only: [:update]
+  def update
+    super
+    p params
+    @user.pictures.create!(:asset => params[:picture_asset])
+  end
+
+  protected
+
+  def update_resource(resource, params)
+    resource.update_without_password(params)
+  end
+
+  private
+
+  def sign_up_params
+    params.require(:user).permit(:username, :email, :password,
+                                   :password_confirmation, :avatar, pictures_attributes: [:asset])
+  end
+  def account_update_params
+    params.require(:user).permit(:username, :email, :password,
+                                   :password_confirmation, :avatar, pictures_attributes: [:asset])
+  end
+
+
+
 
   # GET /resource/sign_up
   # def new
