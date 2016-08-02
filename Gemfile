@@ -35,6 +35,8 @@ gem 'acts_as_commentable_with_threading'
 gem 'acts_as_votable', '~> 0.10.0'
 gem 'omniauth-facebook'
 gem 'omniauth-steam'
+gem 'streamio-ffmpeg'
+gem 'activerecord-session_store'
 
 
 
