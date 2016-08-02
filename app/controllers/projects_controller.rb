@@ -9,15 +9,15 @@ class ProjectsController < ApplicationController
 	end
 	####################################################
 	# Standard resource methods
-	
+
 	def new
 		@project = Project.new
 	end
-	
+
 	def edit
 		@project = Project.find(params[:id])
 	end
-	
+
 	def update
 		@project = Project.find(params[:id])
 		if not @project.update(project_params)
@@ -26,20 +26,20 @@ class ProjectsController < ApplicationController
 		end
 		redirect_to @project
 	end
-	
+
 	def show
       	@project = Project.find(params[:id])
-    	
+
     	@new_comment = Comment.build_from(@project, current_user.id, "")
     	@general_comments = @project.comment_threads.tagged_with("General")
     	@bug_comments = @project.comment_threads.tagged_with("Bug")
     	@suggestion_comments = @project.comment_threads.tagged_with("Suggestion")
     end
-	
+
 	####################################################
 	# create
 	# create a project
-	
+
 	def create
 		@project = Project.new(project_params)
 		@project.user_id = current_user.id
@@ -50,11 +50,11 @@ class ProjectsController < ApplicationController
 			render "new"
 		end
 	end
-	
+
 	####################################################
 	# submit
 	# submitting project informations
-	
+
 	def submit
 		@project = Project.find(params[:id])
 		case params[:commit]
@@ -106,7 +106,7 @@ class ProjectsController < ApplicationController
 		# For uploading demo
 		when demo_button
 			if not params[:demo_asset].blank?
-				begin 
+				begin
 					@project.demos.create!(
 						:asset => params[:demo_asset],
 						:name => params[:demo_name],
@@ -114,7 +114,7 @@ class ProjectsController < ApplicationController
 						:is_active => true,
 						:project_id => @project.id
 						)
-					
+
 					flash.now[:success] = "Demo Uploaded Successfully!"
 					return render "media_upload"
 				rescue => e
@@ -172,16 +172,21 @@ class ProjectsController < ApplicationController
     	@suggestion_comments = @project.comment_threads.tagged_with("Suggestion")
 	end
 
+	def newdiscussion
+		@project = Project.find(params[:id])
+    	@new_comment = Comment.build_from(@project, current_user.id, "")
+	end
+
 	def feedback
 		@project = Project.find(params[:id])
 	end
 
 	private
-		
+
 		####################################################
 		# project params
 		# allow the view to modify the parameters
-		
+
 		def project_params
 			params.require(:project).permit(:id, :name, :small_desc, :full_desc, :creator_name, :creator_desc,
 				:funding, :state, :num_supporter, :embeded_video_link, :crowdfunding_link, :facebook_link,
