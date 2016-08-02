@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable, :omniauthable, :omniauth_providers => [:facebook, :steam]
-  attr_accessor :remember_token, :activation_token, :reset_token
+  attr_accessor :remember_token, :activation_token, :reset_token, :login
   # before_save   :downcase_fields
   # before_create :create_activation_digest
   has_many :posts
@@ -11,7 +11,8 @@ class User < ActiveRecord::Base
   has_many :pictures, as: :assetable, :dependent => :destroy
   accepts_nested_attributes_for :pictures
   has_and_belongs_to_many :pledges
-  # validates :username, presence: true, :length => { :in => 4..12 }, uniqueness: { case_sensitive: false }
+  validates :username, presence: true, :length => { :in => 4..12 }, uniqueness: { case_sensitive: false }
+  validates_format_of :username, with: /^[a-zA-Z0-9_\.]*$/, :multiline => true
   TEMP_EMAIL_PREFIX = 'change@m.e'
   TEMP_EMAIL_REGEX = /\Achange@me/
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
@@ -122,7 +123,7 @@ class User < ActiveRecord::Base
       if user.nil?
         user = User.new(
           #name: auth.extra.raw_info.name,
-          #username: auth.info.nickname || auth.uid,
+          username: auth.info.nickname || auth.uid,
           email: email ? email : "#{TEMP_EMAIL_PREFIX}-#{auth.uid}-#{auth.provider}.com",
           password: Devise.friendly_token[0,20]
         )
@@ -141,6 +142,16 @@ class User < ActiveRecord::Base
 
   def email_verified?
     self.email && self.email !~ TEMP_EMAIL_REGEX
+  end
+
+  # For email / username login
+  def self.find_for_database_authentication(warden_conditions)
+    conditions = warden_conditions.dup
+    if login = conditions.delete(:login)
+      where(conditions.to_h).where(["lower(username) = :value OR lower(email) = :value", { :value => login.downcase }]).first
+    elsif conditions.has_key?(:username) || conditions.has_key?(:email)
+      where(conditions.to_h).first
+    end
   end
 
   private

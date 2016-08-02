@@ -1,34 +1,12 @@
 <% provide(:title, @user.username) %>
 
-<p>Sample user profile page</p>
-<h1>
-  <%= @user.username %>
-</h1>
-<% if @user.pictures[0].nil? %>
-<% else %>
-  <%= image_tag @user.pictures[0].asset.url %>
-<% end %>
-<%= @user.username %>, <%= @user.email %>
-
-<% @user.projects do |project| %>
-  <li>
-	<%= link_to project_path(@user, @project) %>
-  </li>
-<% end %>
-
-<a href="<%= project_path(@user, current_project) %>">My Project</a>
-
-<li><%= link_to 'Log out', destroy_user_session_path, method: :delete %></li>
-<li><%= link_to 'Edit', edit_user_registration_path %></li>
-
-<hr>
-
 <div class="container">
     <div class="row profile">
     <div class="col-md-3">
       <div class="profile-sidebar">
         <div class="profile-userpic">
           <% if @user.pictures[0].nil? %>
+            <%= image_tag("happy.png", alt: "happy") %>
           <% else %>
             <%= image_tag @user.pictures[0].asset.url %>
           <% end %>
@@ -41,13 +19,33 @@
               <%= @user.username %>
             <% end %>
           </div>
-          <div class="profile-usertitle-job">
-            Sample title
+          <div class="profile-user-email">
+            <%= @user.email %>
           </div>
         </div>
         <div class="profile-userbuttons">
-          <button type="button" class="btn btn-success btn-sm">Follow</button>
-          <button type="button" class="btn btn-danger btn-sm">Message</button>
+          <button type="button" class="btn btn-success btn-sm">button</button>
+          <button type="button" class="btn btn-danger btn-sm">button</button>
+        </div>
+        <div class="profile-usermenu">
+          <ul class="nav">
+            <li class="nav-item">
+              <a class="nav-link">
+              <span aria-hidden="true"></span> Overview </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/users/edit">
+              <span aria-hidden="true"></span> Edit User </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="<%= project_path(@user, current_project) %>">
+              <span aria-hidden="true"></span> My Projects </a>
+            </li>
+            <li class="nav-item">
+<a class="nav-link" href=<%= destroy_user_session_path%> data-method="delete" rel="nofollow">
+  <span aria-hidden="true"></span> Log Out </a>
+            </li>
+          </ul>
         </div>
 
 
@@ -58,7 +56,7 @@
     </div>
     <div class="col-md-9">
             <div class="profile-content">
-         <%= render :partial => 'users/header' %>
+            Some stuff
             </div>
     </div>
   </div>
