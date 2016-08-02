@@ -160,8 +160,9 @@ class ProjectsController < ApplicationController
 
 	def gallery
 		@project = Project.find(params[:id])
-		@pictures = @project.pictures
-		@videos = @project.videos
+		@pictures = @project.pictures != nil ? @project.pictures : Array.new
+		@videos = @project.videos != nil ? @project.videos : Array.new
+		@media = @videos + @pictures
 	end
 
 	def discussion
