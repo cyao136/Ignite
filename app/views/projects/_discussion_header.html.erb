@@ -1,0 +1,14 @@
+  <ul class="nav nav-tabs">
+    <li class="nav-item">
+      <a class="nav-link <%= is_active?("/projects/#{@project.id}/discussion/general") %>" href="/projects/<%= @project.id %>/discussion/general">
+      <span class="fa fa-gamepad fa-fw" aria-hidden="true"></span> General </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link <%= is_active?("/projects/#{@project.id}/discussion/bugs") %>" href="/projects/<%= @project.id %>/discussion/bugs">
+      <span class="fa fa-picture-o fa-fw" aria-hidden="true"></span> Bugs </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link <%= is_active?("/projects/#{@project.id}/discussion/suggestions") %>" href="/projects/<%= @project.id %>/discussion/suggestions">
+      <span class="fa fa-comments fa-fw" aria-hidden="true"></span> Suggestions </a>
+    </li>
+  </ul>

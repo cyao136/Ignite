@@ -1,0 +1,17 @@
+
+  <% comments.each do |comment| %>
+    <div class="comments-show">
+      <div class="comment">
+        <a class="username" href=<%= "/users/#{comment.user.id}" %>><%= comment.user.username %><br></a>
+        <div class="body-section">
+          <p><%= comment.body %><br></p>
+        </div>
+
+        <div class="vote-buttons">
+        <%= link_to "#{comment.get_upvotes.size} Upvote", options = { action: "upvote", id: comment.id, controller: "comments"}, method: :put %>
+
+        <%= link_to "#{comment.get_downvotes.size} Downvote", options = { action: "downvote", id: comment.id, controller: "comments"}, method: :put %>
+        </div>
+      </div>
+    </div>
+  <% end %>
