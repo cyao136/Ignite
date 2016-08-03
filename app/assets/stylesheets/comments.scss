@@ -21,6 +21,14 @@
       color: #888;
     }
   }
+  .vote-buttons {
+    margin-left: 5px;
+    a {
+      font-size: 10px;
+      font-weight: bold;
+      color: #888;
+    }
+  }
 }
 
 .reply-form {
@@ -29,4 +37,13 @@
 
 .comments-show {
   margin-left: 25px;
+}
+
+.show-children {
+    align: right;
+    a {
+      font-size: 10px;
+      font-weight: bold;
+      color: #888;
+    }
 }
