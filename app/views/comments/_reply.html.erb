@@ -5,13 +5,22 @@
       <p><%= comment.body %><br></p>
                 <div>
           <% if comment.children.blank? %>
-
           <% else %>
                       <a href="<%= "#collapse_#{comment.id}" %>" class="btn btn-default" data-toggle="collapse" aria-expanded="false">Show Children</a>
           <% end %>
-
             </div>
-      <div class="comment-nav"><a href="<%= "#reply_#{comment.id}" %>" class="btn btn-default comment-reply" data-toggle="collapse" aria-expanded="false">Reply</a></div>
+
+
+<div class="btn-group">
+<%= button_to "#{comment.get_upvotes.size} Upvote", { action: "upvote", id: comment.id, controller: "comments"}, method: :put %>
+
+<%= button_to "#{comment.get_downvotes.size} Downvote", { action: "downvote", id: comment.id, controller: "comments"}, method: :put %>
+
+</div>
+
+      <div class="comment-nav">
+      <a href="<%= "#reply_#{comment.id}" %>" class="btn btn-default comment-reply" data-toggle="collapse" aria-expanded="false">Reply</a>
+      </div>
 
 
 
