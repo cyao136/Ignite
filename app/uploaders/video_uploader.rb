@@ -1,5 +1,5 @@
+=begin
 # encoding: utf-8
-
 require 'streamio-ffmpeg'
 module CarrierWave
   module FFMPEG
@@ -95,3 +95,4 @@ class VideoUploader < CarrierWave::Uploader::Base
   # end
 
 end
+=end

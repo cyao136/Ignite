@@ -58,4 +58,23 @@ module ProjectsHelper
   		Project.tag_counts_on(:tags).limit(num_limit).map{|t| tags.push(t.name)}
   		return @tags
   	end
+
+  	#######################################################
+  	# Video Link Parsing
+  	
+
+	def verify_youtube link
+		reg = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/
+		match = reg.match(link)
+		# TODO: More extensive verification
+		return (match&&match[7].length==11)? match[7] : false
+	end
+
+	def embed_youtube id
+		return "https://www.youtube.com/embed/" + id
+	end
+
+	def thumbnail_youtube id
+		return "http://img.youtube.com/vi/" + id + "/default.jpg"
+	end
 end

@@ -108,6 +108,7 @@ class ProjectsController < ApplicationController
 	def media_upload
 		@project = Project.find(params[:id])
 		@pictures = @project.pictures != nil ? @project.pictures : []
+		@videos = @project.videos != nil ? @project.videos : []
 		case params[:commit]
 
 		when delete_picture_button
@@ -172,9 +173,18 @@ class ProjectsController < ApplicationController
 			#end
 
 			if not params[:video_link].blank?
+				vid_id = verify_youtube(params[:video_link])
+				
+				if not vid_id then
+					flash[:danger] = "Invalid Youtube Link!"
+					return render "media_upload"
+				end
+
+				embed_link = embed_youtube vid_id
+				thumbnail_link = thumbnail_youtube vid_id
 				begin
-					@project.video_links << params[:video_link]
-					@project.save
+					@project.videos.create!({web_id: vid_id, host: "Youtube", embed_link: embed_link, thumbnail_link: thumbnail_link})
+					
 					flash.now[:success] = "Video Added Successfully!"
 					return render "media_upload"
 				rescue => e
@@ -182,8 +192,8 @@ class ProjectsController < ApplicationController
 					return render "media_upload"
 				end
 
-			flash.now[:warning] = "No Video Selected!"
-			render "media_upload"
+				flash.now[:warning] = "No Video Selected!"
+				render "media_upload"
 			end
 		end
 	end
@@ -192,7 +202,6 @@ class ProjectsController < ApplicationController
 		@project = Project.find(params[:id])
 		@pictures = @project.pictures != nil ? @project.pictures : Array.new
 		@videos = @project.videos != nil ? @project.videos : Array.new
-		@media = @videos + @pictures
 	end
 
 	def discussion
@@ -221,8 +230,8 @@ class ProjectsController < ApplicationController
 		def project_params
 			params.require(:project).permit(:id, :name, :small_desc, :full_desc, :creator_name, :creator_desc,
 				:funding, :state, :num_supporter, :embeded_video_link, :crowdfunding_link, :facebook_link,
-				:twitter_link, :website_link, :tag_list, :video_links,
-				demos_attributes: [:name, :version, :asset], videos_attributes: [:asset], pictures_attributes: [:asset => []])
+				:twitter_link, :website_link, :tag_list, videos_attributes: [:web_id, :host, :embed_link, :thumbnail_link],
+				demos_attributes: [:name, :version, :asset], pictures_attributes: [:asset => []])
 		end
 
 end
