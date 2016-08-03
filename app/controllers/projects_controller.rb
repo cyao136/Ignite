@@ -31,9 +31,9 @@ class ProjectsController < ApplicationController
       	@project = Project.find(params[:id])
 
     	@new_comment = Comment.build_from(@project, current_user.id, "")
-    	@general_comments = @project.comment_threads.tagged_with("General")
-    	@bug_comments = @project.comment_threads.tagged_with("Bug")
-    	@suggestion_comments = @project.comment_threads.tagged_with("Suggestion")
+    	@general_comments = @project.comment_threads.tagged_with("a")
+    	@bug_comments = @project.comment_threads.tagged_with("b")
+    	@suggestion_comments = @project.comment_threads.tagged_with("c")
     end
 
 	####################################################
@@ -43,6 +43,7 @@ class ProjectsController < ApplicationController
 	def create
 		@project = Project.new(project_params)
 		@project.user_id = current_user.id
+		@project.tag_list.add("a","b","c")
 		if @project.save
 			flash.now[:success] = "Let's build your project together!"
 		else
@@ -168,14 +169,28 @@ class ProjectsController < ApplicationController
 	def discussion
 		@project = Project.find(params[:id])
     	@new_comment = Comment.build_from(@project, current_user.id, "")
-    	@general_comments = @project.comment_threads.tagged_with("General")
-    	@bug_comments = @project.comment_threads.tagged_with("Bug")
-    	@suggestion_comments = @project.comment_threads.tagged_with("Suggestion")
+    	@general_comments = @project.comment_threads.tagged_with("a")
+    	@bug_comments = @project.comment_threads.tagged_with("b")
+    	@suggestion_comments = @project.comment_threads.tagged_with("c")
 	end
 
 	def newdiscussion
 		@project = Project.find(params[:id])
     	@new_comment = Comment.build_from(@project, current_user.id, "")
+	end
+
+	def discussion_a
+
+		@project = Project.find(params[:id])
+    	@new_comment = Comment.build_from(@project, current_user.id, "")
+    	@new_comments = @project.comment_threads.tagged_with("a")
+	end
+
+		def discussion_b
+
+		@project = Project.find(params[:id])
+    	@new_comment = Comment.build_from(@project, current_user.id, "")
+    	@new_comments = @project.comment_threads.tagged_with("b")
 	end
 
 	def feedback

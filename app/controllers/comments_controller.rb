@@ -4,8 +4,6 @@ class CommentsController < ApplicationController
 		commentable = commentable_type.constantize.find(commentable_id)
 		@comment = Comment.build_from(commentable, current_user.id, body)
 		@comment.tag_list = comment_params[:tag_list]
-		p params[:tag_list]
-
 		respond_to do |format|
 			if @comment.save
 			make_child_comment
