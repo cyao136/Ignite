@@ -19,9 +19,9 @@
         <%= link_to "#{comment.get_downvotes.size} Downvote", options = { action: "downvote", id: comment.id, controller: "comments"}, method: :put %>
         </div>
 
-        <div class="comment-nav">
-        <a href="<%= "#reply_#{comment.id}" %>" class="btn btn-default comment-reply" data-toggle="collapse" aria-expanded="false">Reply</a>
-        </div>
+          <div class="comment-nav">
+            <a href="<%= "#reply_#{comment.id}" %>" class="btn btn-default comment-reply" data-toggle="collapse" aria-expanded="false">Reply</a>
+          </div>
 
         <div id="<%= "reply_#{comment.id}" %>" class="collapse reply-form">
           <%= form_for @new_comment do |f| %>

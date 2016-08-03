@@ -1,5 +1,0 @@
-<% provide(:title, @project.name + " NewDiscussion") %>
-<div class="container">
-  <%= render :partial => 'projects/header' %>
-      <%= render partial: "comments/template", locals: {commentable: @project, new_comment: @comment, commenting_tag: "b"} %>
-</div>

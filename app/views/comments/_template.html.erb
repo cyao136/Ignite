@@ -1,7 +1,13 @@
-<div class="comments-header">
-</div>
 <%= render partial: "comments/form", locals: {new_comment: new_comment, commenting_tag: commenting_tag} %>
 
-<div class="comments-container">
-  <%= render partial: "comments/reply", locals: {comments: commentable.root_comments.tagged_with(commenting_tag)} %>
-</div>
+<% if commenting_tag != "feedback" %>
+  <div class="comments-container">
+    <%= render partial: "comments/reply", locals: {comments: commentable.root_comments.tagged_with(commenting_tag)} %>
+  </div>
+<% else %>
+  <div class="comments-container">
+    <%= render partial: "comments/noreply", locals: {comments: commentable.root_comments.tagged_with(commenting_tag)} %>
+  </div>
+<% end %>
+
+

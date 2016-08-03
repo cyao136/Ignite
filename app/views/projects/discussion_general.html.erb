@@ -1,0 +1,6 @@
+<% provide(:title, @project.name + "Discussion - General") %>
+<div class="container">
+  <%= render :partial => 'projects/header' %>
+  <%= render :partial => 'projects/discussion_header' %>
+      <%= render partial: "comments/template", locals: {commentable: @project, new_comment: @comment, commenting_tag: "general"} %>
+</div>

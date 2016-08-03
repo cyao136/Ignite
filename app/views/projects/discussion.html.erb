@@ -1,29 +1,5 @@
-<% provide(:title, @project.name + " Discussion") %>
+<% provide(:title, @project.name + "Discussion") %>
 <div class="container">
   <%= render :partial => 'projects/header' %>
-  <ul class="nav nav-tabs">
-    <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#g_dis">
-      <span class="fa fa-gamepad fa-fw" aria-hidden="true"></span> General </a>
-    </li>
-    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#b_dis">
-      <span class="fa fa-picture-o fa-fw" aria-hidden="true"></span> Bugs </a>
-    </li>
-    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#s_dis">
-      <span class="fa fa-comments fa-fw" aria-hidden="true"></span> Suggestions </a>
-    </li>
-  </ul>
-  <div class="tab-content" id="dicussion-items">
-    <div id="g_dis" class="tab-pane fade in active">
-      <h3>General</h3>
-      <%= render partial: "comments/template", locals: {commentable: @general_comments, new_comment: @comment, tag: "General"} %>
-    </div>
-    <div id="b_dis" class="tab-pane fade">
-      <h3>Bug</h3>
-      <%= render partial: "comments/template", locals: {commentable: @bug_comments, new_comment: @comment, tag: "Bug"} %>
-    </div>
-    <div id="s_dis" class="tab-pane fade">
-      <h3>Suggestion</h3>
-      <%= render partial: "comments/template", locals: {commentable: @suggestion_comments, new_comment: @comment, tag: "Suggestion"} %>
-    </div>
-  </div>
+  <%= render :partial => 'projects/discussion_header' %>
 </div>
