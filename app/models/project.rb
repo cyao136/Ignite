@@ -2,6 +2,7 @@ class Project < ActiveRecord::Base
 	belongs_to :user
 	acts_as_taggable
 	acts_as_commentable
+	serialize :video_links, Array
 	has_many :posts, :dependent => :destroy
 	has_many :demos, :dependent => :destroy
 	has_many :pledges
@@ -32,6 +33,7 @@ class Project < ActiveRecord::Base
 		v.validates :full_desc, presence: true, length: { minimum: 2 }
 		v.validates :creator_desc, presence: true, length: { minimum: 2 }
 		v.validates :creator_name, presence: true, length: { minimum: 2 }
+		v.validates :video_links, presence: true
 	end
 
 	with_options if: ->o {o.is_state? "funding_ext"} do |v|

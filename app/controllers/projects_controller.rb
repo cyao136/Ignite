@@ -99,10 +99,26 @@ class ProjectsController < ApplicationController
 		end
 	end
 
+	def media_destroy
+		@project = Project.find(params[:id])
+		Pictures.find(params[id]).destroy
+		return render "media_upload"
+	end
+
 	def media_upload
 		@project = Project.find(params[:id])
+		@pictures = @project.pictures != nil ? @project.pictures : []
 		case params[:commit]
 
+		when delete_picture_button
+			if not params[:picture_id].blank?
+				begin
+					@picture = Picture.find(params[:picture_id])
+					@picture.destroy!
+					return redirect_to "media_upload"
+				rescue => e
+				end
+			end
 		# For uploading demo
 		when demo_button
 			if not params[:demo_asset].blank?
@@ -143,18 +159,32 @@ class ProjectsController < ApplicationController
 			render "media_upload"
 		# For uploading video
 		when video_button
-			if not params[:video_asset].blank?
+			
+			#if not params[:video_asset].blank?
+			#	begin
+			#		@project.videos.create!(:asset => params[:video_asset])
+			#		flash.now[:success] = "Video Uploaded Successfully!"
+			#		return render "media_upload"
+			#	rescue => e
+			#		flash.now[:danger] = e.message
+			#		return render "media_upload"
+			#	end
+			#end
+
+			if not params[:video_link].blank?
 				begin
-					@project.videos.create!(:asset => params[:video_asset])
-					flash.now[:success] = "Video Uploaded Successfully!"
+					@project.video_links << params[:video_link]
+					@project.save
+					flash.now[:success] = "Video Added Successfully!"
 					return render "media_upload"
 				rescue => e
 					flash.now[:danger] = e.message
 					return render "media_upload"
 				end
-			end
+
 			flash.now[:warning] = "No Video Selected!"
 			render "media_upload"
+			end
 		end
 	end
 
@@ -191,7 +221,7 @@ class ProjectsController < ApplicationController
 		def project_params
 			params.require(:project).permit(:id, :name, :small_desc, :full_desc, :creator_name, :creator_desc,
 				:funding, :state, :num_supporter, :embeded_video_link, :crowdfunding_link, :facebook_link,
-				:twitter_link, :website_link, :tag_list,
+				:twitter_link, :website_link, :tag_list, :video_links,
 				demos_attributes: [:name, :version, :asset], videos_attributes: [:asset], pictures_attributes: [:asset => []])
 		end
 

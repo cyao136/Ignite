@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160802205458) do
+ActiveRecord::Schema.define(version: 20160803024844) do
 
   create_table "ckeditor_assets", force: :cascade do |t|
     t.string   "data_file_name",    limit: 255, null: false
@@ -130,6 +130,7 @@ ActiveRecord::Schema.define(version: 20160802205458) do
     t.string   "embeded_video_link", limit: 255
     t.string   "creator_name",       limit: 255
     t.datetime "ended_at"
+    t.text     "video_links",        limit: 65535
   end
 
   add_index "projects", ["user_id"], name: "index_projects_on_user_id", using: :btree

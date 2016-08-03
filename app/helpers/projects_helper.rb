@@ -36,6 +36,9 @@ module ProjectsHelper
 	def save_button
 		"Save Project"
 	end
+	def delete_picture_button
+		"Delete"
+	end
 	
 	def has_facebook?()
 		@project.facebook_link=='' ? "disabled" : ""
