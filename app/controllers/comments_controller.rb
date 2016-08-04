@@ -4,8 +4,6 @@ class CommentsController < ApplicationController
 		commentable = commentable_type.constantize.find(commentable_id)
 		@comment = Comment.build_from(commentable, current_user.id, body)
 		@comment.tag_list = comment_params[:tag_list]
-		p params[:tag_list]
-
 		respond_to do |format|
 			if @comment.save
 			make_child_comment
@@ -14,6 +12,18 @@ class CommentsController < ApplicationController
 			format.html  { redirect_to(:back, :notice => 'Failed to add comment.') }
 			end
 		end
+	end
+
+	def upvote
+		@comment = Comment.find(params[:id])
+	  @comment.upvote_by current_user
+	  redirect_to :back
+	end
+
+	def downvote
+		@comment = Comment.find(params[:id])
+	  @comment.downvote_by current_user
+	  redirect_to :back
 	end
 
 	private

@@ -1,7 +1,7 @@
 class ProjectsController < ApplicationController
 	include ProjectsHelper
 	before_filter :verify_project_owner, only: [:edit, :update, :submit, :media_upload]
-
+	skip_before_filter :authenticate_user!, only: [:show, :gallery]
 	def verify_project_owner
 		if current_user.id != Project.find(params[:id]).user_id
 			redirect_to root_url
@@ -28,13 +28,8 @@ class ProjectsController < ApplicationController
 	end
 
 	def show
-      	@project = Project.find(params[:id])
-
-    	@new_comment = Comment.build_from(@project, current_user.id, "")
-    	@general_comments = @project.comment_threads.tagged_with("General")
-    	@bug_comments = @project.comment_threads.tagged_with("Bug")
-    	@suggestion_comments = @project.comment_threads.tagged_with("Suggestion")
-    end
+      @project = Project.find(params[:id])
+  end
 
 	####################################################
 	# create
@@ -160,7 +155,7 @@ class ProjectsController < ApplicationController
 			render "media_upload"
 		# For uploading video
 		when video_button
-			
+
 			#if not params[:video_asset].blank?
 			#	begin
 			#		@project.videos.create!(:asset => params[:video_asset])
@@ -174,7 +169,7 @@ class ProjectsController < ApplicationController
 
 			if not params[:video_link].blank?
 				vid_id = verify_youtube(params[:video_link])
-				
+
 				if not vid_id then
 					flash[:danger] = "Invalid Youtube Link!"
 					return render "media_upload"
@@ -184,7 +179,7 @@ class ProjectsController < ApplicationController
 				thumbnail_link = thumbnail_youtube vid_id
 				begin
 					@project.videos.create!({web_id: vid_id, host: "Youtube", embed_link: embed_link, thumbnail_link: thumbnail_link})
-					
+
 					flash.now[:success] = "Video Added Successfully!"
 					return render "media_upload"
 				rescue => e
@@ -207,18 +202,34 @@ class ProjectsController < ApplicationController
 	def discussion
 		@project = Project.find(params[:id])
     	@new_comment = Comment.build_from(@project, current_user.id, "")
-    	@general_comments = @project.comment_threads.tagged_with("General")
-    	@bug_comments = @project.comment_threads.tagged_with("Bug")
-    	@suggestion_comments = @project.comment_threads.tagged_with("Suggestion")
 	end
 
-	def newdiscussion
+	def discussion_general
 		@project = Project.find(params[:id])
-    	@new_comment = Comment.build_from(@project, current_user.id, "")
+		@comments = @project.root_comments.tagged_with("general").paginate(:page => params[:page])
+  	@new_comment = Comment.build_from(@project, current_user.id, "")
+  	@new_comments = @project.comment_threads.tagged_with("general")
+	end
+
+	def discussion_bugs
+		@project = Project.find(params[:id])
+		@comments = @project.root_comments.tagged_with("bugs").paginate(:page => params[:page])
+  	@new_comment = Comment.build_from(@project, current_user.id, "")
+  	@new_comments = @project.comment_threads.tagged_with("bugs")
+	end
+
+	def discussion_suggestions
+		@project = Project.find(params[:id])
+		@comments = @project.root_comments.tagged_with("suggestions").paginate(:page => params[:page])
+  	@new_comment = Comment.build_from(@project, current_user.id, "")
+  	@new_comments = @project.comment_threads.tagged_with("suggestions")
 	end
 
 	def feedback
 		@project = Project.find(params[:id])
+		@comments = @project.root_comments.tagged_with("feedback").paginate(:page => params[:page])
+	  @new_comment = Comment.build_from(@project, current_user.id, "")
+  	@new_comments = @project.comment_threads.tagged_with("feedback")
 	end
 
 	private
