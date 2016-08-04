@@ -29,7 +29,7 @@ class ProjectsController < ApplicationController
 
 	def show
       @project = Project.find(params[:id])
-      @embedded_video_link = @project.videos.tagged_with("Main")[0].embed_link
+      @embedded_video_link = @project.videos.tagged_with("Main")[0] != nil ? @project.videos.tagged_with("Main")[0].embed_link : ""
   end
 
 	####################################################
@@ -60,6 +60,7 @@ class ProjectsController < ApplicationController
 		when pictures_button
 			if not params[:tile_picture].blank?
 				begin
+					@project.update(project_params)
 					@project.pictures.create!(:asset => params[:tile_picture], :tag_list => "Tile")
 					flash.now[:success] = "Pictures Uploaded Successfully!"
 				rescue => e
@@ -83,6 +84,7 @@ class ProjectsController < ApplicationController
 				embed_link = embed_youtube vid_id
 				thumbnail_link = thumbnail_youtube vid_id
 				begin
+					@project.update(project_params)
 					@project.videos.create!({web_id: vid_id, host: "Youtube", embed_link: embed_link, thumbnail_link: thumbnail_link, :tag_list => "Main"})
 
 					flash.now[:success] = "Video Added Successfully!"
