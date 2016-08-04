@@ -85,6 +85,7 @@ $(document).ready(function() {
       disableButtons(counter, $sel.data('image-id'));
     };
     $('#show-next-image, #show-previous-image').click(function() {
+      $("#gallery-modal iframe").attr("src", $("#gallery-modal iframe").attr("src"));
       if ($(this).attr('id') === 'show-previous-image') {
         current_image--;
       } else {
