@@ -1,7 +1,7 @@
 class ProjectsController < ApplicationController
 	include ProjectsHelper
 	before_filter :verify_project_owner, only: [:edit, :update, :submit, :media_upload]
-
+	skip_before_filter :authenticate_user!, only: [:show, :gallery]
 	def verify_project_owner
 		if current_user.id != Project.find(params[:id]).user_id
 			redirect_to root_url
@@ -29,7 +29,6 @@ class ProjectsController < ApplicationController
 
 	def show
       @project = Project.find(params[:id])
-    	@new_comment = Comment.build_from(@project, current_user.id, "")
   end
 
 	####################################################
@@ -156,7 +155,7 @@ class ProjectsController < ApplicationController
 			render "media_upload"
 		# For uploading video
 		when video_button
-			
+
 			#if not params[:video_asset].blank?
 			#	begin
 			#		@project.videos.create!(:asset => params[:video_asset])
@@ -170,7 +169,7 @@ class ProjectsController < ApplicationController
 
 			if not params[:video_link].blank?
 				vid_id = verify_youtube(params[:video_link])
-				
+
 				if not vid_id then
 					flash[:danger] = "Invalid Youtube Link!"
 					return render "media_upload"
@@ -180,7 +179,7 @@ class ProjectsController < ApplicationController
 				thumbnail_link = thumbnail_youtube vid_id
 				begin
 					@project.videos.create!({web_id: vid_id, host: "Youtube", embed_link: embed_link, thumbnail_link: thumbnail_link})
-					
+
 					flash.now[:success] = "Video Added Successfully!"
 					return render "media_upload"
 				rescue => e
