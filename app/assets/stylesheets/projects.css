@@ -29,3 +29,20 @@
   padding-left: 15px;
   padding-right: 15px;
 }
+
+/*
+  Gallery
+*/
+
+.media-tile {
+  text-align: center;
+  max-height: 300px;
+  max-width: 300px;
+  position: relative;
+  min-height: 1px;
+  float: left;
+}
+
+.modal-dialog {
+  display: table;
+}
