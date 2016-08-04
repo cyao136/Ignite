@@ -2,5 +2,5 @@
 <div class="container">
   <%= render :partial => 'projects/header' %>
   <%= render :partial => 'projects/discussion_header' %>
-      <%= render partial: "comments/template", locals: {commentable: @project, new_comment: @comment, commenting_tag: "bugs"} %>
+      <%= render partial: "comments/template", locals: {comments: @comments, new_comment: @comment, commenting_tag: "bugs"} %>
 </div>

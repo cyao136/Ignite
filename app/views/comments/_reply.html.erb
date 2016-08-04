@@ -1,49 +1,48 @@
-
-  <% comments.each do |comment| %>
-    <div class="comments-show">
-      <div class="comment">
-        <a class="username" href=<%= "/users/#{comment.user.id}" %>><%= comment.user.username %><br></a>
-        <div class="body-section">
-          <p><%= comment.body %><br></p>
-          <div class="show-children">
-            <% if comment.children.blank? %>
-            <% else %>
-              <a href="<%= "#collapse_#{comment.id}" %>" class="btn btn-default" data-toggle="collapse" aria-expanded="false">Show Children</a>
-            <% end %>
-          </div>
-        </div>
-
-        <div class="vote-buttons">
-        <%= link_to "#{comment.get_upvotes.size} Upvote", options = { action: "upvote", id: comment.id, controller: "comments"}, method: :put %>
-
-        <%= link_to "#{comment.get_downvotes.size} Downvote", options = { action: "downvote", id: comment.id, controller: "comments"}, method: :put %>
-        </div>
-
-          <div class="comment-nav">
-            <a href="<%= "#reply_#{comment.id}" %>" class="btn btn-default comment-reply" data-toggle="collapse" aria-expanded="false">Reply</a>
-          </div>
-
-        <div id="<%= "reply_#{comment.id}" %>" class="collapse reply-form">
-          <%= form_for @new_comment do |f| %>
-            <%= f.hidden_field :commentable_id, value: @new_comment.commentable_id %>
-            <%= f.hidden_field :commentable_type, value: @new_comment.commentable_type %>
-            <%= f.hidden_field :comment_id, value: comment.id %>
-            <div class="field form-group">
-              <%= f.text_area :body, class: 'form-control' %>
-            </div>
-            <div class="field form-group">
-              <%= submit_tag "Post Reply", class: 'btn btn-primary' %>
-            </div>
+<% comments.each do |comment| %>
+  <div class="comments-show">
+    <div class="comment">
+      <a class="username" href=<%= "/users/#{comment.user.id}" %>><%= comment.user.username %><br></a>
+      <div class="body-section">
+        <p><%= comment.body %><br></p>
+        <div class="show-children">
+          <% if comment.children.blank? %>
+          <% else %>
+            <a href="<%= "#collapse_#{comment.id}" %>" class="btn btn-default" data-toggle="collapse" aria-expanded="false">Show Children</a>
           <% end %>
-        </div>
-
-        <div id="<%= "collapse_#{comment.id}" %>" class="collapse">
-         <%= render partial: "comments/reply", locals: {comments: comment.children} %>
         </div>
       </div>
 
+      <div class="vote-buttons">
+      <%= link_to "#{comment.get_upvotes.size} Upvote", options = { action: "upvote", id: comment.id, controller: "comments"}, method: :put %>
+
+      <%= link_to "#{comment.get_downvotes.size} Downvote", options = { action: "downvote", id: comment.id, controller: "comments"}, method: :put %>
+      </div>
+
+        <div class="comment-nav">
+          <a href="<%= "#reply_#{comment.id}" %>" class="btn btn-default comment-reply" data-toggle="collapse" aria-expanded="false">Reply</a>
+        </div>
+
+      <div id="<%= "reply_#{comment.id}" %>" class="collapse reply-form">
+        <%= form_for @new_comment do |f| %>
+          <%= f.hidden_field :commentable_id, value: @new_comment.commentable_id %>
+          <%= f.hidden_field :commentable_type, value: @new_comment.commentable_type %>
+          <%= f.hidden_field :comment_id, value: comment.id %>
+          <div class="field form-group">
+            <%= f.text_area :body, class: 'form-control' %>
+          </div>
+          <div class="field form-group">
+            <%= submit_tag "Post Reply", class: 'btn btn-primary' %>
+          </div>
+        <% end %>
+      </div>
+
+      <div id="<%= "collapse_#{comment.id}" %>" class="collapse">
+       <%= render partial: "comments/reply", locals: {comments: comment.children} %>
+      </div>
     </div>
-  <% end %>
+
+  </div>
+<% end %>
 
 
 

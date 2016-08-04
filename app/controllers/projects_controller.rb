@@ -168,26 +168,30 @@ class ProjectsController < ApplicationController
 
 	def discussion_general
 		@project = Project.find(params[:id])
-    	@new_comment = Comment.build_from(@project, current_user.id, "")
-    	@new_comments = @project.comment_threads.tagged_with("general")
+		@comments = @project.root_comments.tagged_with("general").paginate(:page => params[:page])
+  	@new_comment = Comment.build_from(@project, current_user.id, "")
+  	@new_comments = @project.comment_threads.tagged_with("general")
 	end
 
 	def discussion_bugs
 		@project = Project.find(params[:id])
-    	@new_comment = Comment.build_from(@project, current_user.id, "")
-    	@new_comments = @project.comment_threads.tagged_with("bugs")
+		@comments = @project.root_comments.tagged_with("bugs").paginate(:page => params[:page])
+  	@new_comment = Comment.build_from(@project, current_user.id, "")
+  	@new_comments = @project.comment_threads.tagged_with("bugs")
 	end
 
 	def discussion_suggestions
 		@project = Project.find(params[:id])
-    	@new_comment = Comment.build_from(@project, current_user.id, "")
-    	@new_comments = @project.comment_threads.tagged_with("suggestions")
+		@comments = @project.root_comments.tagged_with("suggestions").paginate(:page => params[:page])
+  	@new_comment = Comment.build_from(@project, current_user.id, "")
+  	@new_comments = @project.comment_threads.tagged_with("suggestions")
 	end
 
 	def feedback
 		@project = Project.find(params[:id])
-		  @new_comment = Comment.build_from(@project, current_user.id, "")
-    	@new_comments = @project.comment_threads.tagged_with("feedback")
+		@comments = @project.root_comments.tagged_with("feedback").paginate(:page => params[:page])
+	  @new_comment = Comment.build_from(@project, current_user.id, "")
+  	@new_comments = @project.comment_threads.tagged_with("feedback")
 	end
 
 	private
