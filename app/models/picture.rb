@@ -4,6 +4,8 @@ class Picture < ActiveRecord::Base
 	validate :picture_size_validation
 	validates_presence_of :asset
   	
+	acts_as_taggable
+	
   	def to_jq_upload
 		{
 		  "url" => asset.medium.url,

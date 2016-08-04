@@ -1,0 +1,4 @@
+<% @projects.each do |project| %>
+	<li><%= project.name %></li>
+    <%= render partial: "tile", locals: {thumbnail: @project.tile_pic} %>
+<% end %>

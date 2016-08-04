@@ -29,6 +29,7 @@ class ProjectsController < ApplicationController
 
 	def show
       @project = Project.find(params[:id])
+      @embedded_video_link = @project.videos.tagged_with("Main")[0].embed_link
   end
 
 	####################################################
@@ -54,6 +55,46 @@ class ProjectsController < ApplicationController
 		@project = Project.find(params[:id])
 		case params[:commit]
 		# For project creation
+
+		# Upload tile picture
+		when pictures_button
+			if not params[:tile_picture].blank?
+				begin
+					@project.pictures.create!(:asset => params[:tile_picture], :tag_list => "Tile")
+					flash.now[:success] = "Pictures Uploaded Successfully!"
+				rescue => e
+					flash.now[:danger] = e.message
+				end
+				return render "create"
+			end
+			flash.now[:warning] = "No Pictures Selected!"
+			render "create"
+
+		# Upload main video
+		when video_button
+			if not params[:video_link].blank?
+				vid_id = verify_youtube(params[:video_link])
+
+				if not vid_id then
+					flash[:danger] = "Invalid Youtube Link!"
+					return render "create"
+				end
+
+				embed_link = embed_youtube vid_id
+				thumbnail_link = thumbnail_youtube vid_id
+				begin
+					@project.videos.create!({web_id: vid_id, host: "Youtube", embed_link: embed_link, thumbnail_link: thumbnail_link, :tag_list => "Main"})
+
+					flash.now[:success] = "Video Added Successfully!"
+					return render "create"
+				rescue => e
+					flash.now[:danger] = e.message
+					return render "create"
+				end
+			end
+			flash.now[:warning] = "No Video Selected!"
+			render "create"
+
 		when create_button
 			# Currently only have external projects
 			@project.state = "funding_ext"
@@ -102,8 +143,8 @@ class ProjectsController < ApplicationController
 
 	def media_upload
 		@project = Project.find(params[:id])
-		@pictures = @project.pictures != nil ? @project.pictures : []
-		@videos = @project.videos != nil ? @project.videos : []
+		@pictures = @project.pictures != nil ? @project.pictures.tagged_with("Gallery") : []
+		@videos = @project.videos != nil ? @project.videos.tagged_with("Gallery") : []
 		case params[:commit]
 
 		when delete_picture_button
@@ -142,7 +183,7 @@ class ProjectsController < ApplicationController
 				params[:picture_assets].each do |a|
 					if not a.blank?
 						begin
-							@project.pictures.create!(:asset => a)
+							@project.pictures.create!(:asset => a, :tag_list => "Gallery")
 							flash.now[:success] = "Pictures Uploaded Successfully!"
 						rescue => e
 							flash.now[:danger] = e.message
@@ -178,7 +219,7 @@ class ProjectsController < ApplicationController
 				embed_link = embed_youtube vid_id
 				thumbnail_link = thumbnail_youtube vid_id
 				begin
-					@project.videos.create!({web_id: vid_id, host: "Youtube", embed_link: embed_link, thumbnail_link: thumbnail_link})
+					@project.videos.create!({web_id: vid_id, :tag_list => "Gallery", host: "Youtube", embed_link: embed_link, thumbnail_link: thumbnail_link})
 
 					flash.now[:success] = "Video Added Successfully!"
 					return render "media_upload"
@@ -186,17 +227,16 @@ class ProjectsController < ApplicationController
 					flash.now[:danger] = e.message
 					return render "media_upload"
 				end
-
-				flash.now[:warning] = "No Video Selected!"
-				render "media_upload"
 			end
+			flash.now[:warning] = "No Video Selected!"
+			render "media_upload"
 		end
 	end
 
 	def gallery
 		@project = Project.find(params[:id])
-		@pictures = @project.pictures != nil ? @project.pictures : Array.new
-		@videos = @project.videos != nil ? @project.videos : Array.new
+		@pictures = @project.pictures != nil ? @project.pictures.tagged_with("Gallery") : Array.new
+		@videos = @project.videos != nil ? @project.videos.tagged_with("Gallery") : Array.new
 	end
 
 	def discussion

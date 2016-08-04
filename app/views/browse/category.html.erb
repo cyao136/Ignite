@@ -14,10 +14,7 @@
 			<option value='soon_ending'>Soon Ending</option>
 		</select>
 	</form>
-
-	<% @projects.each do |project| %>
-		<li><%= project.name %></li>
-	<% end %>
+    <%= render partial: "display", locals: {projects: @projects} %>
 
 	<script type="text/javascript">
 		$(document).ready(function() {
