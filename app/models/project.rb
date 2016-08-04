@@ -23,7 +23,7 @@ class Project < ActiveRecord::Base
 	# Validations
 	validates :user_id, presence: true
 	validates :name, presence: true, length: { minimum: 4, maximum: 32 }
-	validates :small_desc, length: { maximum: 100 }
+	validates :small_desc, length: { maximum: 150 }
 	validates :full_desc, length: { maximum: 5000 }
 	validates :creator_desc, length: { maximum: 1000 }
 	

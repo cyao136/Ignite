@@ -36,3 +36,69 @@
 	left: 50%;
   	transform: translate(-50%, -50%);
 }
+
+.tile-card {
+	img {
+		width: 100%;
+		height: 100%;
+	}
+    text-align: center;
+	height: 171px;
+	width: 304px;
+	margin-bottom: 30px;
+	position: relative;
+	min-height: 1px;
+	float: left;
+	border-radius: 10px;
+	overflow: hidden;
+	background: black;
+}
+
+.tile-shade {
+	background: black;
+	opacity: 0.4;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	height: 25%;
+	width: 100%;
+}
+
+.tile-text {
+	h6 {
+		color: white;
+		margin-bottom: 2px;
+	}
+	p {
+		color: white;
+		margin-bottom: 1px;
+	}
+	.description{
+		opacity: 0;
+		line-height: 1;
+	}
+	line-height: 0.5;
+	text-align: left;
+	position: absolute;
+	top: 78%;
+	left: 3%;
+}
+
+.tile-card:hover {
+	.tile-shade {
+		opacity: 0.4;
+	    transition: 0.2s;
+		height: 100%;
+    }
+    .tile-text {
+		top: 43%;
+		left: 3%;
+	    transition: 0.2s;
+	    .creator {
+	    	opacity: 0;
+	    }
+		.description{
+			opacity: 1;
+		}
+	}
+}

@@ -22,8 +22,7 @@
 		<%= f.input :website_link, label: 'Website Link' %>
 
 		<hr>
-
-		<input data-url="/tile_picture" id="tile_picture" name="tile_picture" type="file" class="form-control"></input>
+		<input data-url="/pictures" id="tile_picture" multiple="false" name="tile_picture" type="file" class="form-control"></input>
 		<%= f.button :submit, value: pictures_button %>
 
 		<input id="video_link" name="video_link" type="string" class="form-control"></input>
