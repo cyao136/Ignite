@@ -20,6 +20,6 @@ class PicturesController < ApplicationController
 	private
 
 	def picture_params
-		params.require(:picture).permit(:name, :assetable_id, :assetable_type, :asset)
+		params.require(:picture).permit(:name, :assetable_id, :tag_list, :assetable_type, :asset)
 	end
 end

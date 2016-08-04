@@ -22,9 +22,6 @@
 		<%= f.input :website_link, label: 'Website Link' %>
 
 		<hr>
-		<%= f.input :embeded_video_link, label: 'Embeded Video Link' %>
-
-		<hr>
 		<%= f.input :tag_list, label:'Genres', input_html: { class: 'tags', data: {options: Project.tag_counts_on(:tags).limit(7).map(&:name), placeholder: "Add a genre", tagged: @project.tag_list}} %>
 		
 		<hr>

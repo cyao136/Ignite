@@ -1,0 +1,13 @@
+<div>
+	<div class="col-md-4">
+		<a class="tile-card" href="/projects/<%= project.id %>">
+			<%= image_tag (project.pictures.tagged_with("Tile")[0] != nil ? project.pictures.tagged_with("Tile")[0].asset.url(:tile) : "")  %>
+			<div class="tile-shade"></div>
+			<div class="tile-text">
+				<h6><strong> <%= project.name %> </strong></h3>
+				<p class="creator"><small> by <%= project.creator_name %> </small></p>
+				<p class="description"><small> <%= project.small_desc %> </small></p>
+			</div>
+		</a>
+	</div>
+</div>

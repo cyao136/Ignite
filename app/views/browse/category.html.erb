@@ -15,9 +15,9 @@
 		</select>
 	</form>
 
-	<% @projects.each do |project| %>
-		<li><%= project.name %></li>
-	<% end %>
+	<hr>
+	
+    <%= render partial: "display", locals: {projects: @projects} %>
 
 	<script type="text/javascript">
 		$(document).ready(function() {
