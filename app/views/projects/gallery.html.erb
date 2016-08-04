@@ -35,22 +35,18 @@
                 <h4 class="modal-title" id="gallery-modal-title"></h4>
             </div>
             <div class="modal-body">
+
+            <div class="show-next-image" aria-label="Next" id="show-next-image">
+  <span class="fa fa-2x fa-arrow-right fa-fw" aria-hidden="true"></span>
+</div>
+<div class="show-previous-image" aria-label="Next" id="show-previous-image">
+  <span class="fa fa-2x fa-arrow-left fa-fw" aria-hidden="true"></span>
+</div>
+
                 <img id="gallery-modal-image" class="img-responsive" src="" hidden=true>
                 <iframe id="gallery-modal-video" hidden=true width="560" height="315" src="" frameborder="0" allowfullscreen></iframe>
-            </div>
-            <div class="modal-footer">
 
-                <div class="col-md-1">
-                    <button type="button" class="btn btn-primary" id="show-previous-image">Previous</button>
-                </div>
 
-                <div class="col-md-8 text-justify" id="gallery-modal-caption">
-                    This text will be overwritten by jQuery
-                </div>
-
-                <div class="col-md-1">
-                    <button type="button" id="show-next-image" class="btn btn-default">Next</button>
-                </div>
             </div>
         </div>
     </div>
