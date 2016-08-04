@@ -6,14 +6,23 @@ class PictureUploader < CarrierWave::Uploader::Base
   # include CarrierWave::RMagick
   include CarrierWave::MiniMagick
 
+  process :convert => 'png'
   # Choose what kind of storage to use for this uploader:
   storage :file
   # storage :fog
+  after :remove, :delete_empty_upstream_dirs
 
   # Override the directory where uploaded files will be stored.
   # This is a sensible default for uploaders that are meant to be mounted:
   def store_dir
     "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
+  end
+
+  def delete_empty_upstream_dirs
+    path = ::File.expand_path(store_dir, root)
+    Dir.delete(path) # fails if path not empty dir
+  rescue SystemCallError
+    true # nothing, the dir is not empty
   end
 
   def extension_white_list
@@ -43,6 +52,10 @@ class PictureUploader < CarrierWave::Uploader::Base
     process :resize_to_fit => [200, 150]
   end
 
+  version :gallery do
+    process :resize_to_fit => [1280, 960]
+  end
+
   # Add a white list of extensions which are allowed to be uploaded.
   # For images you might use something like this:
   # def extension_white_list
@@ -54,5 +67,4 @@ class PictureUploader < CarrierWave::Uploader::Base
   # def filename
   #   "something.jpg" if original_filename
   # end
-
 end

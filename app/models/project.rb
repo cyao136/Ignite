@@ -5,7 +5,7 @@ class Project < ActiveRecord::Base
 	has_many :posts, :dependent => :destroy
 	has_many :demos, :dependent => :destroy
 	has_many :pledges
-	has_many :videos, as: :assetable, :dependent => :destroy
+	has_many :videos, :dependent => :destroy
 	has_many :pictures, as: :assetable, :dependent => :destroy
 	accepts_nested_attributes_for :demos
 	accepts_nested_attributes_for :pictures

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160802205458) do
+ActiveRecord::Schema.define(version: 20160803055123) do
 
   create_table "ckeditor_assets", force: :cascade do |t|
     t.string   "data_file_name",    limit: 255, null: false
@@ -195,15 +195,18 @@ ActiveRecord::Schema.define(version: 20160802205458) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   create_table "videos", force: :cascade do |t|
-    t.integer  "assetable_id",   limit: 4
-    t.string   "assetable_type", limit: 255
+    t.integer  "project_id",     limit: 4
+    t.string   "web_id",         limit: 255
+    t.text     "description",    limit: 65535
     t.string   "name",           limit: 255
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
-    t.string   "asset",          limit: 255
+    t.string   "host",           limit: 255
+    t.string   "embed_link",     limit: 255
+    t.string   "thumbnail_link", limit: 255
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
   end
 
-  add_index "videos", ["assetable_type", "assetable_id"], name: "index_videos_on_assetable_type_and_assetable_id", using: :btree
+  add_index "videos", ["project_id"], name: "index_videos_on_project_id", using: :btree
 
   create_table "votes", force: :cascade do |t|
     t.integer  "votable_id",   limit: 4

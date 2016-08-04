@@ -13,6 +13,12 @@
 
 	<div class="tab-content" id="menu-items">
 		<div id="picture_upload" class="tab-pane fade in active">
+			<!-- Show pictures for deletion/edit-->
+			<% @pictures.each do |pic| %>
+				<%= image_tag pic.asset.url(:thumb) %>
+				<%= button_to "Delete", {action: "media_upload", :id => project_id}, params: {commit: delete_picture_button, picture_id: pic.id} %>
+			<% end %>
+
 			<%= simple_form_for @project, :url => {:controller => 'projects', :action => 'media_upload', :id => project_id}, html: { :multipart => true } do |f| %>
 				<h3> Pictures </h3>
 				<input id="picture_ids" name="pictures" type="hidden" value=""></input>
@@ -23,11 +29,20 @@
 		</div>
 
 		<div id="video_upload" class="tab-pane fade">
+			<% @videos.each do |vid| %>
+				<%= image_tag vid.thumbnail_link %>
+			<% end %>
+
 			<%= simple_form_for @project, :url => {:controller => 'projects', :action => 'media_upload', :id => project_id}, html: { :multipart => true } do |f| %>
+
 				<h3> Video </h3>
+				<input id="video_link" name="video_link" label="Youtube Video Link" type="url"></input>
+
+				<!-- 
 				<input id="video_ids" name="videos" type="hidden" value=""></input>
 				File
 				<input data-url="/videos" id="video_upload" name="video_asset" type="file" class="form-control"></input>
+				-->
 				<%= f.button :submit, value: video_button %>
 			<% end %>
 		</div>

@@ -16,7 +16,7 @@ class PicturesController < ApplicationController
 		  end
 		}
 	end
-
+	
 	private
 
 	def picture_params
