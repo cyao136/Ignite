@@ -11,7 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160803055123) do
+ActiveRecord::Schema.define(version: 20160804205053) do
+
+  create_table "badges_sashes", force: :cascade do |t|
+    t.integer  "badge_id",      limit: 4
+    t.integer  "sash_id",       limit: 4
+    t.boolean  "notified_user", limit: 1, default: false
+    t.datetime "created_at"
+  end
+
+  add_index "badges_sashes", ["badge_id", "sash_id"], name: "index_badges_sashes_on_badge_id_and_sash_id", using: :btree
+  add_index "badges_sashes", ["badge_id"], name: "index_badges_sashes_on_badge_id", using: :btree
+  add_index "badges_sashes", ["sash_id"], name: "index_badges_sashes_on_sash_id", using: :btree
 
   create_table "ckeditor_assets", force: :cascade do |t|
     t.string   "data_file_name",    limit: 255, null: false
@@ -67,6 +78,39 @@ ActiveRecord::Schema.define(version: 20160803055123) do
   end
 
   add_index "identities", ["user_id"], name: "index_identities_on_user_id", using: :btree
+
+  create_table "merit_actions", force: :cascade do |t|
+    t.integer  "user_id",       limit: 4
+    t.string   "action_method", limit: 255
+    t.integer  "action_value",  limit: 4
+    t.boolean  "had_errors",    limit: 1,     default: false
+    t.string   "target_model",  limit: 255
+    t.integer  "target_id",     limit: 4
+    t.text     "target_data",   limit: 65535
+    t.boolean  "processed",     limit: 1,     default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "merit_activity_logs", force: :cascade do |t|
+    t.integer  "action_id",           limit: 4
+    t.string   "related_change_type", limit: 255
+    t.integer  "related_change_id",   limit: 4
+    t.string   "description",         limit: 255
+    t.datetime "created_at"
+  end
+
+  create_table "merit_score_points", force: :cascade do |t|
+    t.integer  "score_id",   limit: 4
+    t.integer  "num_points", limit: 4,   default: 0
+    t.string   "log",        limit: 255
+    t.datetime "created_at"
+  end
+
+  create_table "merit_scores", force: :cascade do |t|
+    t.integer "sash_id",  limit: 4
+    t.string  "category", limit: 255, default: "default"
+  end
 
   create_table "pictures", force: :cascade do |t|
     t.string   "name",           limit: 255
@@ -134,6 +178,11 @@ ActiveRecord::Schema.define(version: 20160803055123) do
 
   add_index "projects", ["user_id"], name: "index_projects_on_user_id", using: :btree
 
+  create_table "sashes", force: :cascade do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "sessions", force: :cascade do |t|
     t.string   "session_id", limit: 255,   null: false
     t.text     "data",       limit: 65535
@@ -188,6 +237,8 @@ ActiveRecord::Schema.define(version: 20160803055123) do
     t.string   "remember_token",         limit: 255
     t.string   "provider",               limit: 255
     t.string   "uid",                    limit: 255
+    t.integer  "sash_id",                limit: 4
+    t.integer  "level",                  limit: 4,   default: 0
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree

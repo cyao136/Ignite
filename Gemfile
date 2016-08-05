@@ -39,6 +39,7 @@ gem 'omniauth-facebook'
 gem 'omniauth-steam'
 gem 'streamio-ffmpeg'
 gem 'activerecord-session_store'
+gem 'merit'
 
 
 

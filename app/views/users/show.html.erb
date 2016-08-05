@@ -57,6 +57,12 @@
     <div class="col-md-9">
             <div class="profile-content">
             Some stuff
+
+            <ul>
+  <% current_user.badges.each do |badge| %>
+    <li><%= badge.name %></li>
+  <% end %>
+</ul>
             </div>
     </div>
   </div>
