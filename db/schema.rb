@@ -164,16 +164,16 @@ ActiveRecord::Schema.define(version: 20160804205053) do
     t.text     "creator_desc",       limit: 65535
     t.integer  "state",              limit: 4,                    default: 0
     t.decimal  "funding",                          precision: 10
-    t.datetime "created_at",                                                  null: false
-    t.datetime "updated_at",                                                  null: false
-    t.integer  "num_supporter",      limit: 4
+    t.datetime "created_at",                                                                      null: false
+    t.datetime "updated_at",                                                                      null: false
+    t.integer  "num_supporter",      limit: 4,                    default: 0
     t.string   "crowdfunding_link",  limit: 255
     t.string   "facebook_link",      limit: 255
     t.string   "twitter_link",       limit: 255
     t.string   "website_link",       limit: 255
     t.string   "embeded_video_link", limit: 255
     t.string   "creator_name",       limit: 255
-    t.datetime "ended_at"
+    t.datetime "ended_at",                                        default: '9999-01-01 00:00:00'
   end
 
   add_index "projects", ["user_id"], name: "index_projects_on_user_id", using: :btree

@@ -1,32 +1,56 @@
 <% provide(:title, "Search Games") %>
 <div class="container">
-	<form action="search" method="GET">
-		Name: <input name="name" id="name"></input>
-		Genres: <input name="genres" id="genres" class="tags" multiple="multiple"></input>
-		Sort: <select name="sort" id="sort" class="select">
-			<option value='random'>Random</option>
-			<option value='newest'>Newest</option>
-			<option value='most_popular'>Most Popular</option>
-			<option value='soon_ending'>Soon Ending</option>
-		</select>
-		<input type="submit" value="Search">
-	</form>
+	<div class="row">
+		<form action="search" method="GET">
+			<div class="col-xs-12 col-lg-4">
+				<input name="name" id="name" class="form-control" placeholder="Name"></input>
+			</div>
+
+			<div class="col-xs-6 col-lg-3">
+				<input name="genres" id="genres" class="form-control" multiple="multiple" data-options='<%= Project.tag_counts_on(:tags).map(&:name) %>' data-selected='<%= @genres %>'></input>
+			</div>
+
+			<div class="col-xs-6 col-lg-3">
+				<select name="sort" id="sort" class="form-control" data-selected='<%= @sort %>'>
+					<option value='random'>Random</option>
+					<option value='newest'>Newest</option>
+					<option value='most_popular'>Most Popular</option>
+					<option value='soon_ending'>Soon Ending</option>
+				</select>
+			</div>
+
+			<div class="col-xs-12 col-lg-2">
+				<input type="submit" value="Search" class="form-control">
+			</div>
+		</form>
+	</div>
 	
 	<hr>
 
     <%= render partial: "display", locals: {projects: @projects} %>
 
 	<script type="text/javascript">
-		$(document).ready(function() {
-			$(".tags").select2({
-				placeholder: "Add a genre",
-				minimumResultsForSearch: Infinity,
-				tags: [],
-				tokenSeparators: [',']
-			});
-			$(".select").select2({
-				minimumResultsForSearch: Infinity
-			});
-		});
+	$(document).ready(function() {
+	    $('#genres').each(function() {
+	        var placeholder = "Add a genre";
+	        var selected = $(this).data('selected');
+	        var options = $(this).data('options');
+	        $(this).select2({
+	            tags: options,
+	            placeholder: placeholder,
+	            tokenSeparators: [',', ' '],
+	            theme: "bootstrap"
+	        });
+	        $(this).select2('val', selected);
+	    });
+	    $('#sort').each(function() {
+	        var selected = $(this).data('selected');
+	    	$(this).select2({
+	    		minimumResultsForSearch: Infinity,
+	            theme: "bootstrap"
+	        });
+	        $(this).select2('val', selected);
+	    });
+	});
 	</script>
 </div>
