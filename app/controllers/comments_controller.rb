@@ -1,5 +1,4 @@
 class CommentsController < ApplicationController
-
 	def create
 		commentable = commentable_type.constantize.find(commentable_id)
 		@comment = Comment.build_from(commentable, current_user.id, body)
