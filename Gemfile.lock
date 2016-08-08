@@ -360,7 +360,7 @@ DEPENDENCIES
   rubysl-pty
   sass-rails (~> 5.0.6)
   sdoc (= 0.4.0)
-  select2-rails (~> 3.5)
+  select2-rails (= 3.5.10)
   simple_form
   spring (= 1.1.3)
   sprockets-rails (~> 3.1.1)

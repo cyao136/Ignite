@@ -13,11 +13,11 @@
 // Custom bootstrap variables must be set or import before bootstrap itself.
 @import "custom/variables";
 @import "bootstrap";
+@import "select2";
+@import "custom/select2-bootstrap";
 @import "custom/cores";
 @import "browse";
 @import "font-awesome";
 @import "projects";
 @import "users";
 @import "comments";
-@import "select2";
-@import "select2-bootstrap";
