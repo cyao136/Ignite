@@ -45,20 +45,12 @@ module Merit
       #   user.name.length > 4
       # end
 
-      grant_on 'users#show',  badge: 'test2', model_name: 'User' do |f|
-        User.count > 0
+      grant_on 'comments#upvote',  badge: 'Voter', model_name: 'User' do |f|
+        @user = User.find(f.user_id)
+        f.vote_by :voter => @user
       end
 
-
-      grant_on 'comments#create',  badge: 'test', model_name: 'User' do |f|
-        Comment.count > 0
-      end
-
-      grant_on 'comments#upvote',  badge: 'Comment', model_name: 'User' do |f|
-        f.get_upvotes.size > 0
-      end
-
-      grant_on 'comments#create',  badge: 'Commented', model_name: 'User' do |f|
+      grant_on 'comments#create',  badge: 'Commenter', model_name: 'User' do |f|
         Comment.where(user_id: f.user_id).count > 0
       end
 
