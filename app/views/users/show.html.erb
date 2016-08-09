@@ -64,13 +64,13 @@
   <% end %>
 </ul>
 
-My points <br>
+My exp <br>
 <%= current_user.points %>
 <br>
 My quests
   <% @quests = Quest.where(user_id: current_user.id) %>
   <% @quests.each do |quest| %>
-    <li><%= quest.name %></li>
+    <li><%= quest.name %>, <%= quest.state %>, exp: <%= quest.exp %></li>
   <% end %>
             </div>
     </div>
