@@ -1,10 +1,23 @@
 <% provide(:title, "New Project") %>
+<!--
 <div class="container">
 	<h1>Create a project</h1>
 	<%= form_for(:project, :url => {:controller => 'projects', :action => 'create'}) do |f| %>
 
 		<%= f.label :name %>
 		<%= f.text_field :name, class: 'form-control' %>
+
+		<%= f.submit "Create", class: 'form-control' %>
+	<% end %>
+</div>
+-->
+<% provide(:title, "New Project") %>
+<div class="container">
+	<h1>Create a project</h1>
+	<%= form_for(:project, :url => {:controller => 'projects', :action => 'ext_create'}) do |f| %>
+
+		<%= f.label :crowdfunding_link %>
+		<%= f.text_field :crowdfunding_link, class: 'form-control' %>
 
 		<%= f.submit "Create", class: 'form-control' %>
 	<% end %>

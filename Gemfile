@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'tzinfo-data'
+gem 'ruby_dep', '1.3.1'
 gem 'autoprefixer-rails', '~> 6.4.0'
 gem 'mysql2',		'~> 0.3.13'
 gem 'bootstrap',    '4.0.0.alpha3'
@@ -40,8 +41,7 @@ gem 'omniauth-steam'
 gem 'streamio-ffmpeg'
 gem 'activerecord-session_store'
 gem 'merit'
-
-
+gem 'kickscraper'
 
 source 'http://rails-assets.org' do
   gem 'rails-assets-tether', '>= 1.1.0'

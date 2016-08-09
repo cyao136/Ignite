@@ -98,12 +98,9 @@ class ProjectsController < ApplicationController
 			render "create"
 
 		when create_button
-			# Currently only have external projects
-			@project.state = "funding_ext"
+			@project.state = "funding"
 			if @project.update(project_params)
 				flash[:success] = "Project Created!"
-				ParserJob.perform_later([@project])
-				redirect_to @project
 			else
 				render "create"
 			end
@@ -134,6 +131,22 @@ class ProjectsController < ApplicationController
 		# 		return render "create"
 		# 	end
 		# 	render "create"
+		end
+	end
+
+	# Create external projects (Kickstarter)
+
+	def ext_create
+		@project = Project.new(project_params)
+		@project.user_id = current_user.id
+		@project.name = "Temp"
+		@project.state = "funding_ext"
+		if @project.save
+			ParserJob.perform_later([@project])
+			return redirect_to @project
+		else
+			flash.now[:danger] = @project.errors.full_messages.to_sentence
+			return render "new"
 		end
 	end
 
