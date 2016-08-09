@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160808212128) do
+ActiveRecord::Schema.define(version: 20160809011759) do
 
   create_table "badges_sashes", force: :cascade do |t|
     t.integer  "badge_id",      limit: 4
@@ -176,6 +176,7 @@ ActiveRecord::Schema.define(version: 20160808212128) do
     t.datetime "ended_at"
   end
 
+  add_index "projects", ["created_at"], name: "index_projects_on_created_at", using: :btree
   add_index "projects", ["user_id"], name: "index_projects_on_user_id", using: :btree
 
   create_table "quests", force: :cascade do |t|
@@ -189,6 +190,16 @@ ActiveRecord::Schema.define(version: 20160808212128) do
   end
 
   add_index "quests", ["user_id"], name: "index_quests_on_user_id", using: :btree
+
+  create_table "read_marks", force: :cascade do |t|
+    t.integer  "readable_id",   limit: 4
+    t.string   "readable_type", limit: 255, null: false
+    t.integer  "reader_id",     limit: 4
+    t.string   "reader_type",   limit: 255, null: false
+    t.datetime "timestamp"
+  end
+
+  add_index "read_marks", ["reader_id", "reader_type", "readable_type", "readable_id"], name: "read_marks_reader_readable_index", using: :btree
 
   create_table "sashes", force: :cascade do |t|
     t.datetime "created_at"

@@ -40,7 +40,7 @@ gem 'omniauth-steam'
 gem 'streamio-ffmpeg'
 gem 'activerecord-session_store'
 gem 'merit'
-
+gem 'unread'
 
 
 source 'http://rails-assets.org' do
