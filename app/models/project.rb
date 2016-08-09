@@ -22,11 +22,12 @@ class Project < ActiveRecord::Base
 	
 	# Validations
 	validates :user_id, presence: true
-	validates :name, presence: true, length: { minimum: 4, maximum: 32 }
+	validates :name, presence: true, length: { minimum: 4, maximum: 64 }
 	validates :small_desc, length: { maximum: 150 }
 	validates :full_desc, length: { maximum: 5000 }
 	validates :creator_desc, length: { maximum: 1000 }
 	
+
 	with_options if: :not_incomplete? do |v|
 		v.validates :small_desc, presence: true, length: { minimum: 2 }
 		v.validates :full_desc, presence: true, length: { minimum: 2 }
@@ -39,7 +40,7 @@ class Project < ActiveRecord::Base
 	end
 
 	def not_incomplete?
-		state != "incomplete"
+		state != "incomplete" && state != "funding_ext"
 	end
 
 	def is_state?(s)

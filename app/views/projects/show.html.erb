@@ -12,9 +12,7 @@
         <div id="side" class="col-sm-4 col-md-4 col-xs-12">
           <div>
             <p>
-              <b><%= @project.creator_name %></b>
-              <br>
-              <%= @project.creator_desc %>
+            <%= @project.small_desc %>
             </p>
           </div>
           <div id="links">
@@ -46,6 +44,6 @@
       </div>
       <hr>
       <div>
-        <%= @project.full_desc.html_safe %>
+        <%= @project.full_desc != nil ? @project.full_desc.html_safe : "" %>
       </div>
     </div>
