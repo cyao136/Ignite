@@ -13,7 +13,8 @@ class User < ActiveRecord::Base
   has_many :pictures, as: :assetable, :dependent => :destroy
   accepts_nested_attributes_for :pictures
   has_and_belongs_to_many :pledges
-  validates :username, presence: true, :length => { :in => 4..12 }, uniqueness: { case_sensitive: false }
+  # removed :length => { :in => 4..12 }, in username validation temporarily for omniauth
+  validates :username, presence: true, uniqueness: { case_sensitive: false }
   validates_format_of :username, with: /^[a-zA-Z0-9_\.]*$/, :multiline => true
   TEMP_EMAIL_PREFIX = 'change@m.e'
   TEMP_EMAIL_REGEX = /\Achange@me/
