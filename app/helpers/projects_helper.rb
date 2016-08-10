@@ -59,9 +59,11 @@ module ProjectsHelper
   		return @tags
   	end
 
+  	def parse_link link
+  		/https[^\?]++/.match(link).to_s
+  	end
   	#######################################################
   	# Video Link Parsing
-  	
 
 	def verify_youtube link
 		reg = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/
