@@ -63,6 +63,15 @@
     <li><%= badge.name %></li>
   <% end %>
 </ul>
+
+My exp <br>
+<%= current_user.points %>
+<br>
+My quests
+  <% @quests = Quest.where(user_id: current_user.id) %>
+  <% @quests.each do |quest| %>
+    <li><%= quest.name %>, <%= quest.state %>, exp: <%= quest.exp %></li>
+  <% end %>
             </div>
     </div>
   </div>

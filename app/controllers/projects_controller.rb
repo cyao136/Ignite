@@ -28,8 +28,9 @@ class ProjectsController < ApplicationController
 	end
 
 	def show
-      @project = Project.find(params[:id])
-      @embedded_video_link = @project.videos.tagged_with("Main")[0] != nil ? @project.videos.tagged_with("Main")[0].embed_link : ""
+	  @project = Project.find(params[:id])
+    @embedded_video_link = @project.videos.tagged_with("Main")[0] != nil ? @project.videos.tagged_with("Main")[0].embed_link : ""
+    @project.mark_as_read! :for => current_user
   end
 
 	####################################################

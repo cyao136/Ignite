@@ -2,6 +2,7 @@ class Project < ActiveRecord::Base
 	belongs_to :user
 	acts_as_taggable
 	acts_as_commentable
+	acts_as_readable :on => :created_at
 	has_many :posts, :dependent => :destroy
 	has_many :demos, :dependent => :destroy
 	has_many :pledges
@@ -19,14 +20,13 @@ class Project < ActiveRecord::Base
 					:deleted,
 					:funding_ext
 				]
-	
+
 	# Validations
 	validates :user_id, presence: true
 	validates :name, presence: true, length: { minimum: 4, maximum: 64 }
 	validates :small_desc, length: { maximum: 150 }
 	validates :full_desc, length: { maximum: 5000 }
 	validates :creator_desc, length: { maximum: 1000 }
-	
 
 	with_options if: :not_incomplete? do |v|
 		v.validates :small_desc, presence: true, length: { minimum: 2 }

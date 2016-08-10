@@ -42,6 +42,8 @@ gem 'streamio-ffmpeg'
 gem 'activerecord-session_store'
 gem 'merit'
 gem 'kickscraper'
+gem 'unread'
+
 
 source 'http://rails-assets.org' do
   gem 'rails-assets-tether', '>= 1.1.0'
