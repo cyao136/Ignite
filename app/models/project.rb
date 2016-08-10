@@ -1,4 +1,24 @@
+class ExternalLinkValidation < ActiveModel::Validator
+  def validate(project)
+    unless valid_kickstarter_link?(project.crowdfunding_link)
+      project.errors[:crowdfunding_link] << 'Please enter a valid Kickstarter link!'
+    end
+  end
+  def valid_kickstarter_link?(link)
+	sub_url = /projects[^\?]++/.match(link).to_s
+	slug = sub_url.split('/').last
+	if slug == nil
+		return false
+	else
+		client = Kickscraper.client
+		kproj = client.find_project(slug)
+		return !kproj.blank?
+	end
+  end
+end
+
 class Project < ActiveRecord::Base
+  include ActiveModel::Validations
 	belongs_to :user
 	acts_as_taggable
 	acts_as_commentable
@@ -11,6 +31,7 @@ class Project < ActiveRecord::Base
 	accepts_nested_attributes_for :demos
 	accepts_nested_attributes_for :pictures
 	accepts_nested_attributes_for :videos
+  	
 
 	enum state: [
 					:incomplete,
@@ -37,6 +58,7 @@ class Project < ActiveRecord::Base
 
 	with_options if: ->o {o.is_state? "funding_ext"} do |v|
 		v.validates :crowdfunding_link, presence: true, length: { minimum: 2 }
+		v.validates_with ExternalLinkValidation
 	end
 
 	def not_incomplete?
