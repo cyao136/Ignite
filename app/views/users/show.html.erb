@@ -5,10 +5,10 @@
     <div class="col-md-3">
       <div class="profile-sidebar">
         <div class="profile-userpic">
-          <% if @user.pictures[0].nil? %>
+          <% if @user.pictures.nil? %>
             <%= image_tag("happy.png", alt: "happy") %>
           <% else %>
-            <%= image_tag @user.pictures[0].asset.url %>
+            <%= image_tag @user.pictures.last.asset.url(:avatar) %>
           <% end %>
         </div>
         <div class="profile-usertitle">
