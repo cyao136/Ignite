@@ -11,10 +11,11 @@ class Quest < ActiveRecord::Base
   validates :name, presence: true
   validates :exp, presence: true
 
-  def self.build_from(user_id, name, state, exp)
+  def self.build_from(user_id, name, description, state, exp)
     new \
       :user_id     => user_id,
       :name        => name,
+      :description => description,
       :state       => state,
       :exp         => exp
   end

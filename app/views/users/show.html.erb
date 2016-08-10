@@ -70,7 +70,7 @@ My exp <br>
 My quests
   <% @quests = Quest.where(user_id: current_user.id) %>
   <% @quests.each do |quest| %>
-    <li><%= quest.name %>, <%= quest.state %>, exp: <%= quest.exp %></li>
+    <li><%= quest.name %><br><%= quest.description %><br><%= quest.state %>, exp: <%= quest.exp %></li>
   <% end %>
             </div>
     </div>

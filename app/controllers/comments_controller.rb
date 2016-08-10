@@ -16,14 +16,24 @@ class CommentsController < ApplicationController
 	def upvote
 		@comment = Comment.find(params[:id])
 	  @comment.upvote_by current_user
+	  check_quests
 	  redirect_to :back
 	end
 
 	def downvote
 		@comment = Comment.find(params[:id])
 	  @comment.downvote_by current_user
+	  check_quests
 	  redirect_to :back
 	end
+
+	def check_quests
+    Quest.where(user_id: current_user.id).find_each do |quest|
+      if quest.name == "Vote" and quest.state == "incomplete"
+        quest.complete_quest
+      end
+    end
+  end
 
 	private
 
