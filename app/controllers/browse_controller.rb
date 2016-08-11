@@ -4,7 +4,7 @@ class BrowseController < ApplicationController
 	####################################################
 	# category
 	# browse projects in a category
-	
+
 	def category
 		@cur_genre = params[:genre]
 		@cur_sort = params[:sort]
@@ -16,20 +16,20 @@ class BrowseController < ApplicationController
 
 		case params[:sort]
 		when "random"
-			@projects = @projects.shuffle
+			@projects = @projects.shuffle.paginate(:page => params[:page], :per_page => 12)
 		when "newest"
-			@projects = @projects.sort{ |b,a| a.created_at <=> b.created_at }
+			@projects = @projects.sort{ |b,a| a.created_at <=> b.created_at }.paginate(:page => params[:page], :per_page => 12)
 		when "most_popular"
-			@projects = @projects.sort{ |b,a| a.num_supporter <=> b.num_supporter }
+			@projects = @projects.sort{ |b,a| a.num_supporter <=> b.num_supporter }.paginate(:page => params[:page], :per_page => 12)
 		when "soon_ending"
-			@projects = @projects.sort{ |a,b| a.ended_at <=> b.ended_at }
+			@projects = @projects.sort{ |a,b| a.ended_at <=> b.ended_at }.paginate(:page => params[:page], :per_page => 12)
 		end
 	end
 
 	####################################################
 	# search
 	# search projects
-	
+
 	def search
 		@projects = Project.where("name like ?", "%#{params[:name]}%")
 		@genres = []

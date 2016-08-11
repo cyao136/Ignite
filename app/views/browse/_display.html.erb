@@ -3,3 +3,5 @@
 	    <%= render partial: "tile", locals: {project: project} %>
 	<% end %>
 </div>
+
+<%= will_paginate @projects, :renderer => WillPaginate::ActionView::LinkRenderer %>

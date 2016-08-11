@@ -16,7 +16,7 @@
 	</form>
 
 	<hr>
-	
+
     <%= render partial: "display", locals: {projects: @projects} %>
 
 	<script type="text/javascript">
@@ -24,7 +24,7 @@
 			$(".select").select2({
 				minimumResultsForSearch: Infinity
 			});
-			
+
 			$("#genre").select2("val", "<%= @cur_genre %>");
 			$("#sort").select2("val", "<%= @cur_sort %>");
 		});
