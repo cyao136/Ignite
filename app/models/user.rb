@@ -14,6 +14,7 @@ class User < ActiveRecord::Base
   accepts_nested_attributes_for :pictures
   has_and_belongs_to_many :pledges
   acts_as_reader
+  acts_as_voter
   # removed :length => { :in => 4..12 }, in username validation temporarily for omniauth
   validates :username, presence: true, uniqueness: { case_sensitive: false }
   validates_format_of :username, with: /^[a-zA-Z0-9_\.]*$/, :multiline => true
