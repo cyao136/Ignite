@@ -23,8 +23,9 @@ class ProjectsController < ApplicationController
 		if not @project.update(project_params)
 			render 'edit'
 			flash.now[:danger] = @project.errors.full_messages.to_sentence
+		else
+			redirect_to @project
 		end
-		redirect_to @project
 	end
 
 	def show
@@ -141,17 +142,23 @@ class ProjectsController < ApplicationController
 	# Create external projects (Kickstarter)
 
 	def ext_create
-		@project = Project.new(project_params)
-		@project.user_id = current_user.id
-		@project.name = "Temp"
-		@project.state = "funding_ext"
-		if @project.save
-			ParserJob.perform_later([@project])
-			return redirect_to @project
-		else
-			flash.now[:danger] = @project.errors.full_messages.to_sentence
-			return render "new"
+		ParserJob.perform_later
+		link = parse_link(params[:project][:crowdfunding_link])
+		@project = Project.where(crowdfunding_link: link)[0]
+		if @project == nil
+			@project = Project.new()
+			@project.user_id = current_user.id
+			@project.crowdfunding_link = link
+			@project.name = "Temp"
+			@project.state = "funding_ext"
+			if @project.save
+			else
+				flash.now[:danger] = @project.errors.full_messages.to_sentence
+				return render "new"
+			end
 		end
+		parse_kickstarter(@project)
+		return redirect_to @project
 	end
 
 	def media_destroy

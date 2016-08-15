@@ -2,59 +2,40 @@ class ParserJob < ActiveJob::Base
 	include ProjectsHelper
 	queue_as :default
 
-	def perform(projects)
-		require 'open-uri'
-		require 'open_uri_redirections'
+	def perform()
 		params = []
+		client = Kickscraper.client
+		projects = []
+		projects = projects + client.search_projects("", nil, 35, 'live')
+
+		while client.more_projects_available? do
+			projects = projects + client.load_more_projects
+		end
+
 		projects.each do |proj|
 			begin
-				@doc = Nokogiri::HTML(open(proj.crowdfunding_link, :allow_redirections => :safe))
+				link = parse_link(proj.urls['web']['project'])
+				@project = Project.where(crowdfunding_link: link)[0]
+				if @project == nil
+					@project = Project.new()
+					@project.user_id = 1 #TODO needs to use an admin account
+					@project.crowdfunding_link = link
+					@project.name = "Temp"
+					@project.state = "funding_ext"
+					if @project.save
+					else
+						p @project.errors.full_messages.to_sentence
+					end
+				end
+				parse_kickstarter(@project)
 			rescue => e
 				p e
-				return
-			end
-			kickstarter(@doc, proj)
-		end
-	end
-
-	def kickstarter(doc, project)
-		require 'money'
-		if doc.css("html").attr("class").value.include? "projects_show"
-			begin
-				endTime = DateTime.parse(doc.css("#project_duration_data").attr("data-end_time").value)
-				duration = doc.css("#project_duration_data").attr("data-duration").value
-				startTime = endTime - duration.to_i.days
-				funding = Money.new(doc.css("#pledged").attr("data-pledged").value, doc.css("#pledged data").attr('data-currency').value) * 100
-				supporter = doc.css("#backers_count").attr("data-backers-count").value
-				creator = doc.css(".remote_modal_dialog")[0].children.text
-				small_desc = doc.css(".h3").children.text
-				name = doc.css(".green-dark").children[0].text
-
-				embed_video_link = "https://www.kickstarter.com/" + doc.css(".green-dark").attr("href").value + "/widget/video.html"
-				project.videos.create!({:embed_link => embed_video_link, :tag_list => "Main"})
-				
-				card_link = "https://www.kickstarter.com/" + doc.css(".green-dark").attr("href").value + "/widget/card.html"
-				card_doc = Nokogiri::HTML(open(card_link, :allow_redirections => :safe))
-				pic_link = card_doc.css(".project-thumbnail-img").attr("src").value
-				open('temp-tile.png', 'wb') do |file|
-					file << open(pic_link).read
-					project.pictures.create!({asset: file, :tag_list => "Tile"})
-				end
-				#doc.css("iframe").each do |video|
-				#	project.videos.create!({:embed_link => video.attr("src"), :tag_list => "Gallery"})
-				#end
-
-				params = {name: name, small_desc: small_desc, creator_name: creator, ended_at: endTime, funding: funding.to_s.to_f, num_supporter: supporter, created_at: startTime}
-				if not project.update(params)
-					p project.errors.full_messages.to_sentence
-				end
-			rescue => e
-				p e
-				return
 			end
 		end
-	end
+		to_update = Project.where("updated_at < ?", DateTime.now.to_s(:db))
 
-	def indiegogo(doc)
+		to_update.each do |proj|
+			parse_kickstarter(proj)
+		end
 	end
 end
