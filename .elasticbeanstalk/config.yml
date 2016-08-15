@@ -1,6 +1,4 @@
 branch-defaults:
-  delayedJob:
-    environment: ignite-site-env
   master:
     environment: ignite-site-env
 global:
