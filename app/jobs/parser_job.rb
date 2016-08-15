@@ -1,8 +1,8 @@
-class ParserJob < ActiveJob::Base
+class ParserJob
 	include ProjectsHelper
 	queue_as :default
 
-	def perform()
+	def category()
 		params = []
 		client = Kickscraper.client
 		projects = []
@@ -38,4 +38,6 @@ class ParserJob < ActiveJob::Base
 			parse_kickstarter(proj)
 		end
 	end
+
+	handle_asynchronously :category
 end
