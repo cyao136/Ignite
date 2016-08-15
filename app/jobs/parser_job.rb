@@ -1,8 +1,12 @@
-class ParserJob < ActiveJob::Base
+class ParserJob
 	include ProjectsHelper
-	queue_as :default
 
-	def perform()
+	def completed()
+		completed_projects = Project.where("ended_at < ?", DateTime.now.to_s(:db)).update_all(:state => 'ended')
+	end
+	handle_asynchronously :completed, :queue => "parser"
+
+	def kickstarter()
 		params = []
 		client = Kickscraper.client
 		projects = []
@@ -38,4 +42,5 @@ class ParserJob < ActiveJob::Base
 			parse_kickstarter(proj)
 		end
 	end
+	handle_asynchronously :kickstarter, :queue => "parser"
 end
