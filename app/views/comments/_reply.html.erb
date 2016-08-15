@@ -1,26 +1,28 @@
 <% comments.each do |comment| %>
   <div class="comments-show">
     <div class="comment">
-      <a class="username" href=<%= "/users/#{comment.user.id}" %>><%= comment.user.username %><br></a>
+      <%= comment.get_upvotes.size - comment.get_downvotes.size %>
+      <a class="username" href=<%= "/users/#{comment.user.id}" %>><%= comment.user.username %></a>
+       posted <%= time_ago_in_words(comment.created_at) %> ago
       <div class="body-section">
         <p><%= comment.body %><br></p>
-        <div class="show-children">
-          <% if comment.children.blank? %>
-          <% else %>
-            <a href="<%= "#collapse_#{comment.id}" %>" class="btn btn-default" data-toggle="collapse" aria-expanded="false">Show Children</a>
-          <% end %>
-        </div>
       </div>
 
       <div class="vote-buttons">
-      <%= link_to "#{comment.get_upvotes.size} Upvote", options = { action: "upvote", id: comment.id, controller: "comments"}, method: :put %>
+      <%= link_to "Upvote", options = { action: "upvote", id: comment.id, controller: "comments"}, method: :put %>
 
-      <%= link_to "#{comment.get_downvotes.size} Downvote", options = { action: "downvote", id: comment.id, controller: "comments"}, method: :put %>
+      <%= link_to "Downvote", options = { action: "downvote", id: comment.id, controller: "comments"}, method: :put %>
       </div>
 
-        <div class="comment-nav">
-          <a href="<%= "#reply_#{comment.id}" %>" class="btn btn-default comment-reply" data-toggle="collapse" aria-expanded="false">Reply</a>
-        </div>
+
+
+      <div class="comment-nav">
+        <a href="<%= "#reply_#{comment.id}" %>" class="btn btn-default comment-reply" data-toggle="collapse" aria-expanded="false">Reply</a>
+
+        <% if !comment.children.blank? %>
+          <a href="<%= "#collapse_#{comment.id}" %>" class="btn btn-default" data-toggle="collapse" aria-expanded="false">Show Children</a>
+        <% end %>
+      </div>
 
       <div id="<%= "reply_#{comment.id}" %>" class="collapse reply-form">
         <%= form_for @new_comment do |f| %>

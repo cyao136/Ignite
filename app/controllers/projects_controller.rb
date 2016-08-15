@@ -31,9 +31,11 @@ class ProjectsController < ApplicationController
 	def show
 	  @project = Project.find(params[:id])
     @embedded_video_link = @project.videos.tagged_with("Main")[0] != nil ? @project.videos.tagged_with("Main")[0].embed_link : ""
-    if @project.unread?(current_user)
-    	@project.mark_as_read! :for => current_user
-    	check_quests
+    if user_signed_in?
+    	if @project.unread?(current_user)
+	    	@project.mark_as_read! :for => current_user
+	    	check_quests
+	    end
     end
   end
 
