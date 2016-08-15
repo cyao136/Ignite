@@ -3,11 +3,13 @@
 		<%= image_tag (project.pictures.tagged_with("Tile")[0] != nil ? project.pictures.tagged_with("Tile")[0].asset.url(:tile) : "")  %>
 		<div class="tile-shade"></div>
 		<div class="tile-text">
-				<h6><strong> <%= project.name %>
-				    <% if project.unread?(current_user) == false %>
-              :)
+				<h6>
+				    <% if user_signed_in? and project.unread?(current_user) == false %>
+              <i><%= project.name %></i>
+            <% else %>
+              <b><%= project.name %></b>
             <% end %>
-            </strong></h3>
+            </h3>
 			<p class="creator"><small> by <%= project.creator_name %> </small></p>
 			<p class="description"><small> <%= project.small_desc %> </small></p>
 		</div>

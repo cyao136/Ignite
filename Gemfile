@@ -43,7 +43,7 @@ gem 'activerecord-session_store'
 gem 'merit'
 gem 'kickscraper'
 gem 'unread'
-
+gem 'will_paginate-bootstrap'
 
 source 'http://rails-assets.org' do
   gem 'rails-assets-tether', '>= 1.1.0'

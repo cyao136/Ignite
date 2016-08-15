@@ -46,12 +46,16 @@ module Merit
       # end
 
       grant_on 'comments#upvote',  badge: 'Voter', model_name: 'User' do |f|
-        @user = User.find(f.user_id)
-        f.vote_by :voter => @user
+        User.find(f.user_id).find_voted_items.count >= 10
       end
 
       grant_on 'comments#create',  badge: 'Commenter', model_name: 'User' do |f|
-        Comment.where(user_id: f.user_id).count > 0
+        Comment.where(user_id: f.user_id).count >= 10
+      end
+
+      grant_on 'projects#show',  badge: 'Browser', model_name: 'User' do |f|
+        @user = User.find(f.user_id)
+        Project.all.read_by(@user).count >= 10
       end
 
     end

@@ -21,7 +21,7 @@ class Comment < ActiveRecord::Base
 
   def check_quests
     Quest.where(user_id: self.user_id).find_each do |quest|
-      if quest.name == "test" and quest.state == "incomplete"
+      if quest.name == "Comment" and quest.state == "incomplete"
         quest.complete_quest
       end
     end
