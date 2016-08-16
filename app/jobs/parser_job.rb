@@ -43,4 +43,11 @@ class ParserJob
 		end
 	end
 	handle_asynchronously :kickstarter, :queue => "parser"
+
+  def self.runner
+		# Parser Job execution
+		parser = ParserJob.new
+		parser.kickstarter
+		parser.completed
+  end
 end
