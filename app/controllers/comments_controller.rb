@@ -1,4 +1,6 @@
 class CommentsController < ApplicationController
+	require 'action_view'
+	include ActionView::Helpers::DateHelper
 	def create
 		commentable = commentable_type.constantize.find(commentable_id)
 		@comment = Comment.build_from(commentable, current_user.id, body)
