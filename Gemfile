@@ -44,6 +44,9 @@ gem 'merit'
 gem 'kickscraper'
 gem 'unread'
 gem 'will_paginate-bootstrap'
+gem 'delayed_job_active_record'
+gem "daemons"
+gem 'whenever', :require => false
 
 source 'http://rails-assets.org' do
   gem 'rails-assets-tether', '>= 1.1.0'

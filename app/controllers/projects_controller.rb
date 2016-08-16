@@ -145,7 +145,6 @@ class ProjectsController < ApplicationController
 	# Create external projects (Kickstarter)
 
 	def ext_create
-		ParserJob.perform_later
 		link = parse_link(params[:project][:crowdfunding_link])
 		@project = Project.where(crowdfunding_link: link)[0]
 		if @project == nil

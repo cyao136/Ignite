@@ -30,6 +30,11 @@ rake db:migrate
 
 * Deployment instructions
 
+* Job scheduling
+-Create the jobs in app/jobs
+-Schedule them in config/schedule.rb
+-Run 'whenever --update-crontab' to update CRON
+
 * ...
 
 Please feel free to use a different markup language if you do not plan to run

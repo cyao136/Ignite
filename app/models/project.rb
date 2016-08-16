@@ -34,12 +34,13 @@ class Project < ActiveRecord::Base
   	
 
 	enum state: [
-					:incomplete,
+					:unpublish,
 					:funding,
 					:funded,
 					:archived,
 					:deleted,
-					:funding_ext
+					:funding_ext,
+					:ended
 				]
 
 	# Validations
