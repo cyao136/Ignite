@@ -53,10 +53,11 @@ module Merit
         Comment.where(user_id: f.user_id).count >= 10
       end
 
-      grant_on 'projects#show',  badge: 'Browser', model_name: 'User' do |f|
-        @user = User.find(f.user_id)
-        Project.all.read_by(@user).count >= 10
-      end
+      # currently n/a because user_id will not match, changed to a controller action
+      #grant_on 'projects#show',  badge: 'Browser', model_name: 'User' do |f|
+      #  @user = User.find(f.user_id)
+      #  Project.all.read_by(@user).count >= 10
+      #end
 
     end
   end
