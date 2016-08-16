@@ -3,7 +3,7 @@
 	<form action="category" method="GET">
 		Genre: <select name="genre" id="genre" class="select" onchange="this.form.submit()">
 			<option value='All'>Everything</option>
-			<% Project.tag_counts_on(:tags).limit(7).each do |tag| %>
+			<% Project.tag_counts_on(:tags).most_used(10).each do |tag| %>
 				<option value=<%= tag.name %> ><%= tag.name %></option>
 			<% end %>
 		</select>
@@ -13,6 +13,7 @@
 			<option value='most_popular'>Most Popular</option>
 			<option value='soon_ending'>Soon Ending</option>
 		</select>
+		<input name="states" id="states" class="form-control" multiple="multiple" data-selected='<%= @states %>' hidden=true value=5></input>
 	</form>
 
 	<hr>
