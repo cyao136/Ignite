@@ -7,22 +7,39 @@ class BrowseController < ApplicationController
 
 	def category
 		@cur_genre = params[:genre]
-		@cur_sort = params[:sort]
-		if params[:genre] == 'All'
-			@projects = Project.where(state: 5) + Project.where(state: 2)
-		else
-			@projects = Project.tagged_with(params[:genre]).where(state: 5) + Project.tagged_with(params[:genre]).where(state: 2)
+		@cur_sort = params[:sort] || "random"
+
+		sql_order = "RAND()"
+		case @cur_sort
+		when "random"
+			sql_order = "RAND()"
+		when "newest"
+			sql_order = "created_at DESC"
+		when "most_popular"
+			sql_order = "num_supporter DESC"
+		when "soon_ending"
+			sql_order = "ended_at ASC"
 		end
 
-		case params[:sort]
-		when "random"
-			@projects = @projects.shuffle.paginate(:page => params[:page], :per_page => 12)
-		when "newest"
-			@projects = @projects.sort{ |b,a| a.created_at <=> b.created_at }.paginate(:page => params[:page], :per_page => 12)
-		when "most_popular"
-			@projects = @projects.sort{ |b,a| a.num_supporter <=> b.num_supporter }.paginate(:page => params[:page], :per_page => 12)
-		when "soon_ending"
-			@projects = @projects.sort{ |a,b| a.ended_at <=> b.ended_at }.paginate(:page => params[:page], :per_page => 12)
+		sql_states = ""
+		@states = params[:states]
+		if (@states.nil? or @states.blank?) then
+			sql_states = "state = 5"
+		else
+			@states.split(',').each_with_index do |s, index|
+				sql_states << ("state = " + s)
+				if index != @states.size - 1 then
+					sql_states << " OR "
+				end
+			end
+		end
+
+		@projects = []
+
+		if params[:genre] == 'All' then
+			@projects = Project.where('(' + sql_states + ')').order(sql_order).paginate(:page => params[:page], :per_page => 12)
+		else
+			@projects = Project.where('(' + sql_states + ')').order(sql_order).tagged_with(@cur_genre).paginate(:page => params[:page], :per_page => 12)
 		end
 	end
 
@@ -31,25 +48,44 @@ class BrowseController < ApplicationController
 	# search projects
 
 	def search
-		@projects = Project.where("name like ?", "%#{params[:name]}%")
-		@genres = []
-		@sort = params[:sort]
-		if params[:genres].blank?
-			@projects = @projects.where(state: 5) + @projects.where(state: 2)
-		else
-			@genres = params[:genres].split(',')
-			@projects = @projects.tagged_with(@genres).where(state: 5) + @projects.tagged_with(@genres).where(state: 2)
-		end
-
+		@sort = params[:sort] || "random"
+		sql_order = "RAND()"
 		case @sort
 		when "random"
-			@projects = @projects.shuffle
+			sql_order = "RAND()"
 		when "newest"
-			@projects = @projects.sort{ |b,a| a.created_at <=> b.created_at }
+			sql_order = "created_at DESC"
 		when "most_popular"
-			@projects = @projects.sort{ |b,a| (a.num_supporter || 0) <=> (b.num_supporter || 0) }
+			sql_order = "num_supporter DESC"
 		when "soon_ending"
-			@projects = @projects.sort{ |a,b| (a.ended_at || DateTime.civil(9999)) <=> (b.ended_at || DateTime.civil(9999)) }
+			sql_order = "ended_at ASC"
+		end
+
+		sql_states = ""
+		@states = params[:states]
+		if (@states.nil? or @states.blank?) then
+			sql_states = "state = 5"
+		else
+			@states.split(',').each_with_index do |s, index|
+				sql_states << ("state = " + s)
+				if index != @states.size - 1 then
+					sql_states << " OR "
+				end
+			end
+		end
+
+		@genres = params[:genres]
+		genre_tags = 'All'
+		if (!@genres.nil? and !@genres.blank?) then
+			genre_tags = params[:genres]
+		end
+
+		@projects = []
+
+		if genre_tags == 'All' then
+			@projects = Project.where('(' + sql_states + ')' + " AND " "name like ?", "%#{params[:name]}%").order(sql_order).paginate(:page => params[:page], :per_page => 12)
+		else
+			@projects = Project.where('(' + sql_states + ')' + " AND " "name like ?", "%#{params[:name]}%").order(sql_order).tagged_with(genre_tags).paginate(:page => params[:page], :per_page => 12)
 		end
 	end
 end
