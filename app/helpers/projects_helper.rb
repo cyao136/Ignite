@@ -132,6 +132,7 @@ module ProjectsHelper
 			small_desc = kproj.blurb
 			tag_list = parse_genre(name + ' ' + small_desc)
 			funding = Money.new(kproj.pledged, kproj.currency) * 100
+			goal_funding = Money.new(kproj.goal, kproj.currency) * 100
 			supporter = kproj.backers_count
 
 			endTime = Time.at(kproj.deadline)
@@ -151,7 +152,8 @@ module ProjectsHelper
 				end
 			end
 
-			params = {name: name, small_desc: small_desc, tag_list: tag_list, creator_name: creator, ended_at: endTime, funding: funding.to_s.to_f, num_supporter: supporter, created_at: startTime}
+			params = {name: name, small_desc: small_desc, tag_list: tag_list, creator_name: creator, ended_at: endTime,
+				funding: funding.to_s.to_f, goal_funding: goal_funding.to_s.to_f, num_supporter: supporter, created_at: startTime}
 
 			if not project.update(params)
 				p project.errors.full_messages.to_sentence
