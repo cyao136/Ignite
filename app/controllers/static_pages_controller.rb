@@ -5,4 +5,8 @@ class StaticPagesController < ApplicationController
 
   def about
   end
+
+  def countdown
+    render :layout => "countdown"
+  end
 end

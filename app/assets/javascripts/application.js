@@ -13,6 +13,7 @@
 //= require jquery
 //= require jquery.turbolinks
 //= require jquery_ujs
+//= require jquery.countdown
 //= require tether
 //= require bootstrap-sprockets
 //= require select2

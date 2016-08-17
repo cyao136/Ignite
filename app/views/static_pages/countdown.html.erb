@@ -1,0 +1,15 @@
+
+<link rel="stylesheet" href="countdown.css">
+
+<script src="/bower_components/jquery.countdown/dist/jquery.countdown.js"></script>
+
+<div id="defaultCountdown"></div>
+
+<script>
+$(function () {
+  var releaseDate = new Date();
+  releaseDate = new Date(2016, 8-1, 22);
+  $('#defaultCountdown').countdown({until: releaseDate});
+  $('#year').text(releaseDate.getFullYear());
+});
+</script>
