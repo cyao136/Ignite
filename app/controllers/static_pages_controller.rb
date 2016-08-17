@@ -7,6 +7,7 @@ class StaticPagesController < ApplicationController
   end
 
   def countdown
+    @alpha_tester = AlphaTester.new
     render :layout => "countdown"
   end
 end

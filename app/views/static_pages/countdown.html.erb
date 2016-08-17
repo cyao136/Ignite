@@ -5,6 +5,16 @@
 
 <div id="defaultCountdown"></div>
 
+<div id="signup" class="col-md-4">
+<p>Sign up for Alpha Testing</p>
+<%= simple_form_for(@alpha_tester, html: {class: 'form-inline' }) do |f| %>
+<div class="form-group">
+  <%= f.text_field :email, placeholder: 'Your email', class:'form-control' %>
+</div>
+  <%= f.button :button, class:"btn btn-primary" %>
+<% end %>
+</div>
+
 <script>
 $(function () {
   var releaseDate = new Date();
