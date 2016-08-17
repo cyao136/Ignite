@@ -27,6 +27,15 @@ class User < ActiveRecord::Base
   # has_secure_password - no longer needed with devise
   validates :password, presence: true, length: { minimum: 4 }, allow_nil: true, allow_blank: true
 
+  enum daily_login: [
+      :zero,
+      :one,
+      :two,
+      :three,
+      :four,
+      :five
+      ]
+
   # Returns the hash digest of the given string.
   def User.digest(string)
     cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
