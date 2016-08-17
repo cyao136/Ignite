@@ -47,6 +47,8 @@ gem 'will_paginate-bootstrap'
 gem 'delayed_job_active_record'
 gem "daemons"
 gem 'whenever', :require => false
+gem 'toastr-rails'
+gem 'public_activity'
 
 source 'http://rails-assets.org' do
   gem 'rails-assets-tether', '>= 1.1.0'

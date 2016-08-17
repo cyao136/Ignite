@@ -24,7 +24,7 @@ class BrowseController < ApplicationController
 		sql_states = ""
 		@states = params[:states]
 		if (@states.nil? or @states.blank?) then
-			sql_states = "state = 5"
+			sql_states = "state = " + Project.states[:funding_ext]
 		else
 			@states.split(',').each_with_index do |s, index|
 				sql_states << ("state = " + s)
@@ -64,7 +64,7 @@ class BrowseController < ApplicationController
 		sql_states = ""
 		@states = params[:states]
 		if (@states.nil? or @states.blank?) then
-			sql_states = "state = 5"
+			sql_states = "state = " + Project.states[:funding_ext]
 		else
 			@states.split(',').each_with_index do |s, index|
 				sql_states << ("state = " + s)

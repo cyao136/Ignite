@@ -16,6 +16,7 @@
 //= require tether
 //= require bootstrap-sprockets
 //= require select2
+//= require toastr
 //= require ckeditor/init
 //= require turbolinks
 //= require_tree .

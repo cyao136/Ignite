@@ -18,12 +18,12 @@ class ExternalLinkValidation < ActiveModel::Validator
 end
 
 class Project < ActiveRecord::Base
-  include ActiveModel::Validations
+	include ActiveModel::Validations
+	include PublicActivity::Model
 	belongs_to :user
 	acts_as_taggable
 	acts_as_commentable
 	acts_as_readable :on => :created_at
-	has_many :posts, :dependent => :destroy
 	has_many :demos, :dependent => :destroy
 	has_many :pledges
 	has_many :videos, :dependent => :destroy
@@ -31,12 +31,14 @@ class Project < ActiveRecord::Base
 	accepts_nested_attributes_for :demos
 	accepts_nested_attributes_for :pictures
 	accepts_nested_attributes_for :videos
+
+	# after a project is updated, check if new states needs to be changed
+	after_save :evaluate!
   	
 
 	enum state: [
 					:unpublish,
 					:funding,
-					:funded,
 					:archived,
 					:deleted,
 					:funding_ext,
@@ -50,7 +52,7 @@ class Project < ActiveRecord::Base
 	validates :full_desc, length: { maximum: 5000 }
 	validates :creator_desc, length: { maximum: 1000 }
 
-	with_options if: :not_incomplete? do |v|
+	with_options if: ->o {o.is_state? "unpublish"} do |v|
 		v.validates :small_desc, presence: true, length: { minimum: 2 }
 		v.validates :full_desc, presence: true, length: { minimum: 2 }
 		v.validates :creator_desc, presence: true, length: { minimum: 2 }
@@ -62,15 +64,38 @@ class Project < ActiveRecord::Base
 		v.validates_with ExternalLinkValidation
 	end
 
-	def not_incomplete?
-		state != "incomplete" && state != "funding_ext"
-	end
-
 	def is_state?(s)
-		state == s
+		self.state == s
 	end
 
 	def created?
-		created_at != nil
+		self.created_at != nil
+	end
+
+	# Project evaluations
+
+	def evaluate!
+		state = self.eval_state
+		is_goal_reached = self.eval_goal
+
+		update_columns(:state => state, :is_goal_reached => is_goal_reached)
+	end
+
+	def eval_state
+		if self.ended_at <= DateTime.now then
+			self.create_activity :ended
+			return Project.states[:ended]
+		else
+			return self.state
+		end
+	end
+
+	def eval_goal
+		if (self.goal_supporter <= self.num_supporter) && (self.goal_funding <= self.funding) then
+			self.create_activity :goal_reached
+			return true
+		else
+			return false
+		end
 	end
 end

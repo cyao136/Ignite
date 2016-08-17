@@ -13,7 +13,7 @@
 			<option value='most_popular'>Most Popular</option>
 			<option value='soon_ending'>Soon Ending</option>
 		</select>
-		<input name="states" id="states" class="form-control" multiple="multiple" data-selected='<%= @states %>' hidden=true value=5></input>
+		<input name="states" id="states" class="form-control" multiple="multiple" data-selected='<%= @states %>' hidden=true value=<%= Project.states[:funding_ext] %>></input>
 	</form>
 
 	<hr>

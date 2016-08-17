@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
   attr_accessor :remember_token, :activation_token, :reset_token, :login
   # before_save   :downcase_fields
   # before_create :create_activation_digest
-  has_many :posts
+  has_many :comments
   has_many :projects
   has_many :quests
   has_many :pictures, as: :assetable, :dependent => :destroy
