@@ -1,5 +1,7 @@
 class ContactsController < ApplicationController
-  skip_before_filter :authenticate_user!
+  #removed for alpha stage
+  #skip_before_filter :authenticate_user!
+
   def new
     @contact = Contact.new
   end
