@@ -39,7 +39,7 @@ Hello developers, this is the README to help you get started.
 
 == Running the dev server
 * Start the webapp in one window: 'rails s -b 0.0.0.0'
-* Start faye in another window: 'rackup faye -s thin -E production'
+* Start faye in another window: 'rackup faye.ru -s thin -E production'
 * Start the daemons for job processing: 'RAILS_ENV=production bin/delayed_job -n 2 start' (for linux)
 * Update the crontab for the jobs: 'whenever --update-crontab' (for linux)
 

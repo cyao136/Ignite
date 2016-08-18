@@ -10,7 +10,7 @@
 .countdown-row {
 	clear: both;
 	width: 100%;
-	padding: 0px 2px;
+	padding: 0px 0px;
 	text-align: center;
 }
 .countdown-show1 .countdown-section {
@@ -53,30 +53,29 @@
 }
 
 #countdown_body {
-	background-color: black;
 	color: white;
-	#defaultCountdown {
-		width: 90%;
-		height: 10%;
-	}
 	.container{
-    vertical-align: middle;
-    text-align: center
+    	vertical-align: middle;
+    	text-align: center
 	}
 
 	#countdown{
-		position: absolute;
-		top: 35%;
-		left: 14%;
+		padding-top: 10%;
+		padding-bottom: 5%;
+		left: 50px;
+
+		#defaultCountdown {
+			width: 90%;
+			height: 10%;
+		}
 	}
 
 	#ignition{
-		position: absolute;
 		top: 60%;
+		padding-bottom: 10%;
 	}
 
 	#signup{
-		position: absolute;
 		top: 75%;
 		width: 400px;
 		left: 50%;
@@ -84,12 +83,12 @@
 	}
 
 	.no-border {
-    box-shadow: none; /* You may want to include this as bootstrap applies these styles too */
-    border-left: 0;
-    border-right: 0;
-    border-top: 0;
-    border-bottom: 2px solid white;
-    background-color:rgba(255,0,0,0);
+	    box-shadow: none; /* You may want to include this as bootstrap applies these styles too */
+	    border-left: 0;
+	    border-right: 0;
+	    border-top: 0;
+	    border-bottom: 2px solid white;
+	    background-color:rgba(255,0,0,0);
 	}
 
 	input[type=text] {
@@ -102,35 +101,32 @@
 		background-color:rgba(255,0,0,0);
 		color: white;
 	}
+}
 
+#video-block {
 	#video-background {
-/*  making the video fullscreen  */
-	  position: absolute;
-	  display: block;
-	  right: 0;
-	  bottom: 0;
-	  min-width: 100%;
-	  min-height: 100%;
-	  width: initial;
-	  height: auto;
-	  z-index: -2;
-	  margin: 0 auto;
-	  object-fit: cover;
-	  padding: 0;
-	}
-
-	#background-overlay {
+	/*  making the video fullscreen  */
 		position: absolute;
-		left: 0%;
-		top: 0%;
-		background-color: black;
-		opacity: 0.5;
-		z-index: -1;
+		display: block;
+		right: 0;
+		bottom: 0;
 		min-width: 100%;
-	  min-height: 100%;
-	  width: initial;
-	  height: auto;
+		min-height: 100%;
+		z-index: -2;
+		object-fit: cover;
 	}
 }
 
+#background-overlay {
+	position: absolute;
+	left: 0%;
+	top: 0%;
+	background-color: black;
+	opacity: 0.5;
+	z-index: -1;
+	min-width: 100%;
+	min-height: 100%;
+	width: initial;
+	height: initial;
+}
 

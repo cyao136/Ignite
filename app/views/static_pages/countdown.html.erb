@@ -1,46 +1,39 @@
 <% provide(:title, "Coming Soon") %>
 
 
-<div class="row">
-<div class="container col-md-12">
-<%= image_tag("ignite_logo_text_jumbo.png", alt: "Ignite", class: "img-responsive", style:'width:25%; padding-top: 5%; opacity: 0.7;') %>
-<h6 style="color: white;"><br>GAME DISCOVERY, GAMIFIED.</h6>
-</div>
+<div class="row" id='countdown_body'>
+  <div class="container col-xs-12">
+    <%= image_tag("ignite_logo_text_jumbo.png", alt: "Ignite", class: "img-responsive", style:'width:25%; padding-top: 5%; opacity: 0.7;') %>
+    <h6 style="color: white;"><br>GAME DISCOVERY, GAMIFIED.</h6>
+  </div>
 
-<div class="container col-xs-12" id="countdown">
-    <div id="defaultCountdown"></div>
-</div>
+  <div class="container col-xs-12" id="countdown">
+      <div id="defaultCountdown"></div>
+  </div>
 
-<div class="container col-xs-12" id="ignition">
-<p style="color: white;">UNTIL IGNITION</p>
-</div>
+  <div class="container col-xs-12" id="ignition">
+    <p style="color: white;">UNTIL IGNITION</p>
+  </div>
 
-<div class="container col-md-4 col-xs-12" id="signup">
-  <div class="row">
+  <div class="container col-md-4 col-xs-12" id="signup">
     <%= simple_form_for(@alpha_tester, html: {class: 'input-group' }) do |f| %>
       <%= f.text_field :email, placeholder: 'Enter your email to sign up for alpha testing', class:'form-control no-border' %>
       <span class="input-group-btn">
-      <%= button_tag(type: 'submit', class: "btn btn-secondary") do %>
-        <i class="fa fa-check"></i>
-      <% end %>
+        <%= button_tag(type: 'submit', class: "btn btn-secondary") do %>
+          <i class="fa fa-check"></i>
+        <% end %>
       </span>
     <% end %>
   </div>
-</div>
-</div>
 
 <div class="container" id="background-overlay">
 </div>
 
-<section id="video-block" class="fullscreen">
-
-    <!-- Embed Video as Background-->
-    <div style="width:initial;" >
-        <video autoplay loop id="video-background" muted>
-        <source src="<%= asset_path('coming_soon_background.mp4') %>" type="video/mp4">
-        </video>
-    </div>
-</section>
+<div id="video-block" class="fullscreen">
+  <video autoplay loop id="video-background" muted>
+    <source src="<%= asset_path('coming_soon_background.mp4') %>" type="video/mp4">
+  </video>
+</div>
 
 <script>
 $(function () {
