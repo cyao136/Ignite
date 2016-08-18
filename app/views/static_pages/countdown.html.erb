@@ -1,18 +1,21 @@
+<% provide(:title, "Coming Soon") %>
 
-<link rel="stylesheet" href="countdown.css">
-
-<script src="/bower_components/jquery.countdown/dist/jquery.countdown.js"></script>
-
-<div id="defaultCountdown"></div>
-
-<div id="signup" class="col-md-4">
-<p>Sign up for Alpha Testing</p>
-<%= simple_form_for(@alpha_tester, html: {class: 'form-inline' }) do |f| %>
-<div class="form-group">
-  <%= f.text_field :email, placeholder: 'Your email', class:'form-control' %>
+<div class="container" id="countdown">
+  <div class="row">
+    <div id="defaultCountdown"></div>
+  </div>
 </div>
-  <%= f.button :button, class:"btn btn-primary" %>
-<% end %>
+
+<div class="container" id="signup">
+  <div class="row">
+    <p>Sign up for Alpha Testing</p>
+    <%= simple_form_for(@alpha_tester, wrapper: :inline_form, html: {class: 'form-inline' }) do |f| %>
+      <%= f.text_field :email, placeholder: 'Your email', class:'form-control' %>
+      <%= button_tag(type: 'submit', class: "btn btn-success") do %>
+        <i class="fa fa-check"></i>
+      <% end %>
+    <% end %>
+  </div>
 </div>
 
 <script>

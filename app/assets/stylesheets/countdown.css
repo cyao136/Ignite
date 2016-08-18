@@ -1,12 +1,9 @@
 /* jQuery Countdown styles 2.0.0. */
 #defaultCountdown {
-  position:fixed;
-  top: 50%;
-  left: 50%;
+
 	width: 1000px;
 	height: 200px;
-  margin-top: -100px; /*set to a negative number 1/2 of your height*/
-  margin-left: -500px; /*set to a negative number 1/2 of your width*/
+
 }
 
 .is-countdown {
@@ -62,8 +59,29 @@
 	width: 100%;
 }
 
-#signup {
-	align: center;
-	position:fixed;
+body {
+	background-color: black;
+}
+
+.container{
+    display: table;
+    vertical-align: middle;
+}
+
+#countdown{
+	position: absolute;
+	top: 50%;
+	margin-left: -500px;
+	margin-top: -100px;
+}
+
+#signup{
+	position: absolute;
 	top: 75%;
+	width: 300px;
+	margin-left: -150px;
+}
+
+.form-control {
+	margin-top: 11px;
 }
