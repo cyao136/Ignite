@@ -163,6 +163,8 @@ class ProjectsController < ApplicationController
 		return redirect_to @project
 	end
 
+	# Project Media
+
 	def media_destroy
 		@project = Project.find(params[:id])
 		Pictures.find(params[id]).destroy

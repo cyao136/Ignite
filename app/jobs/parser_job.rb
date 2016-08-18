@@ -1,10 +1,12 @@
 class ParserJob
 	include ProjectsHelper
 
-	def completed()
-		completed_projects = Project.where("ended_at < ?", DateTime.now.to_s(:db)).update_all(:state => 'ended')
+	def evaluate()
+		Project.where(:state => "funding_ext").each do |p|
+			p.evaluate
+		end
 	end
-	handle_asynchronously :completed, :queue => "parser"
+	handle_asynchronously :evaluate, :queue => "parser"
 
 	def kickstarter()
 		params = []
@@ -48,6 +50,6 @@ class ParserJob
 		# Parser Job execution
 		parser = ParserJob.new
 		parser.kickstarter
-		parser.completed
+		parser.evaluate
   end
 end
