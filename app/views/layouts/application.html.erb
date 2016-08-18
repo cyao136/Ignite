@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
 	<title><%= full_title(yield(:title)) %></title>
-  <%= javascript_include_tag "application", "http://localhost:9292/faye.js", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "application", "http://localhost:9292/notification.js", "data-turbolinks-track" => true %>
 	<%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true %>
 	<%= csrf_meta_tags %>
 	<%= render 'layouts/shim' %>
