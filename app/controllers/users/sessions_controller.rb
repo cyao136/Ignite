@@ -1,6 +1,6 @@
 class Users::SessionsController < Devise::SessionsController
 # before_action :configure_sign_in_params, only: [:create]
-  include QuestsHelper
+  include UsersHelper
 
   # GET /resource/sign_in
   # def new
@@ -10,8 +10,7 @@ class Users::SessionsController < Devise::SessionsController
   # POST /resource/sign_in
   def create
     super
-    delete_quests
-    initialize_quests
+    check_daily_login
   end
 
   # DELETE /resource/sign_out
