@@ -58,6 +58,11 @@ class Project < ActiveRecord::Base
 		v.validates :full_desc, presence: true, length: { minimum: 2 }
 		v.validates :creator_desc, presence: true, length: { minimum: 2 }
 		v.validates :creator_name, presence: true, length: { minimum: 2 }
+		v.validates :ended_at, presence: true
+		v.validates :goal_supporter, presence: true
+		v.validates :goal_funding, presence: true
+		v.validates :funding, presence: true
+		v.validates :num_supporter, presence: true
 	end
 
 	with_options if: ->o {o.is_state? "funding_ext"} do |v|
@@ -76,10 +81,12 @@ class Project < ActiveRecord::Base
 	# Project evaluations
 
 	def evaluate!
-		state = self.eval_state
-		is_goal_reached = self.eval_goal
-
-		update_columns(:state => state, :is_goal_reached => is_goal_reached)
+	    if self.state != Project.states[:unpublished] then
+		    state = self.eval_state
+		    is_goal_reached = self.eval_goal
+		    
+		    update_columns(:state => state, :is_goal_reached => is_goal_reached)
+		end
 	end
 
 	def eval_state
