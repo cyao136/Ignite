@@ -1,41 +1,49 @@
 == README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
+Hello developers, this is the README to help you get started.
 
 * Ruby version
+-Ruby 2.2
 
 * System dependencies
--Requires MySQL installed on machine. For Windows, just use the mysql installer.
--Requires Node.js on Windows
+-Requires Git
+-Requires Rails 4.2
+-Requires MySQL
+-Requires Node.js
 
-* Configuration
--On a new pull, run "bundle update" to reinstall gems based on dependencies
+* Installations
+-Install Ruby 2.2 and Rails 4.2 using RailsInstaller: http://railsinstaller.org/en (Don't install git from the package, we will install it separately.)
+-Install Git: https://git-scm.com/ (On Windows, make sure to check linux commands when installing.)
+-Install MySQL: http://dev.mysql.com/downloads/mysql/
+-Install Node.js: https://nodejs.org/en/
 
-* Database creation
--Run these commands for the first time:
-rake db:create
-rake db:migrate
--After that, everytime there's a new migration, only need to do "rake db:migrate"
--To drop a database due to corruption run "rake db:drop"
--PS: You might need to include "bundle exec" in front of the rake commands
+* Setting up the development
+-Generate your SSH Key: 'ssh-keygen -t rsa -C "your_email@example.com"'
+-Copy your SSH Key from "~/.ssh/id_rsa.pub" and paste it on gitlab
+-Clone the repo: 'git clone git@gitlab.com:cyao136/web-client.git'
+-Install bundler: 'gem install bundler'
+-Bundle the requirements: 'bundle install'
+-Create the database: 'bundle exec rake db:create'
+-Migrate the database: 'bundle exec rake db:migrate'
+-Run the server: 'rails s -b 0.0.0.0'
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
+* Updating your development
+-On a new pull, reinstall gems based on dependencies: 'bundle update' 
+-Migrate database: 'bundle exec rake db:migrate'
 
 * Job scheduling
 -Create the jobs in app/jobs
 -Schedule them in config/schedule.rb
 -Run 'whenever --update-crontab' to update CRON
 
+* Running the dev server
+-Start the webapp in one window: 'rails s -b 0.0.0.0'
+-Start faye in another window: 'rackup faye -s thin -E production'
+-Start the daemons for job processing: 'RAILS_ENV=production bin/delayed_job start' (for linux)
+-Update the crontab for the jobs: 'whenever --update-crontab' (for linux)
+
+* Deployment instructions
+
 * ...
 
-Please feel free to use a different markup language if you do not plan to run
 <tt>rake doc:app</tt>.

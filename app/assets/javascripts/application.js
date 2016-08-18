@@ -15,8 +15,8 @@
 //= require jquery_ujs
 //= require tether
 //= require bootstrap-sprockets
-//= require select2
 //= require toastr
+//= require select2
 //= require ckeditor/init
 //= require turbolinks
 //= require_tree .

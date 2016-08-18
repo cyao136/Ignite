@@ -49,6 +49,7 @@ gem "daemons"
 gem 'whenever', :require => false
 gem 'toastr-rails'
 gem 'public_activity'
+gem 'faye'
 
 source 'http://rails-assets.org' do
   gem 'rails-assets-tether', '>= 1.1.0'

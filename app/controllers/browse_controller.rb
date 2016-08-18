@@ -24,10 +24,10 @@ class BrowseController < ApplicationController
 		sql_states = ""
 		@states = params[:states]
 		if (@states.nil? or @states.blank?) then
-			sql_states = "state = " + Project.states[:funding_ext]
+			sql_states = "state = #{Project.states[:funding_ext]}"
 		else
 			@states.split(',').each_with_index do |s, index|
-				sql_states << ("state = " + s)
+				sql_states << ("state = #{s}")
 				if index != @states.size - 1 then
 					sql_states << " OR "
 				end
@@ -64,10 +64,10 @@ class BrowseController < ApplicationController
 		sql_states = ""
 		@states = params[:states]
 		if (@states.nil? or @states.blank?) then
-			sql_states = "state = " + Project.states[:funding_ext]
+			sql_states = "state = #{Project.states[:funding_ext]}"
 		else
 			@states.split(',').each_with_index do |s, index|
-				sql_states << ("state = " + s)
+				sql_states << ("state = #{s}")
 				if index != @states.size - 1 then
 					sql_states << " OR "
 				end

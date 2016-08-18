@@ -18,6 +18,7 @@ class ExternalLinkValidation < ActiveModel::Validator
 end
 
 class Project < ActiveRecord::Base
+	include ApplicationHelper
 	include ActiveModel::Validations
 	include PublicActivity::Model
 	belongs_to :user
@@ -33,7 +34,7 @@ class Project < ActiveRecord::Base
 	accepts_nested_attributes_for :videos
 
 	# after a project is updated, check if new states needs to be changed
-	after_save :evaluate!
+	after_commit :evaluate!
   	
 
 	enum state: [
@@ -83,16 +84,21 @@ class Project < ActiveRecord::Base
 
 	def eval_state
 		if self.ended_at <= DateTime.now then
+			# Record the activity
 			self.create_activity :ended
+			# Notify subscribers of this project
+    		broadcast("/projects/#{self.id}", {title: self.name, msg: "#{self.name}\'s campaign has just ended!"})
 			return Project.states[:ended]
 		else
-			return self.state
+			return Project.states[self.state]
 		end
 	end
 
 	def eval_goal
 		if (self.goal_supporter <= self.num_supporter) && (self.goal_funding <= self.funding) then
+			# Record the activity
 			self.create_activity :goal_reached
+    		broadcast("/projects/goal_reached", {title: self.name, msg: "#{self.name} has met it's goal!"})
 			return true
 		else
 			return false

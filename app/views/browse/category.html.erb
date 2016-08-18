@@ -1,20 +1,26 @@
 <% provide(:title, @cur_genre + " Games") %>
 <div class="container">
-	<form action="category" method="GET">
-		Genre: <select name="genre" id="genre" class="select" onchange="this.form.submit()">
-			<option value='All'>Everything</option>
-			<% Project.tag_counts_on(:tags).most_used(10).each do |tag| %>
-				<option value=<%= tag.name %> ><%= tag.name %></option>
-			<% end %>
-		</select>
-		Sort: <select name="sort" id="sort" class="select" onchange="this.form.submit()">
-			<option value='random'>Random</option>
-			<option value='newest'>Newest</option>
-			<option value='most_popular'>Most Popular</option>
-			<option value='soon_ending'>Soon Ending</option>
-		</select>
-		<input name="states" id="states" class="form-control" multiple="multiple" data-selected='<%= @states %>' hidden=true value=<%= Project.states[:funding_ext] %>></input>
-	</form>
+	<div class="row">
+		<form action="category" method="GET">
+			<div class="col-xs-6 col-lg-3">
+				Genre: <select name="genre" id="genre" class="select form-control" onchange="this.form.submit()">
+					<option value='All'>Everything</option>
+					<% Project.tag_counts_on(:tags).most_used(10).each do |tag| %>
+						<option value=<%= tag.name %> ><%= tag.name %></option>
+					<% end %>
+				</select>
+			</div>
+			<div class="col-xs-6 col-lg-3">
+				Sort: <select name="sort" id="sort" class="select form-control" onchange="this.form.submit()">
+					<option value='random'>Random</option>
+					<option value='newest'>Newest</option>
+					<option value='most_popular'>Most Popular</option>
+					<option value='soon_ending'>Soon Ending</option>
+				</select>
+			</div>
+			<input name="states" id="states" class="form-control" multiple="multiple" data-selected='<%= @states %>' hidden=true value=<%= Project.states[:funding_ext] %>></input>
+		</form>
+	</div>
 
 	<hr>
 

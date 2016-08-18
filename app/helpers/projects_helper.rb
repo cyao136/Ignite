@@ -152,8 +152,10 @@ module ProjectsHelper
 				end
 			end
 
-			params = {name: name, small_desc: small_desc, tag_list: tag_list, creator_name: creator, ended_at: endTime,
-				funding: funding.to_s.to_f, goal_funding: goal_funding.to_s.to_f, num_supporter: supporter, created_at: startTime}
+			params = {name: name, small_desc: small_desc, creator_name: creator,
+				tag_list: tag_list, state: Project.states[:funding_ext],
+				funding: funding.to_s.to_f, goal_funding: goal_funding.to_s.to_f, num_supporter: supporter,
+				created_at: startTime, ended_at: endTime}
 
 			if not project.update(params)
 				p project.errors.full_messages.to_sentence
