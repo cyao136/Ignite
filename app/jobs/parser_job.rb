@@ -27,7 +27,7 @@ class ParserJob
 					@project.user_id = 1 #TODO needs to use an admin account
 					@project.crowdfunding_link = link
 					@project.name = "Temp"
-					@project.state = "funding_ext"
+					@project.state = "unpublished"
 					if @project.save
 					else
 						p @project.errors.full_messages.to_sentence
