@@ -1,0 +1,136 @@
+/* jQuery Countdown styles 2.0.0. */
+
+
+.countdown-rtl {
+	direction: rtl;
+}
+.countdown-holding span {
+	color: #888;
+}
+.countdown-row {
+	clear: both;
+	width: 100%;
+	padding: 0px 2px;
+	text-align: center;
+}
+.countdown-show1 .countdown-section {
+	width: 98%;
+}
+.countdown-show2 .countdown-section {
+	width: 48%;
+}
+.countdown-show3 .countdown-section {
+	width: 32.5%;
+}
+.countdown-show4 .countdown-section {
+	width: 24.5%;
+}
+.countdown-show5 .countdown-section {
+	width: 19.5%;
+}
+.countdown-show6 .countdown-section {
+	width: 16.25%;
+}
+.countdown-show7 .countdown-section {
+	width: 14%;
+}
+.countdown-section {
+	display: block;
+	float: left;
+	font-size: 75%;
+	text-align: center;
+}
+.countdown-amount {
+    font-size: 1000%;
+    color: white;
+}
+.countdown-period {
+    display: block;
+}
+.countdown-descr {
+	display: block;
+	width: 100%;
+}
+
+#countdown_body {
+	background-color: black;
+	color: white;
+	#defaultCountdown {
+		width: 90%;
+		height: 10%;
+	}
+	.container{
+    vertical-align: middle;
+    text-align: center
+	}
+
+	#countdown{
+		position: absolute;
+		top: 35%;
+		left: 14%;
+	}
+
+	#ignition{
+		position: absolute;
+		top: 60%;
+	}
+
+	#signup{
+		position: absolute;
+		top: 75%;
+		width: 400px;
+		left: 50%;
+		margin-left: -200px;
+	}
+
+	.no-border {
+    box-shadow: none; /* You may want to include this as bootstrap applies these styles too */
+    border-left: 0;
+    border-right: 0;
+    border-top: 0;
+    border-bottom: 2px solid white;
+    background-color:rgba(255,0,0,0);
+	}
+
+	input[type=text] {
+  	color : white;
+	}
+
+	.btn {
+		border: 0;
+		box-shadow: none;
+		background-color:rgba(255,0,0,0);
+		color: white;
+	}
+
+	#video-background {
+/*  making the video fullscreen  */
+	  position: absolute;
+	  display: block;
+	  right: 0;
+	  bottom: 0;
+	  min-width: 100%;
+	  min-height: 100%;
+	  width: initial;
+	  height: auto;
+	  z-index: -2;
+	  margin: 0 auto;
+	  object-fit: cover;
+	  padding: 0;
+	}
+
+	#background-overlay {
+		position: absolute;
+		left: 0%;
+		top: 0%;
+		background-color: black;
+		opacity: 0.5;
+		z-index: -1;
+		min-width: 100%;
+	  min-height: 100%;
+	  width: initial;
+	  height: auto;
+	}
+}
+
+
