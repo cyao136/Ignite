@@ -1,10 +1,4 @@
 /* jQuery Countdown styles 2.0.0. */
-#defaultCountdown {
-
-	width: 1000px;
-	height: 200px;
-
-}
 
 .is-countdown {
 	background-color: black;
@@ -59,29 +53,34 @@
 	width: 100%;
 }
 
-body {
+#countdown_body {
 	background-color: black;
-}
-
-.container{
+	#defaultCountdown {
+		width: 1000px;
+		height: 200px;
+	}
+	.container{
     display: table;
     vertical-align: middle;
+	}
+
+	#countdown{
+		position: absolute;
+		top: 50%;
+		margin-left: -500px;
+		margin-top: -100px;
+	}
+
+	#signup{
+		position: absolute;
+		top: 75%;
+		width: 300px;
+		margin-left: -150px;
+	}
+
+	.form-control {
+		margin-top: 11px;
+	}
 }
 
-#countdown{
-	position: absolute;
-	top: 50%;
-	margin-left: -500px;
-	margin-top: -100px;
-}
 
-#signup{
-	position: absolute;
-	top: 75%;
-	width: 300px;
-	margin-left: -150px;
-}
-
-.form-control {
-	margin-top: 11px;
-}

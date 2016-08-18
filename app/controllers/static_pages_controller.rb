@@ -1,5 +1,7 @@
 class StaticPagesController < ApplicationController
-  skip_before_filter :authenticate_user!
+  #edited for alpha stage
+  skip_before_filter :authenticate_user!, only: [:countdown]
+  layout "countdown", only: [:countdown]
   def home
   end
 
@@ -8,6 +10,6 @@ class StaticPagesController < ApplicationController
 
   def countdown
     @alpha_tester = AlphaTester.new
-    render :layout => "countdown"
+
   end
 end

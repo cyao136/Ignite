@@ -1,7 +1,8 @@
 class ProjectsController < ApplicationController
 	include ProjectsHelper
 	before_filter :verify_project_owner, only: [:edit, :update, :submit, :media_upload]
-	skip_before_filter :authenticate_user!, only: [:show, :gallery]
+	#removed for alpha stage
+	#skip_before_filter :authenticate_user!, only: [:show, :gallery]
 	def verify_project_owner
 		if current_user.id != Project.find(params[:id]).user_id
 			redirect_to root_url
