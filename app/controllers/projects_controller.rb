@@ -152,7 +152,7 @@ class ProjectsController < ApplicationController
 			@project.user_id = current_user.id
 			@project.crowdfunding_link = link
 			@project.name = "Temp"
-			@project.state = "funding_ext"
+			@project.state = "unpublished"
 			if @project.save
 			else
 				flash.now[:danger] = @project.errors.full_messages.to_sentence
