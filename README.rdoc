@@ -25,6 +25,7 @@ Hello developers, this is the README to help you get started.
 * Bundle the requirements: 'bundle install'
 * Create the database: 'bundle exec rake db:create'
 * Migrate the database: 'bundle exec rake db:migrate'
+* Install thin server: 'gem install thin'
 * Run the server: 'rails s -b 0.0.0.0'
 
 == Updating your development
