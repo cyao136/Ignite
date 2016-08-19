@@ -1,9 +1,9 @@
 <% provide(:title, @project.name + " Gallery") %>
 <div class="container">
   <%= render :partial => 'projects/header' %>
-
+<!-- 
   <%= button_to 'Upload', {:controller => "projects", :action => "media_upload"}, params:{ :id => project_id } , :method=>:get  %>
-
+-->
   <div class="col-md-12">
   <% @pictures.each do |pic| %>
   <div class="col-md-3">

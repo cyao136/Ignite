@@ -9,6 +9,7 @@ $yellow-pastel: 		#FEF7B3;
 $red-bright:			#FE4205;
 $orange-bright: 		#FC831C;
 $yellow-bright: 		#FFFF2E;
+$orange-dark:			#A54C00;
 $gray: 					#D5D2CB;
 $gray-light: 			#F3F1EE;
 $gray-very-light: 		#FCFCFC;
@@ -17,7 +18,9 @@ $white:					#FFFFFF;
 $black: 				#222020;
 $transparent:			rgba(0,0,0,0);
 
+$header:				$white;
 
 /* Bootstrap Override */
 $jumbotron-bg:			$transparent;
-$headings-color:		$gray-dark;
+$headings-color:		$black;
+$brand-primary:			$orange-bright

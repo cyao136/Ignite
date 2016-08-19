@@ -1,16 +1,14 @@
 <div class="row">
-	<nav class="navbar navbar-light bg-faded">
+	<nav class="navbar navbar-full navbar-light" style="background-color: $header;">
 		<ul class="nav navbar-nav pull-xs-left">
 			<a class="navbar-brand" href="/">
-				<%= image_tag("ignite_logo_text_brand.png", alt: "Ignite", height: "30") %>
+				<%= image_tag("ignite_logo_text_brand.png", alt: "Home", height: "30") %>
 			</a>
 			<li class="nav-item <%= is_active?('/browse') %>">
 				<a class="nav-link" href="<%= browse_path %>">Browse</a>
 			</li>
-			<li class="nav-item <%= is_active?('/project/new') %>">
-				<a class="nav-link" href="<%= new_project_path %>">New</a>
-			</li>
 		</ul>
+
 
 		<form action="/browse/search" method="GET" class="nav-item col-xs-4">
 			<div class="input-group">
@@ -29,15 +27,6 @@
 
 		<div class="collapse navbar-toggleable-md" id="navbarcollapsable">
 			<ul class="nav navbar-nav pull-xs-right">
-				<li class="nav-item <%= is_active?('/') %>">
-					<a class="nav-link" href="/">Home</a>
-				</li>
-				<li class="nav-item <%= is_active?('/about') %>">
-					<a class="nav-link" href="<%= about_path %>">About Us</a>
-				</li>
-				<li class="nav-item <%= is_active?('/contact') %>">
-					<a class="nav-link" href="<%= contact_path %>">Contact Us</a>
-				</li>
 				<% if user_signed_in? %>
 				  <li class="nav-item">
 					<a class="nav-link" <%= link_to "My Account", current_user %></a>
