@@ -1,6 +1,8 @@
 <% provide(:title, @project.name) %>
 <div class="container">
+<!-- 
   <%= button_to 'Edit', {:controller => "projects", :action => "edit"}, params:{ :id => project_id } , :method=>:get  %>
+-->
   <%= render :partial => 'projects/header' %>
       <div class="row">
         <div class="col-sm-8 col-md-8 col-xs-12">

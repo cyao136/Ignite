@@ -9,16 +9,16 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
   <body>
-    <div class="container">
+    <div class="container" id="app_header">
       <%= render 'layouts/header' %>
 	</div>
-    <div class="container">
+    <div class="container" id="app_yield">
       <% flash.each do |message_type, message| %>
         <div class="alert alert-<%= message_type %>"><%= message %></div>
       <% end %>
       <%= yield %>
     </div>
-	<div class="container">
+	<div class="container" id="app_footer">
 	  <%= render 'layouts/footer' %>
 	</div>
   </body>
