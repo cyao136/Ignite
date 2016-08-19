@@ -35,10 +35,10 @@ class Project < ActiveRecord::Base
 
 	# after a project is updated, check if new states needs to be changed
 	after_commit :evaluate!
-  	
+
 
 	enum state: [
-					:unpublish,
+					:unpublished,
 					:funding,
 					:archived,
 					:deleted,
@@ -53,11 +53,7 @@ class Project < ActiveRecord::Base
 	validates :full_desc, length: { maximum: 5000 }
 	validates :creator_desc, length: { maximum: 1000 }
 
-	with_options if: ->o {o.is_state? "unpublish"} do |v|
-		v.validates :small_desc, presence: true, length: { minimum: 2 }
-		v.validates :full_desc, presence: true, length: { minimum: 2 }
-		v.validates :creator_desc, presence: true, length: { minimum: 2 }
-		v.validates :creator_name, presence: true, length: { minimum: 2 }
+	with_options if: ->o {!o.is_state? "unpublished"} do |v|
 		v.validates :ended_at, presence: true
 		v.validates :goal_supporter, presence: true
 		v.validates :goal_funding, presence: true
@@ -84,7 +80,7 @@ class Project < ActiveRecord::Base
 	    if self.state != Project.states[:unpublished] then
 		    state = self.eval_state
 		    is_goal_reached = self.eval_goal
-		    
+
 		    update_columns(:state => state, :is_goal_reached => is_goal_reached)
 		end
 	end
