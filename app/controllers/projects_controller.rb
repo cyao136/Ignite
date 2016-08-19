@@ -35,8 +35,7 @@ class ProjectsController < ApplicationController
 		if user_signed_in?
 			if @project.unread?(current_user)
 				@project.mark_as_read! :for => current_user
-				check_quests
-				check_badges
+				@project.create_activity :read_by_user, owner: current_user
 			end
 		end
 	end
@@ -302,20 +301,6 @@ class ProjectsController < ApplicationController
 	  @new_comment = Comment.build_from(@project, current_user.id, "")
   	@new_comments = @project.comment_threads.tagged_with("feedback")
 	end
-
-	def check_quests
-    Quest.where(user_id: current_user.id).find_each do |quest|
-      if quest.name == "Project" and quest.state == "incomplete"
-        quest.complete_quest
-      end
-    end
-  end
-
-  def check_badges
-  	if Project.all.read_by(current_user).count == 10
-  		current_user.add_badge(3)
-  	end
-  end
 
 	private
 

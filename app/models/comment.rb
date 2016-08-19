@@ -19,17 +19,6 @@ class Comment < ActiveRecord::Base
 
   self.per_page = 10
 
-  after_save :check_quests
-
-  def check_quests
-    Quest.where(user_id: self.user_id).find_each do |quest|
-      if quest.name == "Comment" and quest.state == "incomplete"
-        quest.complete_quest
-      end
-    end
-  end
-
-
   # Helper class method that allows you to build a comment
   # by passing a commentable object, a user_id, and comment text
   # example in readme

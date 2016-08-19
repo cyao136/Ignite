@@ -36,6 +36,13 @@ class User < ActiveRecord::Base
       :five
       ]
 
+  def self.current
+    Thread.current[:user]
+  end
+  def self.current=(user)
+    Thread.current[:user] = user
+  end
+
   # Returns the hash digest of the given string.
   def User.digest(string)
     cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
@@ -169,17 +176,24 @@ class User < ActiveRecord::Base
     end
   end
 
+  def after_activity_save(activity)
+    self.quests.each do |quest|
+      quest.evaluate(activity)
+    end
+  end
+
   private
 
-    # Converts username and email to all lower-case.
-    # def downcase_fields
-    #  self.username = username.downcase
-	#  self.email = email.downcase
-    # end
+  # Converts username and email to all lower-case.
+  # def downcase_fields
+  #  self.username = username.downcase
+  #  self.email = email.downcase
+  # end
 
-    # Creates and assigns the activation token and digest.
-    def create_activation_digest
-      self.activation_token  = User.new_token
-      self.activation_digest = User.digest(activation_token)
-    end
+  # Creates and assigns the activation token and digest.
+  def create_activation_digest
+    self.activation_token  = User.new_token
+    self.activation_digest = User.digest(activation_token)
+  end
+
 end
