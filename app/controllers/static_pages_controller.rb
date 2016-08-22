@@ -10,6 +10,9 @@ class StaticPagesController < ApplicationController
 
   def countdown
     @alpha_tester = AlphaTester.new
+  end
 
+  def main
+    @staff_picks = Project.where(id: 8..10)
   end
 end

@@ -4,7 +4,7 @@
 
 /*Contact Us Page*/
 
-#contact-page .hidden { 
+#contact-page .hidden {
 	display: none;
 }
 
@@ -21,3 +21,11 @@
 #contact-page p {
 	text-align: center;
 }
+
+/*Main*/
+#main-page {
+  .carousel-inner > .carousel-item > img {
+      margin: 0 auto;
+  }
+}
+
