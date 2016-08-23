@@ -3,8 +3,9 @@
   <small class="text-muted"><%= a.created_at.strftime('%H:%M:%S %-d %B %Y') %></small><br/>
   <strong><%= activity.owner ? activity.owner.username : 'Guest' %></strong>
   <% if a.trackable %>
-    edited the story <%= a.trackable.body %>.
+    edited the comment:
+    a.trackable.body %>.
   <% else %>
-    edited the story that is currently deleted.
+    edited the comment that is currently deleted.
   <% end %>
 </li>
