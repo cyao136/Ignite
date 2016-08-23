@@ -1,9 +1,23 @@
 <div id="project-header">
   <div align="center" id="project-header-info">
+    <div class="tile-badge">
+      <ul class="badge-list list-inline">
+      <% if user_signed_in? and current_user.voted_for? @project %>
+        <li class="read-badge list-inline-item"><span class="fa fa-check-circle"></span></li>
+      <% end %>
+      </ul>
+    </div>
     <h1><%= @project.name %></h1>
     <br>
     <b>by <%= @project.creator_name %></b>
     <p><%= @project.small_desc %></p>
+    <div class="vote-buttons">
+      <% if user_signed_in? and current_user.voted_for? @project %>
+        <%= link_to "Unlike", options = { action: "downvote", id: @project.id, controller: "projects"}, method: :put %>
+      <% elsif (user_signed_in? and ((current_user.voted_for? @project) == false)) %>
+        <%= link_to "Like", options = { action: "upvote", id: @project.id, controller: "projects"}, method: :put %>
+      <% end %>
+    </div>
   </div>
   <ul class="nav nav-pills" id="project-header-tabs">
     <li class="nav-item">
