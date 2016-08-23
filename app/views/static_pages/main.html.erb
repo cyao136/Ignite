@@ -1,8 +1,8 @@
 <% provide(:title, "Home") %>
 
-<div class="container" id="main-page">
+<div class="container-fluid" id="main-page">
   <div class="row">
-    <div class="col-xs-12">
+    <h1>Staff Picks</h1>
       <div id="carousel-staff-picks" class="carousel slide" data-ride="carousel">
         <ol class="carousel-indicators">
           <li data-target="#carousel-staff-picks" data-slide-to="0" class="active"></li>
@@ -33,32 +33,39 @@
           <span class="sr-only">Next</span>
         </a>
       </div>
+  </div>
+
+  <div class="row">
+    <div class="container">
+    <h2>Activity Feed</h2>
+      <%= render_activities(@activities) %>
     </div>
   </div>
+
   <div class="row">
-    <%= render_activities(@activities) %>
-  </div>
-  <div class="row">
-    <div class="col-xs-12">
-      <div class="table-responsive">
-        <table class="table user-list">
-          <thead>
-            <tr>
-            <th><span>Rank</span></th>
-            <th><span>User</span></th>
-            <th><span>Points</span></th>
-            </tr>
-          </thead>
-          <tbody>
-          <% @user_highscore_hash.each_with_index do |h, index| %>
-            <tr>
-              <th scope="row"><%= index+1 %></th>
-              <td><%= User.find(h['user_id']).username %></td>
-              <td><%= h['sum_points'] %></td>
-            </tr>
-          <% end %>
-          </tbody>
-        </table>
+    <div class="container">
+      <div class="col-xs-12">
+      <h2>Leaderboard</h2>
+        <div class="table-responsive">
+          <table class="table user-list">
+            <thead>
+              <tr>
+              <th><span>Rank</span></th>
+              <th><span>User</span></th>
+              <th><span>Points</span></th>
+              </tr>
+            </thead>
+            <tbody>
+            <% @user_highscore_hash.each_with_index do |h, index| %>
+              <tr>
+                <th scope="row"><%= index+1 %></th>
+                <td><%= User.find(h['user_id']).username %></td>
+                <td><%= h['sum_points'] %></td>
+              </tr>
+            <% end %>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>

@@ -24,6 +24,8 @@
 
 /*Main*/
 #main-page {
+  .carousel-inner {height:100%;}
+
   .carousel-inner > .carousel-item > img {
       margin: 0 auto;
       width: 100%;

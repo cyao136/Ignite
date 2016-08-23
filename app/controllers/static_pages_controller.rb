@@ -15,6 +15,6 @@ class StaticPagesController < ApplicationController
   def main
     @staff_picks = Project.where(id: 8..10)
     @user_highscore_hash = Merit::Score.top_scored
-    @activities = PublicActivity::Activity.where(trackable_type: "Comment")
+    @activities = PublicActivity::Activity.where(trackable_type: "Comment").reverse_order.limit(10)
   end
 end
