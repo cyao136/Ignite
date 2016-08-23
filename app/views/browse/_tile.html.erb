@@ -1,15 +1,18 @@
 <div class="col-md-4">
 	<a class="tile-card" href="/projects/<%= project.id %>">
 		<%= image_tag (project.pictures.tagged_with("Tile")[0] != nil ? project.pictures.tagged_with("Tile")[0].asset.url(:tile) : "")  %>
+		<div class="tile-badge">
+			<ul class="badge-list list-inline">
+			<% if user_signed_in? and project.unread?(current_user) == false %>
+				<li class="read-badge list-inline-item"><span class="fa fa-check-circle"></span></li>
+			<% end %>
+			</ul>
+		</div>
 		<div class="tile-shade"></div>
 		<div class="tile-text">
-				<h6>
-				    <% if user_signed_in? and project.unread?(current_user) == false %>
-              <i><%= project.name %></i>
-            <% else %>
+			<h6>
               <b><%= project.name %></b>
-            <% end %>
-            </h3>
+            </h6>
 			<p class="creator"><small> by <%= project.creator_name %> </small></p>
 			<p class="description"><small> <%= project.small_desc %> </small></p>
 		</div>

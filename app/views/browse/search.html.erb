@@ -1,4 +1,7 @@
 <% provide(:title, "Search Games") %>
+<% content_for :head_tags do %>
+	<meta name="turbolinks-cache-control" content="no-cache">
+<% end %>
 <div class="container">
 	<div class="row">
 		<form action="search" method="GET">

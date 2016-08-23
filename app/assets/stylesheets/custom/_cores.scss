@@ -133,6 +133,9 @@ input {
 
 /* Header */
 #app_header {
+  .navbar {
+    background-color: $header;
+  }
   min-width: 100%;
   margin-left: 0px;
   margin-right: 0px;
@@ -153,34 +156,22 @@ input {
 /* Yield */
 #app_yield {
   margin-top: 100px;
+  margin-bottom: 100px;
 }
 
 /* Footer */
 #app_footer {
   min-width: 100%;
-  margin-bottom: 0px;
-  margin-top: 0px;
-  background-color: $orange-dark;
-  margin-top: 100px;
-  padding-bottom: 50px;
-  padding-top: 5px;
-  border-top: 1px solid $gray-dark;
+  margin-left: 0px;
+  margin-right: 0px;
   color: $white;
-  a {
-    color: $white;
-    &:hover {
-      color: $gray-light;
-    }
-  }
-  small {
-    float: left;
-  }
-  ul {
-    float: right;
-    list-style: none;
-    li {
-      float: left;
-      margin-left: 15px;
+  background-color: $footer;
+  .container {
+    padding-top: 25px;
+
+    a {
+      color:$white;
+      text-decoration: none;
     }
   }
 }
@@ -196,19 +187,5 @@ input {
 
   body {
     padding:0;
-  }
-
-  .navbar, .navbar-fixed-top, .navbar-fixed-bottom, .navbar-static-top {
-    margin-left: 0;
-    margin-right: 0;
-    margin-bottom:0;
-  }
-
-  .navbar-header {
-    float: none;
-  }
-  .navbar-nav .nav-item {
-    float: none;
-    text-align: right;
   }
 }

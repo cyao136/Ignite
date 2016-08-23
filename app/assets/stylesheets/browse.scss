@@ -52,36 +52,43 @@
 	border-radius: 10px;
 	overflow: hidden;
 	background: black;
-}
 
-.tile-shade {
-	background: black;
-	opacity: 0.4;
-	position: absolute;
-	bottom: 0;
-	left: 0;
-	height: 25%;
-	width: 100%;
-}
+	.tile-badge {
+		position: absolute;
+		top: 5px;
+		right: 7px;
+		z-index: 999;
+	}
 
-.tile-text {
-	h6 {
-		color: white;
-		margin-bottom: 2px;
+	.tile-shade {
+		background: black;
+		opacity: 0.4;
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		height: 32%;
+		width: 100%;
 	}
-	p {
-		color: white;
-		margin-bottom: 1px;
+
+	.tile-text {
+		h6 {
+			color: white;
+			margin-bottom: 2px;
+		}
+		p {
+			color: white;
+			margin-bottom: 1px;
+		}
+		.description{
+			opacity: 0;
+			line-height: 1;
+		}
+		line-height: 0.5;
+		text-align: left;
+		position: absolute;
+		top: 70%;
+		left: 3%;
 	}
-	.description{
-		opacity: 0;
-		line-height: 1;
-	}
-	line-height: 0.5;
-	text-align: left;
-	position: absolute;
-	top: 78%;
-	left: 3%;
 }
 
 .tile-card:hover {
@@ -89,6 +96,9 @@
 		opacity: 0.4;
 	    transition: 0.2s;
 		height: 100%;
+    }
+    .tile-badge {
+    	color: $white;
     }
     .tile-text {
 		top: 43%;

@@ -1,16 +1,16 @@
-<div class="row">
-	<nav class="navbar navbar-full navbar-light" style="background-color: $header;">
+<div>
+	<nav class="navbar navbar-full navbar-light">
 		<ul class="nav navbar-nav pull-xs-left">
 			<a class="navbar-brand" href="/">
 				<%= image_tag("ignite_logo_text_brand.png", alt: "Home", height: "30") %>
 			</a>
-			<li class="nav-item <%= is_active?('/browse') %>">
+			<li class="nav-item <%= is_active?('/browse') %> hidden-sm-down">
 				<a class="nav-link" href="<%= browse_path %>">Browse</a>
 			</li>
 		</ul>
 
 
-		<form action="/browse/search" method="GET" class="nav-item col-xs-4">
+		<form action="/browse/search" method="GET" class="col-xs-9 col-sm-6 col-md-4">
 			<div class="input-group">
 				<input name="name" id="name" class="form-control" placeholder="Search"></input>
 				<span class="input-group-addon">
@@ -21,14 +21,17 @@
 		</form>
 
 		
-		<button class="navbar-toggler hidden-lg-up pull-xs-right" type="button" data-toggle="collapse" data-target="#navbarcollapsable">
+		<button class="navbar-toggler hidden-md-up pull-xs-right" type="button" data-toggle="collapse" data-target="#navbarcollapsable">
 			&#9776;
 		</button>
 
-		<div class="collapse navbar-toggleable-md" id="navbarcollapsable">
-			<ul class="nav navbar-nav pull-xs-right">
+		<div class="collapse navbar-toggleable-sm pull-xs-right" id="navbarcollapsable">
+			<ul class="nav navbar-nav">
+				<li class="nav-item <%= is_active?('/browse') %> hidden-md-up">
+					<a class="nav-link" href="<%= browse_path %>">Browse</a>
+				</li>
 				<% if user_signed_in? %>
-				  <li class="nav-item">
+				  <li class="nav-item <%= is_active?(url_for current_user) %>">
 					<a class="nav-link" <%= link_to "My Account", current_user %></a>
 				  </li>
 				<% else %>

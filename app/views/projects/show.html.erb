@@ -4,48 +4,75 @@
   <%= button_to 'Edit', {:controller => "projects", :action => "edit"}, params:{ :id => project_id } , :method=>:get  %>
 -->
   <%= render :partial => 'projects/header' %>
-      <div class="row">
-        <div class="col-sm-8 col-md-8 col-xs-12">
-          <div id="video">
-            <iframe style="position: absolute; left: 0px; top: 0px; width: 100%; height: 100%" src="<%= @embedded_video_link %>" frameborder="0" scrolling="no">
-            </iframe>
-          </div>
-        </div>
-        <div id="side" class="col-sm-4 col-md-4 col-xs-12">
-          <div>
-            <p>
-            <%= @project.small_desc %>
-            </p>
-          </div>
-          <div id="links">
-            <h3 align="center">
-            <%= @project.num_supporter %> Supporters
-            <h3>
-            <div>
-              <a style="width: 100%" href="<%= @project.crowdfunding_link %>" target="_blank" class="btn btn-success-outline btn-lg">
-              <span class="fa fa-usd fa-fw" aria-hidden="true"></span> 
-              <span> Campaign </span>
-              </a>
-              <div class="btn-group btn-group-sm btn-group-justified" role="group" aria-label="External Site">
-                <a href="<%= @project.facebook_link %>" target="_blank" class="btn btn-primary-outline <%= has_facebook?() %>">
-                <span class="fa fa-facebook fa-fw" aria-hidden="true"></span> 
-                <span class="hidden-lg-down"> Facebook </span>
-                </a>
-                <a href="<%= @project.twitter_link %>" target="_blank" class="btn btn-primary-outline <%= has_twitter?() %>">
-                <span class="fa fa-twitter fa-fw" aria-hidden="true"></span>
-                <span class="hidden-lg-down"> Twitter </span>
-                </a>
-                <a href="<%= @project.website_link %>" target="_blank" class="btn btn-primary-outline <%= has_website?() %>">
-                <span class="fa fa-home fa-fw" aria-hidden="true"></span>
-                <span class="hidden-lg-down"> Website </span>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <hr>
-      <div>
-        <%= @project.full_desc != nil ? @project.full_desc.html_safe : "" %>
+  <div class="row" id="project-content">
+    <div class="col-md-8 col-sm-12" id="project-video">
+      <div class="embed-responsive embed-responsive-16by9">
+        <iframe class="embed-responsive-item" src="<%= @embedded_video_link %>" frameborder="0" scrolling="no">
+        </iframe>
       </div>
     </div>
+    <div id="project-side" class="col-md-4 col-sm-12">
+      <div id="project-progress">
+        <div id="project-goal-progress">
+          <div class="text-xs-center" id="current-funding"><span class="fa fa-usd" aria-hidden="true"></span> 
+            <%= @project.funding %> funded</div>
+          <progress class="progress" value="<%= (@project.funding.to_f / @project.goal_funding) * 100 %>" max="100" aria-describedby="current-funding"></progress>
+          <div class="text-xs-center" id="current-funding"><%= ((@project.funding.to_f / @project.goal_funding) * 100).round(1) %> % of <span class="fa fa-usd" aria-hidden="true"></span> <%= @project.goal_funding %></div>
+        </div>
+          <hr>
+
+        <div id="project-stats-progress">
+          <h2>
+            <span class="fa fa-users" aria-hidden="true"></span> 
+            <b> <%= @project.num_supporter %> </b>
+            <z style="font-size:small"> supporters </z>
+          </h2>
+          <br>
+          <h2>
+            <span class="fa fa-thumbs-o-up" aria-hidden="true"></span> 
+            <b> 120 </b>
+            <z style="font-size:small"> likes </z>
+          </h2>
+          <br>
+          <h2>
+            <span class="fa fa-clock-o" aria-hidden="true"></span> 
+            <% if ((@project.ended_at - DateTime.now).to_i) > 0 %>
+              <% time_string = time_ago_in_words(@project.ended_at).split(' ', 2) %>
+              <b><%= time_string[0] %></b>
+              <z style="font-size:small"><%= time_string[1] %> left</z>
+            <% else %>
+              Project ended
+            <% end %>
+          </h2>
+        </div>
+
+      </div>
+      <div id="project-links">
+        <div>
+          <a style="width: 100%" href="<%= @project.crowdfunding_link %>" target="_blank" class="btn btn-success-outline btn-lg">
+          <span class="fa fa-usd fa-fw" aria-hidden="true"></span> 
+          <span> Campaign </span>
+          </a>
+          <div class="btn-group btn-group-sm btn-group-justified" role="group" aria-label="External Site">
+            <a href="<%= @project.facebook_link %>" target="_blank" class="btn btn-primary-outline <%= has_facebook?() %>">
+            <span class="fa fa-facebook fa-fw" aria-hidden="true"></span> 
+            <span class="hidden-lg-down"> Facebook </span>
+            </a>
+            <a href="<%= @project.twitter_link %>" target="_blank" class="btn btn-primary-outline <%= has_twitter?() %>">
+            <span class="fa fa-twitter fa-fw" aria-hidden="true"></span>
+            <span class="hidden-lg-down"> Twitter </span>
+            </a>
+            <a href="<%= @project.website_link %>" target="_blank" class="btn btn-primary-outline <%= has_website?() %>">
+            <span class="fa fa-home fa-fw" aria-hidden="true"></span>
+            <span class="hidden-lg-down"> Website </span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr>
+  <div>
+    <%= @project.full_desc != nil ? @project.full_desc.html_safe : "" %>
+  </div>
+</div>
