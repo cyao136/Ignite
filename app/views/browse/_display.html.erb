@@ -2,6 +2,7 @@
 	<% @projects.each do |project| %>
 	    <%= render partial: "browse/tile", locals: {project: project} %>
 	<% end %>
+<%= will_paginate @projects, :renderer => WillPaginate::ActionView::LinkRenderer %>
 </div>
 
-<%= will_paginate @projects, :renderer => WillPaginate::ActionView::LinkRenderer %>
+
