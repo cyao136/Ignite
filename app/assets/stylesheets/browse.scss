@@ -48,7 +48,9 @@
 	margin-bottom: 30px;
 	position: relative;
 	min-height: 1px;
-	float: left;
+    float: none;
+    display: table;
+    margin: 15px auto;
 	border-radius: 10px;
 	overflow: hidden;
 	background: black;
