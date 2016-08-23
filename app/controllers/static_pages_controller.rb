@@ -16,5 +16,6 @@ class StaticPagesController < ApplicationController
     @staff_picks = Project.where(id: 8..10)
     @user_highscore_hash = Merit::Score.top_scored
     @activities = PublicActivity::Activity.where(trackable_type: "Comment").reverse_order.limit(10)
+    @projects = Project.all.order("num_supporter DESC").limit(30).paginate(:page => params[:page], :per_page => 3)
   end
 end
