@@ -1,0 +1,11 @@
+<li class="list-group-item">
+  <span class="glyphicon glyphicon-edit"></span>
+  <small class="text-muted"><%= a.created_at.strftime('%H:%M:%S %-d %B %Y') %></small><br/>
+  <strong><%= activity.owner ? activity.owner.username : 'Guest' %></strong>
+  <% if a.trackable %>
+    edited the comment:
+    a.trackable.body %>.
+  <% else %>
+    edited the comment that is currently deleted.
+  <% end %>
+</li>
