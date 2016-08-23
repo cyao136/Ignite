@@ -27,15 +27,50 @@
   .row {
     margin-bottom: 100px;
   }
+  #featured-carousel {
+    margin-top: -100px;
+    margin-bottom: 100px;
+    height: 500px;
+    width: 100%;
+  }
+  #carousel-staff-picks {
+    position: absolute;
+    height: 500px;
+    width: 100%;
+    top: 3.4rem;
+    left: 0;
+    background-color: $black;
+  }
+
+  #main-projects {
+    test: test;
+  }
+
+  #main-activity-feed {
+    test: test;
+  }
+
+  #main-leaderboard {
+    test: test;
+  }
 
   .carousel-inner {
     height:100%;
   }
 
+  .carousel-item {
+    height:100%;
+  }
+
+  .carousel-caption {
+    h3, p {
+      color:$white;
+    }
+  }
+
   .carousel-inner > .carousel-item > img {
       margin: 0 auto;
       width: 100%;
-      max-width: 1080px;
   }
 }
 

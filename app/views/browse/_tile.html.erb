@@ -1,4 +1,4 @@
-<div class="col-md-4">
+<div class="col-lg-4 col-sm-6 col-xs-12">
 	<a class="tile-card" href="/projects/<%= project.id %>">
 		<%= image_tag (project.pictures.tagged_with("Tile")[0] != nil ? project.pictures.tagged_with("Tile")[0].asset.url(:tile) : "")  %>
 		<div class="tile-badge">
