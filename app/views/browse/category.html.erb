@@ -1,9 +1,12 @@
 <% provide(:title, @cur_genre + " Games") %>
+<% content_for :head_tags do %>
+	<meta name="turbolinks-cache-control" content="no-cache">
+<% end %>
 <div class="container">
 	<div class="row">
 		<form action="category" method="GET">
 			<div class="col-xs-6 col-lg-3">
-				Genre: <select name="genre" id="genre" class="select form-control" onchange="this.form.submit()">
+				Genre: <select name="genre" id="genre" class="form-control" onchange="this.form.submit()">
 					<option value='All'>Everything</option>
 					<% Project.tag_counts_on(:tags).most_used(10).each do |tag| %>
 						<option value=<%= tag.name %> ><%= tag.name %></option>
@@ -11,7 +14,7 @@
 				</select>
 			</div>
 			<div class="col-xs-6 col-lg-3">
-				Sort: <select name="sort" id="sort" class="select form-control" onchange="this.form.submit()">
+				Sort: <select name="sort" id="sort" class="form-control" onchange="this.form.submit()">
 					<option value='random'>Random</option>
 					<option value='newest'>Newest</option>
 					<option value='most_popular'>Most Popular</option>
@@ -25,15 +28,14 @@
 	<hr>
 
     <%= render partial: "display", locals: {projects: @projects} %>
-
 	<script type="text/javascript">
-		$(document).ready(function() {
-			$(".select").select2({
+		document.addEventListener("turbolinks:load", function() {
+			$("select").select2({
 				minimumResultsForSearch: Infinity
 			});
 
 			$("#genre").select2("val", "<%= @cur_genre %>");
 			$("#sort").select2("val", "<%= @cur_sort %>");
-		});
+		})
 	</script>
 </div>

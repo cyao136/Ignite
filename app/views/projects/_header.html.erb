@@ -1,9 +1,11 @@
-
-  <div align="center">
+<div id="project-header">
+  <div align="center" id="project-header-info">
     <h1><%= @project.name %></h1>
-    <b><%= @project.creator_name %></b>
+    <br>
+    <b>by <%= @project.creator_name %></b>
+    <p><%= @project.small_desc %></p>
   </div>
-  <ul class="nav nav-tabs">
+  <ul class="nav nav-pills" id="project-header-tabs">
     <li class="nav-item">
       <a class="nav-link <%= is_active?("/projects/#{@project.id}") %>" href="/projects/<%= @project.id %>">
       <span class="fa fa-gamepad fa-fw" aria-hidden="true"></span> Project </a>
@@ -12,12 +14,22 @@
       <a class="nav-link <%= is_active?("/projects/#{@project.id}/gallery") %>" href="/projects/<%= @project.id %>/gallery">
       <span class="fa fa-picture-o fa-fw" aria-hidden="true"></span> Gallery </a>
     </li>
-    <li class="nav-item">
-      <a class="nav-link <%= is_active?("/projects/#{@project.id}/discussion") %>" href="/projects/<%= @project.id %>/discussion">
-      <span class="fa fa-comments fa-fw" aria-hidden="true"></span> Discussion </a>
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle 
+                <%= is_active?("/projects/#{@project.id}/discussion/general") %>
+                <%= is_active?("/projects/#{@project.id}/discussion/bugs") %>
+                <%= is_active?("/projects/#{@project.id}/discussion/suggestions") %>"
+                data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                <span class="fa fa-comments fa-fw" aria-hidden="true"></span> Discussion </a>
+      <div class="dropdown-menu">
+        <a class="dropdown-item <%= is_active?("/projects/#{@project.id}/discussion/general") %>" href="/projects/<%= @project.id %>/discussion/general">General</a>
+        <a class="dropdown-item <%= is_active?("/projects/#{@project.id}/discussion/bugs") %>" href="/projects/<%= @project.id %>/discussion/bugs">Bugs</a>
+        <a class="dropdown-item <%= is_active?("/projects/#{@project.id}/discussion/suggestions") %>" href="/projects/<%= @project.id %>/discussion/suggestions">Suggestions</a>
+      </div>
     </li>
     <li class="nav-item">
       <a class="nav-link <%= is_active?("/projects/#{@project.id}/feedback") %>" href="/projects/<%= @project.id %>/feedback">
       <span class="fa fa-exclamation-circle fa-fw" aria-hidden="true"></span> Feedback </a>
     </li>
   </ul>
+</div>

@@ -1,25 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-	<title><%= full_title(yield(:title)) %></title>
-  <%= javascript_include_tag "application", "http://localhost:9292/notification.js", "data-turbolinks-track" => true %>
-	<%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true %>
-	<%= csrf_meta_tags %>
-	<%= render 'layouts/shim' %>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+  	<title><%= full_title(yield(:title)) %></title>
+    <%= javascript_include_tag "application", "http://localhost:9292/notification.js", "data-turbolinks-track" => true %>
+  	<%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true %>
+  	<%= csrf_meta_tags %>
+  	<%= render 'layouts/shim' %>
+  	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <%= yield(:head_tags) %>
   </head>
   <body>
-    <div class="container" id="app_header">
-      <%= render 'layouts/header' %>
-	</div>
-    <div id="app_yield">
-      <% flash.each do |message_type, message| %>
-        <div class="alert alert-<%= message_type %>"><%= message %></div>
-      <% end %>
-      <%= yield %>
+    <div class="wrapper">
+      <div class="container" id="app_header">
+        <%= render 'layouts/header' %>
+      </div>
+      <div class="container" id="app_yield">
+        <% flash.each do |message_type, message| %>
+          <div class="alert alert-<%= message_type %>"><%= message %></div>
+        <% end %>
+        <%= yield %>
+      </div>
+    	<div class="container" id="app_footer">
+    	  <%= render 'layouts/footer' %>
+    	</div>
     </div>
-	<div class="container" id="app_footer">
-	  <%= render 'layouts/footer' %>
-	</div>
   </body>
 </html>

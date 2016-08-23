@@ -41,15 +41,15 @@ module ProjectsHelper
 	end
 	
 	def has_facebook?()
-		@project.facebook_link=='' ? "disabled" : ""
+		@project.facebook_link.blank? ? "disabled" : ""
   	end
 
 	def has_twitter?()
-		@project.twitter_link=='' ? "disabled" : ""
+		@project.twitter_link.blank? ? "disabled" : ""
   	end
 
 	def has_website?()
-		@project.website_link=='' ? "disabled" : ""
+		@project.website_link.blank? ? "disabled" : ""
   	end
 
   	def popular_tags()
