@@ -14,5 +14,6 @@ class StaticPagesController < ApplicationController
 
   def main
     @staff_picks = Project.where(id: 8..10)
+    @user_highscore_hash = Merit::Score.top_scored
   end
 end
