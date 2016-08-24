@@ -25,6 +25,7 @@ class Project < ActiveRecord::Base
 	acts_as_taggable
 	acts_as_commentable
 	acts_as_readable :on => :created_at
+	acts_as_votable
 	has_many :demos, :dependent => :destroy
 	has_many :pledges
 	has_many :videos, :dependent => :destroy

@@ -302,6 +302,20 @@ class ProjectsController < ApplicationController
   	@new_comments = @project.comment_threads.tagged_with("feedback")
 	end
 
+	def upvote
+	  @project = Project.find(params[:id])
+	  @project.liked_by current_user
+	  @project.create_activity :upvote, owner: current_user
+	  redirect_to :back
+	end
+
+	def downvote
+	  @project = Project.find(params[:id])
+	  @project.unliked_by current_user
+	  @project.create_activity :downvote, owner: current_user
+	  redirect_to :back
+	end
+
 	private
 
 		####################################################
