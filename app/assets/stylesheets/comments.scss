@@ -12,9 +12,7 @@
     margin-bottom: 0px;
   }
   .comment-nav {
-    margin-left: 5px;
     margin-bottom: 10px;
-
     a {
       font-size: 10px;
       font-weight: bold;
@@ -22,7 +20,9 @@
     }
   }
   .vote-buttons {
-    margin-left: 5px;
+    float: left;
+    flex-direction: column;
+    margin-right: 10px;
     a {
       font-size: 10px;
       font-weight: bold;
@@ -37,4 +37,30 @@
 
 .body-section {
   margin-left: 10px;
+}
+
+.comments-show {
+  margin-left: 50px;
+}
+
+#user-avatar {
+  height: 72px;
+  float: left;
+  margin-right: 10px;
+  img {
+    margin-top: 11px;
+    height: 50px;
+  }
+}
+
+#user-info {
+  a {
+    display: inline;
+  }
+  p {
+    display: inline;
+    float: right;
+    font-size: 70%;
+    color: #888;
+    }
 }
