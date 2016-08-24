@@ -15,7 +15,8 @@ module ApplicationHelper
   end
 
   def broadcast(channel, msg)
-    message = {:channel => channel, :data => msg}
+    message = {:channel => channel, :data => msg, :ext => {:auth_token => NOTIFICATION_TOKEN}}
+    p message
     uri = URI.parse("http://localhost:9292/notification")
     Net::HTTP.post_form(uri, :message => message.to_json)
   end
