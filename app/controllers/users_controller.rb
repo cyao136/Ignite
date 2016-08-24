@@ -48,12 +48,15 @@ class UsersController < ApplicationController
     # authorize! :update, @user
     if request.patch? && params[:user] #&& params[:user][:email]
       @user = User.find params[:id]
+      p @user
       if @user.update(user_params)
         @user.skip_reconfirmation!
         sign_in(@user, :bypass => true)
         redirect_to @user, notice: 'Your profile was successfully updated.'
       else
-        @show_errors = true
+        @user.errors.full_messages.each do |msg| 
+          flash[:notice] = msg 
+        end 
       end
     end
   end
