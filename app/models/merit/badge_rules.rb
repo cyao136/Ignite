@@ -45,19 +45,41 @@ module Merit
       #   user.name.length > 4
       # end
 
-      grant_on 'comments#upvote',  badge: 'Voter', model_name: 'User' do |f|
-        User.find(f.user_id).find_voted_items.count >= 10
+      grant_on 'comments#upvote',  badge_id: 1, model_name: 'User' do |f|
+        (1..9).include?(User.find(User.current.id).find_voted_items.count)
       end
 
-      grant_on 'comments#create',  badge: 'Commenter', model_name: 'User' do |f|
-        Comment.where(user_id: f.user_id).count >= 10
+      grant_on 'comments#upvote',  badge_id: 2, model_name: 'User' do |f|
+        (10..99).include?(User.find(User.current.id).find_voted_items.count)
       end
 
-      # currently n/a because user_id will not match, changed to a controller action
-      #grant_on 'projects#show',  badge: 'Browser', model_name: 'User' do |f|
-      #  @user = User.find(f.user_id)
-      #  Project.all.read_by(@user).count >= 10
-      #end
+      grant_on 'comments#upvote',  badge_id: 3, model_name: 'User' do |f|
+        User.find(User.current.id).find_voted_items.count >= 100
+      end
+
+      grant_on 'comments#create',  badge_id: 4, model_name: 'User' do |f|
+        (1..9).include?(Comment.where(user_id: User.current.id).count)
+      end
+
+      grant_on 'comments#create',  badge_id: 5, model_name: 'User' do |f|
+        (10..99).include?(Comment.where(user_id: User.current.id).count)
+      end
+
+      grant_on 'comments#create',  badge_id: 6, model_name: 'User' do |f|
+        Comment.where(user_id: User.current.id).count >= 100
+      end
+
+      grant_on 'projects#show',  badge_id: 7, model_name: 'User' do |f|
+        (1..9).include?(Project.all.read_by(User.current).count)
+      end
+
+      grant_on 'projects#show',  badge_id: 8, model_name: 'User' do |f|
+        (10..99).include?(Project.all.read_by(User.current).count)
+      end
+
+      grant_on 'projects#show',  badge_id: 9, model_name: 'User' do |f|
+        Project.all.read_by(User.current).count >= 100
+      end
 
     end
   end
