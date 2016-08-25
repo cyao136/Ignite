@@ -22,24 +22,22 @@
           <div class="profile-user-email">
             <%= @user.email %>
           </div>
+          <div>
+            Level <%= current_level %><br>
+            <progress class="progress progress-striped progress-success" value="<%= current_level_progress %>" max="100"></progress>
+          </div>
         </div>
+        <!-- Buttons for future use
         <div class="profile-userbuttons">
           <button type="button" class="btn btn-success btn-sm">button</button>
           <button type="button" class="btn btn-danger btn-sm">button</button>
         </div>
+         -->
         <div class="profile-usermenu">
           <ul class="nav">
             <li class="nav-item">
-              <a class="nav-link">
-              <span aria-hidden="true"></span> Overview </a>
-            </li>
-            <li class="nav-item">
               <a class="nav-link" href="/users/edit">
               <span aria-hidden="true"></span> Edit User </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="<%= project_path(@user, current_project) %>">
-              <span aria-hidden="true"></span> My Projects </a>
             </li>
             <li class="nav-item">
 <a class="nav-link" href=<%= destroy_user_session_path%> data-method="delete" rel="nofollow">
@@ -52,18 +50,7 @@
     </div>
     <div class="col-md-9">
       <div class="profile-content">
-        My badges
-        <ul>
-          <% current_user.badges.each do |badge| %>
-            <li><%= badge.name %></li>
-          <% end %>
-        </ul>
-        My exp <br><%= current_user.points %><br>
-        My quests
-        <% @quests = Quest.where(user_id: current_user.id) %>
-        <% @quests.each do |quest| %>
-          <li><%= quest.name %><br><%= quest.description %><br><%= quest.state %>, exp: <%= quest.exp %></li>
-        <% end %>
+        <%= render 'users/profile_tabs' %>
       </div>
     </div>
   </div>

@@ -101,6 +101,12 @@
   padding: 20px;
   background: #fff;
   min-height: 460px;
+  .tab-pane {
+    margin-top: 20px;
+  }
+  #badge-card-text {
+    color: grey;
+  }
 }
 
 #session_remember_me {
