@@ -4,34 +4,44 @@
 <% end %>
 <div class="container">
 	<div class="row">
-		<form action="search" method="GET">
-			<div class="col-xs-12 col-lg-4">
-				<input name="name" id="name" class="form-control" placeholder="Name"></input>
-			</div>
+		<div class="col-xs-12">
+			<h2> Search projects </h2>
+			<br>
+			<form action="search" method="GET">
+				<div class="col-xs-12 col-lg-4">
+					<input name="name" id="name" class="form-control" placeholder="Name"></input>
+				</div>
 
-			<div class="col-xs-6 col-lg-3">
-				<input name="genres" id="genres" class="form-control" multiple="multiple" data-options='<%= Project.tag_counts_on(:tags).map(&:name) %>' data-selected='<%= @genres %>'></input>
-				<input name="states" id="states" class="form-control" multiple="multiple" data-selected='<%= @states %>' hidden=true value=<%= Project.states[:funding_ext] %>></input>
-			</div>
+				<div class="col-xs-6 col-lg-3">
+					<input name="genres" id="genres" class="form-control" multiple="multiple" data-options='<%= Project.tag_counts_on(:tags).map(&:name) %>' data-selected='<%= @genres %>'></input>
+					<input name="states" id="states" class="form-control" multiple="multiple" data-selected='<%= @states %>' hidden=true value=<%= Project.states[:funding_ext] %>></input>
+				</div>
 
-			<div class="col-xs-6 col-lg-3">
-				<select name="sort" id="sort" class="form-control" data-selected='<%= @sort %>'>
-					<option value='random'>Random</option>
-					<option value='newest'>Newest</option>
-					<option value='most_popular'>Most Popular</option>
-					<option value='soon_ending'>Soon Ending</option>
-				</select>
-			</div>
+				<div class="col-xs-6 col-lg-3">
+					<select name="sort" id="sort" class="form-control" data-selected='<%= @sort %>'>
+						<option value='random'>Random</option>
+						<option value='newest'>Newest</option>
+						<option value='most_popular'>Most Popular</option>
+						<option value='soon_ending'>Soon Ending</option>
+					</select>
+				</div>
 
-			<div class="col-xs-12 col-lg-2">
-				<input type="submit" value="Search" class="form-control">
-			</div>
-		</form>
+				<div class="col-xs-12 col-lg-2">
+					<input type="submit" value="Search" class="form-control">
+				</div>
+			</form>
+			<br>
+		</div>
 	</div>
 	
 	<hr>
 
-    <%= render partial: "display", locals: {projects: @projects} %>
+	<% if !@projects.blank? %>
+    	<%= render partial: "display", locals: {projects: @projects} %>
+    <% else %>
+    	<h6> We couldn't find the project(s) you are looking for! <h6>
+    <% end %>
+
 
 	<script type="text/javascript">
 	$(document).ready(function() {

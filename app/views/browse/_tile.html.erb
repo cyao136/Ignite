@@ -6,6 +6,9 @@
 			<% if user_signed_in? and project.unread?(current_user) == false %>
 				<li class="read-badge list-inline-item"><span class="fa fa-check-circle"></span></li>
 			<% end %>
+			<% if user_signed_in? and current_user.voted_for? project %>
+				<li class="like-badge list-inline-item"><span class="fa fa-thumbs-up"></span></li>
+			<% end %>
 			</ul>
 		</div>
 		<div class="tile-shade"></div>

@@ -88,5 +88,9 @@ class BrowseController < ApplicationController
 		else
 			@projects = Project.where('(' + sql_states + ')' + " AND " "name like ?", "%#{params[:name]}%").order(sql_order).tagged_with(genre_tags).paginate(:page => params[:page], :per_page => 12)
 		end
+
+		if @projects.count == 1
+			redirect_to @projects[0]
+		end
 	end
 end
