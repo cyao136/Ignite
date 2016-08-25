@@ -21,7 +21,7 @@
     </li>
 
     <li class="nav-item dropdown">
-      <a class="nav-link dropdown-toggle 
+      <a class="nav-link dropdown-toggle
                 <%= is_active?("/projects/#{@project.id}/discussion/general") %>
                 <%= is_active?("/projects/#{@project.id}/discussion/bugs") %>
                 <%= is_active?("/projects/#{@project.id}/discussion/suggestions") %>"
@@ -41,11 +41,11 @@
 
     <li class="pull-right">
       <% if user_signed_in? and current_user.voted_for? @project %>
-        <%= button_to options = { action: "downvote", id: @project.id, controller: "projects"}, method: :patch, class: "vote-buttons btn btn-success-outline active" do %>
+        <%= button_to options = { action: "downvote", id: @project.id, controller: "projects"}, method: :put, class: "vote-buttons btn btn-success-outline active" do %>
           <span class="fa fa-thumbs-o-up" aria-hidden="true"></span> Like
         <% end %>
       <% elsif (user_signed_in? and ((current_user.voted_for? @project) == false)) %>
-        <%= button_to options = { action: "upvote", id: @project.id, controller: "projects"}, method: :patch, class: "vote-buttons btn btn-success-outline" do %>
+        <%= button_to options = { action: "upvote", id: @project.id, controller: "projects"}, method: :put, class: "vote-buttons btn btn-success-outline" do %>
           <span class="fa fa-thumbs-up" aria-hidden="true"></span> Like
         <% end %>
       <% end %>
