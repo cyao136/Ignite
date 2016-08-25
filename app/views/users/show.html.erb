@@ -26,6 +26,11 @@
             Level <%= current_level %><br>
             <progress class="progress progress-striped progress-success" value="<%= current_level_progress %>" max="100"></progress>
           </div>
+          <div>
+            Joined: <%= show_join_date %><br>
+            Badges: <%= current_user.badges.count %><br>
+            Comments: <%= current_user.comments.count %><br>
+          </div>
         </div>
         <!-- Buttons for future use
         <div class="profile-userbuttons">
