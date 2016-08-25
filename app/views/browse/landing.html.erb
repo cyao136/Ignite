@@ -3,12 +3,13 @@
 	<div class="row center">
 	
 		<div class="col-md-12">
-			<h1> Browse Genres </h1>
+			<h2> Browse </h2>
+			<hr>
+			<br>
 		</div>
-
-		<div class="col-md-3">
+		<div class="col-md-6">
 			<a class="genre-card" href="/browse/category?genre=All&sort=random">
-				<%= image_tag("genres/default.png", :alt => "", :class => 'img-fluid') %>
+				<%= image_tag("genres/mobile_tile_large.png", :alt => "", :class => 'img-fluid') %>
 				<div class="genre-text">
 					<h1> Everything </h1>
 				</div>
@@ -18,8 +19,19 @@
 		</div>
 
 		<div class="col-md-3">
+			<a class="genre-card" href="/browse/category?genre=2d&sort=random">
+				<%= image_tag("genres/2d_tile.png", :alt => "", :class => 'img-fluid') %>
+				<div class="genre-text">
+					<h1> 2D </h1>
+				</div>
+				<div class="genre-shade">
+				</div>
+			</a>
+		</div>
+
+		<div class="col-md-3">
 			<a class="genre-card" href="/browse/category?genre=Action&sort=random">
-				<%= image_tag("genres/default.png", :alt => "", :class => 'img-fluid') %>
+				<%= image_tag("genres/fps_tile.png", :alt => "", :class => 'img-fluid') %>
 				<div class="genre-text">
 					<h1> Action </h1>
 				</div>
@@ -30,7 +42,7 @@
 
 		<div class="col-md-3">
 			<a class="genre-card" href="/browse/category?genre=Adventure&sort=random">
-				<%= image_tag("genres/default.png", :alt => "", :class => 'img-fluid') %>
+				<%= image_tag("genres/adventure_tile.png", :alt => "", :class => 'img-fluid') %>
 				<div class="genre-text">
 					<h1> Adventure </h1>
 				</div>
@@ -40,30 +52,8 @@
 		</div>
 
 		<div class="col-md-3">
-			<a class="genre-card" href="/browse/category?genre=RPG&sort=random">
-				<%= image_tag("genres/default.png", :alt => "", :class => 'img-fluid') %>
-				<div class="genre-text">
-					<h1> RPG </h1>
-				</div>
-				<div class="genre-shade">
-				</div>
-			</a>
-		</div>
-
-		<div class="col-md-3">
-			<a class="genre-card" href="/browse/category?genre=Roguelike&sort=random">
-				<%= image_tag("genres/default.png", :alt => "", :class => 'img-fluid') %>
-				<div class="genre-text">
-					<h1> Roguelike </h1>
-				</div>
-				<div class="genre-shade">
-				</div>
-			</a>
-		</div>
-
-		<div class="col-md-3">
 			<a class="genre-card" href="/browse/category?genre=Fantasy&sort=random">
-				<%= image_tag("genres/default.png", :alt => "", :class => 'img-fluid') %>
+				<%= image_tag("genres/fantasy_tile.png", :alt => "", :class => 'img-fluid') %>
 				<div class="genre-text">
 					<h1> Fantasy </h1>
 				</div>
@@ -72,9 +62,34 @@
 			</a>
 		</div>
 
+<!--
+		<div class="col-md-3">
+			<a class="genre-card" href="/browse/category?genre=Roguelike&sort=random">
+				<%= image_tag("genres/roguelike_tile.png", :alt => "", :class => 'img-fluid') %>
+				<div class="genre-text">
+					<h1> Roguelike </h1>
+				</div>
+				<div class="genre-shade">
+				</div>
+			</a>
+		</div>
+-->
+
+		<div class="col-md-3">
+			<a class="genre-card" href="/browse/category?genre=RPG&sort=random">
+				<%= image_tag("genres/rpg_tile.png", :alt => "", :class => 'img-fluid') %>
+				<div class="genre-text">
+					<h1> RPG </h1>
+				</div>
+				<div class="genre-shade">
+				</div>
+			</a>
+		</div>
+
+<!--
 		<div class="col-md-3">
 			<a class="genre-card" href="/browse/category?genre=Simulation&sort=random">
-				<%= image_tag("genres/default.png", :alt => "", :class => 'img-fluid') %>
+				<%= image_tag("genres/simulation_tile.png", :alt => "", :class => 'img-fluid') %>
 				<div class="genre-text">
 					<h1> Simulation </h1>
 				</div>
@@ -82,10 +97,11 @@
 				</div>
 			</a>
 		</div>
+-->
 
 		<div class="col-md-3">
 			<a class="genre-card" href="/browse/category?genre=VR&sort=random">
-				<%= image_tag("genres/default.png", :alt => "", :class => 'img-fluid') %>
+				<%= image_tag("genres/vr_tile.png", :alt => "", :class => 'img-fluid') %>
 				<div class="genre-text">
 					<h1> VR </h1>
 				</div>
