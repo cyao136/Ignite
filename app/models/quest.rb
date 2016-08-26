@@ -1,4 +1,5 @@
 class Quest < ActiveRecord::Base
+  include ApplicationHelper
   belongs_to :user
 
   enum state: [
@@ -22,6 +23,7 @@ class Quest < ActiveRecord::Base
     @user = User.find(self.user_id)
     @user.add_points(self.exp)
     update_attribute(:state, "awarded")
+    broadcast("/users/#{@user.id}", {title: "Noice", msg: "You completed the quest #{self.name}!"})
   end
 
   def evaluate(activity)

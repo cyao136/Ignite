@@ -1,9 +1,17 @@
 module UsersHelper
 	def check_daily_login
-		if (current_user.current_sign_in_at.to_date - current_user.last_sign_in_at.to_date) >= 1
-			if current_user.daily_login == "zero"
-				current_user.update_attribute(:daily_login, "one")
-			end
+		if (current_user.current_sign_in_at.to_date - current_user.last_sign_in_at.to_date) == 1
+			if current_user[:daily_login] < 5
+				current_user[:daily_login] += 5
+        current_user.save!
+        #broadcast("/users/<%= current_user.id %>/quest_complete", {title: "Daily Login", msg: "You logged in #{current_user[:daily_login].to_s} days in a row!"})
+			elsif current_user[:daily_login] == 5
+        #broadcast("/users/<%= current_user.id %>/quest_complete", {title: "Daily Login", msg: "You logged in 5 or more days in a row!"})
+      end
+    elsif (current_user.current_sign_in_at.to_date - current_user.last_sign_in_at.to_date) > 1
+      current_user[:daily_login] = 0
+      current_user.save!
+      #broadcast("/users/<%= current_user.id %>/quest_complete", {title: "rip in balls", msg: "riripripriprpirpiripri!"})
 		end
 	end
 
