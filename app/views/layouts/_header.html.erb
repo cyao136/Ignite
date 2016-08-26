@@ -31,13 +31,13 @@
 					<a class="nav-link" href="<%= browse_path %>">Browse</a>
 				</li>
 				<% if user_signed_in? %>
-				  <li class="dropdown nav-item <%= is_active?(url_for current_user) %>">
+					<li class="dropdown nav-item <%= is_active?(url_for current_user) %>">
 						<a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" href="#"><%= current_user.username %></a>
-					  <div class="dropdown-menu">
-					  	<a class="dropdown-item" href=<%= user_path current_user %>>My Account</a>
-	            <a class="dropdown-item" href=<%= destroy_user_session_path %> data-method="delete" rel="nofollow">Log Out</a>
-	      		</div>
-      		</li>
+						<div class="dropdown-menu dropdown-menu-right">
+						  	<a class="dropdown-item" href=<%= user_path current_user %>>My Account</a>
+		            		<a class="dropdown-item" href=<%= destroy_user_session_path %> data-method="delete" rel="nofollow">Log Out</a>
+		      			</div>
+	      			</li>
 				<% else %>
 				  <li class="nav-item <%= is_active?('/users/sign_in') %>">
 					<a class="nav-link" href="<%= new_user_session_path %>">Log in</a>
