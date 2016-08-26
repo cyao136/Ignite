@@ -15,12 +15,15 @@
         var client = new Faye.Client('http://localhost:9292/notification');
 
         var subscription = client.subscribe('/projects/goal_reached', function(data) {
-            toastr.success(data.msg, data.title)
+            toastr.success(data.msg, data.title);
+        });
+        client.subscribe('/users/<%= current_user.id %>', function(data) {
+            toastr.success(data.msg, data.title);
         });
 
         <% current_user.get_up_voted(Project).each do |p| %>
           client.subscribe('/projects/<%= p.id %>', function(data) {
-            toastr.success(data.msg, data.title)
+            toastr.success(data.msg, data.title);
           });
         <% end %>
       <% end %>
