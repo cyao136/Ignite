@@ -25,6 +25,7 @@ gem 'bcrypt', '~> 3.1.11'
 gem 'will_paginate'
 gem 'bootstrap-will_paginate'
 gem 'carrierwave'
+gem "fog", "~> 1.3.1"
 gem 'mini_magick'
 gem 'aws-sdk', '>= 2.0.34'
 gem 'devise'

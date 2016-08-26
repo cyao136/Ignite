@@ -8,7 +8,7 @@ class PictureUploader < CarrierWave::Uploader::Base
 
   process :convert => 'png'
   # Choose what kind of storage to use for this uploader:
-  storage :file
+  storage :fog
   # storage :fog
   after :remove, :delete_empty_upstream_dirs
 
