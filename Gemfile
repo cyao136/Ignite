@@ -27,7 +27,6 @@ gem 'bootstrap-will_paginate'
 gem 'carrierwave'
 gem 'mini_magick'
 gem 'aws-sdk', '>= 2.0.34'
-gem "font-awesome-rails"
 gem 'devise'
 gem 'ckeditor'
 gem 'nokogiri'
@@ -53,7 +52,6 @@ gem 'thin'
 gem 'faye'
 gem 'rails-observers'
 gem 'puma'
-gem 'rack-cors', :require => 'rack/cors'
 
 source 'http://rails-assets.org' do
   gem 'rails-assets-tether', '>= 1.1.0'
