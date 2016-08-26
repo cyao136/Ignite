@@ -49,8 +49,11 @@ gem "daemons"
 gem 'whenever', :require => false
 gem 'toastr-rails'
 gem 'public_activity'
+gem 'thin'
 gem 'faye'
 gem 'rails-observers'
+gem 'puma'
+gem 'rack-cors', :require => 'rack/cors'
 
 source 'http://rails-assets.org' do
   gem 'rails-assets-tether', '>= 1.1.0'
