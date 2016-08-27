@@ -7,9 +7,6 @@ class PictureUploader < CarrierWave::Uploader::Base
   include CarrierWave::MiniMagick
 
   process :convert => 'png'
-  # Choose what kind of storage to use for this uploader:
-  storage :file
-  # storage :fog
   after :remove, :delete_empty_upstream_dirs
 
   # Override the directory where uploaded files will be stored.
