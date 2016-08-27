@@ -1,6 +1,6 @@
 class StaticPagesController < ApplicationController
   #edited for alpha stage
-  skip_before_filter :authenticate_user!, only: [:countdown]
+  skip_before_filter :authenticate_user!, only: [:countdown, :redirect]
   layout "countdown", only: [:countdown]
   def home
   end
@@ -22,5 +22,14 @@ class StaticPagesController < ApplicationController
     # Have to make into an array for paginate to limit the number of projects
     recommended_projects = [] + Project.where(state: 4).limit(30).order("num_supporter DESC")
     @projects = recommended_projects.paginate(:page => params[:page], :per_page => 6)
+  end
+
+  def redirect
+    p user_signed_in?
+    if !user_signed_in?
+      redirect_to '/comingsoon'
+    else
+      redirect_to '/main'
+    end
   end
 end
