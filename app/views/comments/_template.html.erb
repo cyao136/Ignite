@@ -1,5 +1,3 @@
-<%= render partial: "comments/form", locals: {new_comment: new_comment, commenting_tag: commenting_tag} %>
-
 <% if commenting_tag != "feedback" %>
   <div class="comments-container">
     <%= render partial: "comments/reply", locals: {comments: comments} %>
@@ -12,4 +10,4 @@
   </div>
 <% end %>
 
-
+<%= render partial: "comments/form", locals: {new_comment: new_comment, commenting_tag: commenting_tag} %>

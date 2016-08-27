@@ -21,7 +21,7 @@
           </div>
           <div>
             Level <%= current_level %><br>
-            <progress class="progress progress-striped progress-success" value="<%= current_level_progress %>" max="100"></progress>
+            <progress class="progress progress-striped progress-success" value="<%= current_level_progress %>" max="100" data-toggle="tooltip" data-placement="bottom" title="<%= 100 - current_level_progress %> points until next level!"></progress>
           </div>
           <div>
             Joined: <%= show_join_date %><br>
@@ -40,7 +40,7 @@
           <ul class="nav">
             <li class="nav-item">
               <a class="nav-link" href="/users/edit">
-              <span aria-hidden="true"></span> Edit User </a>
+              <span aria-hidden="true"></span> Edit Profile </a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href=<%= destroy_user_session_path%> data-method="delete" rel="nofollow">
@@ -60,3 +60,9 @@
   </div>
 </div>
 <br>
+
+<script>
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();
+});
+</script>
