@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
   	<title><%= full_title(yield(:title)) %></title>
-    <%= javascript_include_tag "application", FAYE_JS, "data-turbolinks-track" => true %>
+    <%= javascript_include_tag "application", FAYE_CONFIG[Rails.env]['js'], "data-turbolinks-track" => true %>
   	<%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true %>
   	<%= csrf_meta_tags %>
   	<%= render 'layouts/shim' %>
@@ -12,7 +12,7 @@
     <script type="text/javascript">
     $(function() {
       <% if user_signed_in? %>
-        var client = new Faye.Client("<%= FAYE_HOST %>");
+        var client = new Faye.Client("<%= FAYE_CONFIG[Rails.env]['host'] %>");
 
         var subscription = client.subscribe('/projects/goal_reached', function(data) {
             toastr.success(data.msg, data.title);

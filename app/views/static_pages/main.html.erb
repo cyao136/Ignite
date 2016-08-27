@@ -16,7 +16,7 @@
             <% else %>
             <div class="carousel-item">
             <% end %>
-              <%= image_tag(project.pictures.tagged_with("Tile")[0].asset.url(:tile), class: "img") %>
+              <%= image_tag(project.pictures.tagged_with("Tile")[0].asset.url, class: "img") %>
               <div class="carousel-caption">
                 <h3><%= project.name %></h3>
                 <p><%= project.small_desc %></p>

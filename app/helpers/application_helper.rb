@@ -16,7 +16,7 @@ module ApplicationHelper
 
   def broadcast(channel, msg)
     message = {:channel => channel, :data => msg, :ext => {:auth_token => NOTIFICATION_TOKEN}}
-    uri = URI.parse(config.notification_host)
+    uri = URI.parse(FAYE_CONFIG[Rails.env]['host'])
     Net::HTTP.post_form(uri, :message => message.to_json)
   end
 end
