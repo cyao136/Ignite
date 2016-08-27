@@ -11,17 +11,13 @@
         </ol>
         <div class="carousel-inner" role="listbox">
           <% @staff_picks.each_with_index do |project, index| %>
-            <% if index == 0 %>
-            <div class="carousel-item active">
-            <% else %>
-            <div class="carousel-item">
-            <% end %>
+            <a class="carousel-item <% if index == 0 %>active<% end%>" href=<%= url_for(project) %>>
               <%= image_tag(project.pictures.tagged_with("Tile")[0].asset.url, class: "img") %>
               <div class="carousel-caption">
                 <h3><%= project.name %></h3>
                 <p><%= project.small_desc %></p>
               </div>
-            </div>
+            </a>
           <% end %>
         </div>
         <a class="left carousel-control" href="#carousel-staff-picks" role="button" data-slide="prev">
