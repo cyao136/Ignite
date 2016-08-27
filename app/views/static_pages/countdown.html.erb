@@ -1,7 +1,7 @@
 <% provide(:title, "Coming Soon") %>
 
 <div class="container" id="alpha-login">
-  <a class="nav-link" href="<%= new_user_session_path %>">Log in</a>
+  <a class="nav-link" href="<%= new_user_session_path %>">Alpha Tester</a>
 </div>
 
 <div class="row" id='countdown_body'>
@@ -41,7 +41,7 @@
 <script>
 $(function () {
   var releaseDate = new Date();
-  releaseDate = new Date(2016, 8-1, 22);
+  releaseDate = new Date(2016, 9-1, 19);
   $('#defaultCountdown').countdown({until: releaseDate});
   $('#year').text(releaseDate.getFullYear());
 });

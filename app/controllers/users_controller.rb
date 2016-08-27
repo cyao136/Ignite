@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  include UsersHelper
   #Verifies that a user is logged in and is the correct user before performing actions
   # before_action :logged_in_user, only: [:index, :edit, :update]
   # before_action :correct_user,   only: [:edit, :update]
@@ -54,9 +55,9 @@ class UsersController < ApplicationController
         sign_in(@user, :bypass => true)
         redirect_to @user, notice: 'Your profile was successfully updated.'
       else
-        @user.errors.full_messages.each do |msg| 
-          flash[:notice] = msg 
-        end 
+        @user.errors.full_messages.each do |msg|
+          flash[:notice] = msg
+        end
       end
     end
   end

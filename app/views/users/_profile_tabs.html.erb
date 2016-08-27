@@ -1,35 +1,40 @@
 <ul class="nav nav-tabs" role="tablist">
+  <% if is_logged_in_user? %>
+    <li class="nav-item">
+      <a class="nav-link <% if is_logged_in_user? %>active<% end %>" data-toggle="tab" href="#quests" role="tab">Quests</a>
+    </li>
+  <% end %>
   <li class="nav-item">
-    <a class="nav-link active" data-toggle="tab" href="#quests" role="tab">Quests</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" data-toggle="tab" href="#badges" role="tab">Badges</a>
+    <a class="nav-link <% if !is_logged_in_user? %>active<% end %>" data-toggle="tab" href="#badges" role="tab">Badges</a>
   </li>
 </ul>
 
 <div class="tab-content">
-  <div class="tab-pane active" id="quests" role="tabpanel">
-    <% @quests = Quest.where(user_id: current_user.id) %>
-    <% @quests.each do |quest| %>
-    <div class="card text-xs-center" style="<%= quest_state_for_card(quest) %>">
-      <div class="card-block" data-toggle="tooltip" data-placement="bottom" title="<%= quest_state_for_tooltip(quest) %>">
-        <blockquote class="card-blockquote">
-          <h5 class="card-title"><%= quest.name %></h5>
-          <p><%= quest.description %></p>
-          <footer>Exp: <%= quest.exp %></footer>
-        </blockquote>
+  <% if is_logged_in_user? %>
+    <div class="tab-pane <% if is_logged_in_user? %>active<% end %>" id="quests" role="tabpanel">
+      <% @quests = Quest.where(user_id: current_user.id) %>
+      <% @quests.each do |quest| %>
+      <div class="card text-xs-center" style="<%= quest_state_for_card(quest) %>">
+        <div class="card-block" data-toggle="tooltip" data-placement="bottom" title="<%= quest_state_for_tooltip(quest) %>">
+          <blockquote class="card-blockquote">
+            <h5 class="card-title"><%= quest.name %></h5>
+            <p><%= quest.description %></p>
+            <footer>Points: <%= quest.points %></footer>
+          </blockquote>
+        </div>
       </div>
+      <% end %>
     </div>
-    <% end %>
-  </div>
-  <div class="tab-pane" id="badges" role="tabpanel">
+  <% end %>
+  <div class="tab-pane <% if !is_logged_in_user? %>active<% end %>" id="badges" role="tabpanel">
     <div class="card-group">
       <% current_user.badges.each do |badge| %>
-        <div class="card text-xs-center">
-          <i class="fa fa-certificate fa-5x" aria-hidden="true"></i>
-          <div class="card-block">
-            <h4 class="card-title"><%= badge.name %></h4>
-            <p class="card-text" id="badge-card-text"><%= badge.description %></p>
+        <div class="col-md-3">
+          <div class="card text-xs-center" data-toggle="tooltip" data-placement="bottom" title="<%= badge.description %>">
+            <i class="fa fa-certificate fa-5x" aria-hidden="true"></i>
+            <div class="card-block">
+              <p class="card-title"><%= badge.name %></p>
+            </div>
           </div>
         </div>
       <% end %>

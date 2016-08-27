@@ -17,7 +17,7 @@ module QuestsHelper
       while user.quests.count < 3
         randQuest = questArray.pop
         rand = random_quest(randQuest)
-        user.quests.create!(user_id: user.id, name: rand[0], description: rand[1], state: rand[2], exp: rand[3], req_count: rand[4])
+        user.quests.create!(user_id: user.id, name: rand[0], description: rand[1], state: rand[2], points: rand[3], req_count: rand[4])
         user.save
       end
     end
@@ -28,7 +28,7 @@ module QuestsHelper
     while user.quests.count < 3
       randQuest = questArray.pop
       rand = random_quest(randQuest)
-      user.quests.create!(user_id: user.id, name: rand[0], description: rand[1], state: rand[2], exp: rand[3], req_count: rand[4])
+      user.quests.create!(user_id: user.id, name: rand[0], description: rand[1], state: rand[2], points: rand[3], req_count: rand[4])
       user.save
     end
   end
@@ -38,24 +38,24 @@ module QuestsHelper
       name = "Comment"
       description = "Make a comment in a project's discussion page."
       state = "incomplete"
-      exp = 20
+      points = 20
       req_count = 1
     end
     if randQuest == "Project"
       name = "Project"
       description = "Check out a new project."
       state = "incomplete"
-      exp = 10
+      points = 10
       req_count = 1
     end
     if randQuest == "Vote"
       name = "Vote"
       description = "Vote on a comment in a project's discussion page."
       state = "incomplete"
-      exp = 5
+      points = 5
       req_count = 1
     end
-    return name, description, state, exp, req_count
+    return name, description, state, points, req_count
   end
 
   def delete_quests

@@ -42,4 +42,8 @@ module UsersHelper
       "Complete!"
     end
   end
+
+  def is_logged_in_user?
+    current_user.id == User.find(params[:id]).id
+  end
 end

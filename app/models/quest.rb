@@ -10,7 +10,7 @@ class Quest < ActiveRecord::Base
 
   validates :user_id, presence: true
   validates :name, presence: true
-  validates :exp, presence: true
+  validates :points, presence: true
 
   def complete_quest
     if self.state == "incomplete"
@@ -21,7 +21,7 @@ class Quest < ActiveRecord::Base
 
   def award_points
     @user = User.find(self.user_id)
-    @user.add_points(self.exp)
+    @user.add_points(self.points)
     update_attribute(:state, "awarded")
     broadcast("/users/#{@user.id}", {title: "Noice", msg: "You completed the quest #{self.name}!"})
   end

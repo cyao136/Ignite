@@ -125,3 +125,9 @@
     border-bottom: 1px solid $gray-lighter;
   }
 }
+
+#badges {
+  .card {
+    border: 0px;
+  }
+}

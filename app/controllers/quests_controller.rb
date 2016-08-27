@@ -7,7 +7,7 @@ class QuestsController < ApplicationController
   private
 
   def quest_params
-    params.require(:quest).permit(:user_id, :name, :description, :state, :exp, :req_count)
+    params.require(:quest).permit(:user_id, :name, :description, :state, :points, :req_count)
   end
 
 
