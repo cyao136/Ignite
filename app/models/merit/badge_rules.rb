@@ -46,15 +46,15 @@ module Merit
       # end
 
       grant_on 'comments#upvote',  badge_id: 1, model_name: 'User' do |f|
-        (1..9).include?(User.find(User.current.id).find_voted_items.count)
+        (1..9).include?((User.find(User.current.id).get_voted Comment).count)
       end
 
       grant_on 'comments#upvote',  badge_id: 2, model_name: 'User' do |f|
-        (10..99).include?(User.find(User.current.id).find_voted_items.count)
+        (10..99).include?((User.find(User.current.id).get_voted Comment).count)
       end
 
       grant_on 'comments#upvote',  badge_id: 3, model_name: 'User' do |f|
-        User.find(User.current.id).find_voted_items.count >= 100
+        (User.find(User.current.id).get_voted Comment).count >= 100
       end
 
       grant_on 'comments#create',  badge_id: 4, model_name: 'User' do |f|
@@ -79,6 +79,54 @@ module Merit
 
       grant_on 'projects#show',  badge_id: 9, model_name: 'User' do |f|
         Project.all.read_by(User.current).count >= 100
+      end
+
+      grant_on 'projects#upvote',  badge_id: 10, model_name: 'User' do |f|
+        (1..9).include?((User.find(User.current.id).get_voted Project).count)
+      end
+
+      grant_on 'projects#upvote',  badge_id: 11, model_name: 'User' do |f|
+        (10..99).include?((User.find(User.current.id).get_voted Project).count)
+      end
+
+      grant_on 'projects#upvote',  badge_id: 12, model_name: 'User' do |f|
+        (User.find(User.current.id).get_voted Project).count >= 100
+      end
+
+      grant_on 'users/sessions#create',  badge_id: 13, model_name: 'User' do |f|
+        (3..6).include?(User.find(User.current.id)[:daily_login])
+      end
+
+      grant_on 'users/sessions#create',  badge_id: 14, model_name: 'User' do |f|
+        (7..29).include?(User.find(User.current.id)[:daily_login])
+      end
+
+      grant_on 'users/sessions#create',  badge_id: 15, model_name: 'User' do |f|
+        User.find(User.current.id)[:daily_login] >= 30
+      end
+
+      grant_on 'quests#award_points',  badge_id: 16, model_name: 'User' do |f|
+        (100..499).include?(User.find(User.current.id).points)
+      end
+
+      grant_on 'quests#award_points',  badge_id: 17, model_name: 'User' do |f|
+        (500..999).include?(User.find(User.current.id).points)
+      end
+
+      grant_on 'quests#award_points',  badge_id: 18, model_name: 'User' do |f|
+        User.find(User.current.id).points >= 1000
+      end
+
+      grant_on 'users#incr_quest_count',  badge_id: 19, model_name: 'User' do |f|
+        (1..9).include?(User.find(User.current.id).quest_count)
+      end
+
+      grant_on 'users#incr_quest_count',  badge_id: 20, model_name: 'User' do |f|
+        (10..99).include?(User.find(User.current.id).quest_count)
+      end
+
+      grant_on 'users#incr_quest_count',  badge_id: 21, model_name: 'User' do |f|
+        User.find(User.current.id).quest_count >= 100
       end
 
     end

@@ -14,6 +14,8 @@ class Quest < ActiveRecord::Base
 
   def complete_quest
     if self.state == "incomplete"
+      @user = User.find(self.user_id)
+      @user.incr_quest_count
       update_attribute(:state, "completed")
       award_points
     end
@@ -33,6 +35,8 @@ class Quest < ActiveRecord::Base
       elsif self.name == "Vote" and (activity.key == "comment.upvote" or activity.key == "comment.downvote")
         self.complete_quest
       elsif self.name == "Project" and activity.key == "project.read_by_user"
+        self.complete_quest
+      elsif self.name == "Like a project" and activity.key == "project.upvote"
         self.complete_quest
       end
     end

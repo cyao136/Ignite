@@ -188,6 +188,10 @@ class User < ActiveRecord::Base
     end
   end
 
+  def incr_quest_count
+    update_attribute(:quest_count, :quest_count + 1)
+  end
+
   private
 
   # Converts username and email to all lower-case.
