@@ -1,12 +1,18 @@
 class ProjectsController < ApplicationController
 	include ProjectsHelper
 	before_filter :verify_project_owner, only: [:edit, :update, :submit, :media_upload]
+	before_filter :authorize_admin, only: :create
 	#removed for alpha stage
 	#skip_before_filter :authenticate_user!, only: [:show, :gallery]
 	def verify_project_owner
 		if current_user.id != Project.find(params[:id]).user_id
 			redirect_to root_url
 		end
+	end
+
+	def authorize_admin
+	  return unless !current_user.admin?
+	  redirect_to main_path, alert: 'Only admins can perform this action.'
 	end
 	####################################################
 	# Standard resource methods

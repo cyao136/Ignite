@@ -1,3 +1,5 @@
+<% provide(:title, "Create your account") %>
+
 <div id="add-email" class="container">
   <h1>Add Email</h1>
   <%= form_for(current_user, :as => 'user', :url => finish_signup_path(current_user), :html => { role: 'form'}) do |f| %>
@@ -11,10 +13,14 @@
       </div>
     <% end %>
     <div class="form-group">
+      <%= f.label :username %>
+      <%= f.text_field :username, class: 'form-control' %>
+      <p class="help-block">Please create a unique username.</p>
+
       <%= f.label :email %>
       <div class="controls">
-        <%= f.text_field :email, class: 'form-control input-lg', placeholder: 'Example: email@me.com' %>
-        <p class="help-block">Please confirm your email address. No spam.</p>
+        <%= f.text_field :email, class: 'form-control' %>
+        <p class="help-block">Please confirm your email address.</p>
       </div>
     </div>
     <div class="actions">

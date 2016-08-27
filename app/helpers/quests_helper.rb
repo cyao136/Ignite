@@ -3,6 +3,7 @@ module QuestsHelper
   def init_quest_array
     ["Comment","Project","Vote"].shuffle
   end
+
   def initialize_quests
     @users = User.all
     @users.each do |user|
@@ -21,6 +22,17 @@ module QuestsHelper
       end
     end
   end
+
+  def initialize_quests_for_user(user)
+    questArray = init_quest_array
+    while user.quests.count < 3
+      randQuest = questArray.pop
+      rand = random_quest(randQuest)
+      user.quests.create!(user_id: user.id, name: rand[0], description: rand[1], state: rand[2], exp: rand[3], req_count: rand[4])
+      user.save
+    end
+  end
+
   def random_quest(randQuest)
     if randQuest == "Comment"
       name = "Comment"
