@@ -1,9 +1,11 @@
 class Users::RegistrationsController < Devise::RegistrationsController
+  include QuestsHelper
 # before_action :configure_sign_up_params, only: [:create]
 # before_action :configure_account_update_params, only: [:update]
   def create
     @user = build_resource # Needed for Merit
     super
+    initialize_quests_for_user(@user)
   end
 
   def update

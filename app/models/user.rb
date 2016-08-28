@@ -1,6 +1,4 @@
 class User < ActiveRecord::Base
-  include QuestsHelper
-  after_create :initialize_quests_for_self
   has_merit
 
   # Include default devise modules. Others available are:
@@ -43,10 +41,6 @@ class User < ActiveRecord::Base
   end
   def self.current=(user)
     Thread.current[:user] = user
-  end
-
-  def initialize_quests_for_self
-    initialize_quests_for_user(self)
   end
 
   # Returns the hash digest of the given string.
@@ -190,6 +184,18 @@ class User < ActiveRecord::Base
 
   def incr_quest_count
     update_attribute(:quest_count, :quest_count + 1)
+  end
+
+  def active_for_authentication?
+    super && approved?
+  end
+
+  def inactive_message
+    if !approved?
+      :not_approved
+    else
+      super # Use whatever other message
+    end
   end
 
   private

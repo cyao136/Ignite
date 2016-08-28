@@ -29,7 +29,7 @@ module QuestsHelper
       randQuest = questArray.pop
       rand = random_quest(randQuest)
       user.quests.create!(user_id: user.id, name: rand[0], description: rand[1], state: rand[2], points: rand[3], req_count: rand[4])
-      user.save
+      user.save!
     end
   end
 
