@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   include UsersHelper
+  include QuestsHelper
   #Verifies that a user is logged in and is the correct user before performing actions
   # before_action :logged_in_user, only: [:index, :edit, :update]
   # before_action :correct_user,   only: [:edit, :update]
@@ -66,7 +67,7 @@ class UsersController < ApplicationController
 
     def user_params
       params.require(:user).permit(:username, :email, :password,
-                                   :password_confirmation, :avatar, :daily_login, pictures_attributes: [:asset])
+                                   :password_confirmation, :avatar, :daily_login, :approved, pictures_attributes: [:asset])
     end
 
     # Before filters
