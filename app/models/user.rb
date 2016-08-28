@@ -183,7 +183,7 @@ class User < ActiveRecord::Base
   end
 
   def incr_quest_count
-    update_attribute(:quest_count, :quest_count + 1)
+    update_attribute(:quest_count, self.quest_count + 1)
   end
 
   def active_for_authentication?
