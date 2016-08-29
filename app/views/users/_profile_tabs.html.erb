@@ -28,7 +28,7 @@
   <% end %>
   <div class="tab-pane <% if !is_logged_in_user? %>active<% end %>" id="badges" role="tabpanel">
     <div class="card-group">
-      <% current_user.badges.each do |badge| %>
+      <% @user.badges.each do |badge| %>
         <div class="col-md-3">
           <div class="card text-xs-center" data-toggle="tooltip" data-placement="bottom" title="<%= badge.description %>">
             <i class="fa fa-certificate fa-5x" aria-hidden="true"></i>
