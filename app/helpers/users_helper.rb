@@ -16,15 +16,15 @@ module UsersHelper
 	end
 
   def show_join_date
-    current_user.created_at.strftime("%b %d, %Y")
+    @user.created_at.strftime("%b %d, %Y")
   end
 
   def current_level
-    (current_user.points)/100
+    (@user.points)/100
   end
 
   def current_level_progress
-    (current_user.points)%100
+    (@user.points)%100
   end
 
   def quest_state_for_card(quest)

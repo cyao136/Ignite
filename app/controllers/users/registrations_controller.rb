@@ -11,7 +11,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def update
     @user = resource # Needed for Merit
     super
-    if :picture_asset.blank?
+    if not params[:picture_assets].blank?
       @user.pictures.create!(:asset => params[:picture_asset])
     end
   end
