@@ -1,13 +1,6 @@
 class ParserJob
 	include ProjectsHelper
 
-	def evaluate()
-		Project.where(:state => "funding_ext").each do |p|
-			p.evaluate
-		end
-	end
-	handle_asynchronously :evaluate, :queue => "parser"
-
 	def kickstarter()
 		params = []
 		client = Kickscraper.client
@@ -50,6 +43,5 @@ class ParserJob
 		# Parser Job execution
 		parser = ParserJob.new
 		parser.kickstarter
-		parser.evaluate
   end
 end

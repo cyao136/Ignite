@@ -79,8 +79,18 @@ class Project < ActiveRecord::Base
 
 	def evaluate!
 	    if self.state != Project.states[:unpublished] then
-		    state = self.eval_state
-		    is_goal_reached = self.eval_goal
+	    	state = self.state
+	    	is_goal_reached = self.is_goal_reached
+
+	    	# Evaluate if the project has ended
+			if self.state != Project.states[:ended] then
+		    	state = self.eval_state
+		    end
+
+	    	# Evaluate if the project has met its goal(s)
+		    if !self.is_goal_reached then
+		    	is_goal_reached = self.eval_goal
+		    end
 
 		    update_columns(:state => state, :is_goal_reached => is_goal_reached)
 		end
