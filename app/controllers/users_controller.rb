@@ -13,6 +13,9 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @pictures = @user.pictures
+    if not params[:picture_asset].blank?
+      @user.pictures.create!(:asset => params[:picture_asset])
+    end
   end
 
   def new

@@ -4,13 +4,14 @@
     <div class="row profile">
     <div class="col-md-3">
       <div class="profile-sidebar">
-        <div class="profile-userpic">
+        <a href="#" data-toggle="modal" data-target="#myModal" id="show-profile-picture">
+        <div id="show-upload-shade"><p>Upload</p></div>
           <% if @user.pictures.blank? %>
-            <%= image_tag("happy.png", alt: "happy") %>
+              <%= image_tag("happy.png", alt: "happy") %>
           <% else %>
-            <%= image_tag @user.pictures.last.asset.url(:avatar) %>
+            <%= image_tag @user.pictures.last.asset.url(:avatar), class: "img-fluid" %>
           <% end %>
-        </div>
+        </a>
         <div class="profile-usertitle">
           <div class="profile-usertitle-name">
             <% if @user.username.nil? %>
@@ -66,3 +67,33 @@ $(document).ready(function(){
     $('[data-toggle="tooltip"]').tooltip();
 });
 </script>
+
+
+            <div class="collapse" id="collapseExample">
+  <div class="card card-block">
+
+  </div>
+</div>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" id="myModalLabel">Change profile picture</h4>
+      </div>
+      <div class="modal-body">
+          <%= form_for(current_user, :as => 'user', :url => user_path, :html => { role: 'form', method: :put}) do |f| %>
+
+        <%= f.label :picture %><br>
+    <%= f.file_field :picture, data_url: "/pictures", id:"picture_upload", name:"picture_asset", type:"file" %>
+        <div class="actions">
+      <%= f.submit 'Continue', :class => 'btn btn-primary' %>
+    </div>
+  <% end %>
+      </div>
+    </div>
+  </div>
+</div>

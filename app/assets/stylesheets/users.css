@@ -13,13 +13,6 @@
   padding: 20px 0 10px 0;
   background: #fff;
 }
-
-.profile-userpic img {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-}
-
 .profile-usertitle {
   text-align: center;
   margin-top: 20px;
@@ -129,5 +122,38 @@
 #badges {
   .card {
     border: 0px;
+  }
+}
+
+#show-profile-picture {
+  width: 200px;
+  height: 200px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+
+  #show-upload-shade {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    margin-left: auto;
+    margin-right: auto;
+    opacity: 0;
+    p {
+      color: $white;
+      z-index: 999;
+      opacity: 1;
+      margin-left: auto;
+      margin-right: auto;
+      text-align: center;
+      margin-top: 35%;
+      font-size: 200%;
+    }
+  }
+
+  #show-upload-shade:hover{
+    background-color: $black;
+    opacity: 0.4;
+    transition: 0.2s;
   }
 }

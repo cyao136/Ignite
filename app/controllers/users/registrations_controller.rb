@@ -5,21 +5,23 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def create
     @user = build_resource # Needed for Merit
     super
-    initialize_quests_for_user(@user)
+    if @user.save
+      initialize_quests_for_user(@user)
+    end
   end
 
   def update
     @user = resource # Needed for Merit
     super
-    if not params[:picture_assets].blank?
+    if not params[:picture_asset].blank?
       @user.pictures.create!(:asset => params[:picture_asset])
     end
   end
 
   protected
 
-  def update_resource(resource, params)
-    resource.update_without_password(params)
+  def after_update_path_for(resource)
+    user_path(resource)
   end
 
   private
@@ -30,7 +32,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
   def account_update_params
     params.require(:user).permit(:username, :email, :password,
-                                   :password_confirmation, :avatar, pictures_attributes: [:asset])
+                                   :password_confirmation, :current_password, :avatar, pictures_attributes: [:asset])
   end
 
 
