@@ -186,17 +186,18 @@ class User < ActiveRecord::Base
     update_attribute(:quest_count, self.quest_count + 1)
   end
 
-  def active_for_authentication?
-    super && approved?
-  end
+  #Removed require admin to activate account
+  #def active_for_authentication?
+  #  super && approved?
+  #end
 
-  def inactive_message
-    if !approved?
-      :not_approved
-    else
-      super # Use whatever other message
-    end
-  end
+  #def inactive_message
+  #  if !approved?
+  #    :not_approved
+  #  else
+  #    super # Use whatever other message
+  #  end
+  #end
 
   private
 

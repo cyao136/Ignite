@@ -1,15 +1,10 @@
 class StaticPagesController < ApplicationController
   #edited for alpha stage
-  skip_before_filter :authenticate_user!, only: [:countdown, :redirect]
-  layout "countdown", only: [:countdown]
+  skip_before_filter :authenticate_user!, only: [:redirect]
   def home
   end
 
   def about
-  end
-
-  def countdown
-    @alpha_tester = AlphaTester.new
   end
 
   def main
@@ -25,11 +20,6 @@ class StaticPagesController < ApplicationController
   end
 
   def redirect
-    p user_signed_in?
-    if !user_signed_in?
-      redirect_to '/comingsoon'
-    else
-      redirect_to '/main'
-    end
+    redirect_to '/main'
   end
 end
