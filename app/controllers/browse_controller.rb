@@ -1,6 +1,5 @@
 class BrowseController < ApplicationController
-	#removed for alpha stage
-	#skip_before_filter :authenticate_user!
+	skip_before_filter :authenticate_user!
 
 	####################################################
 	# category

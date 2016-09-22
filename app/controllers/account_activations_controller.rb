@@ -1,6 +1,5 @@
 class AccountActivationsController < ApplicationController
-  #removed for alpha stage
-  #skip_before_filter :authenticate_user!
+  skip_before_filter :authenticate_user!
 
   def edit
     user = User.find_by(email: params[:email])

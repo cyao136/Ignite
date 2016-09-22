@@ -1,6 +1,6 @@
 class StaticPagesController < ApplicationController
-  #edited for alpha stage
-  skip_before_filter :authenticate_user!, only: [:redirect]
+
+  skip_before_filter :authenticate_user!
   def home
   end
 
