@@ -2,6 +2,8 @@
 
 Hello developers, this is the README to help you get started.
 
+Note: Config folder has been removed due to security reasons. (master branch is in a private repo)
+
 == Ruby version
 * Ruby 2.2
 
