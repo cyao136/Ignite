@@ -53,6 +53,7 @@ gem 'thin'
 gem 'faye'
 gem 'rails-observers'
 gem 'puma'
+gem 'pg'
 
 source 'http://rails-assets.org' do
   gem 'rails-assets-tether', '>= 1.1.0'
@@ -72,6 +73,5 @@ group :test do
 end
 
 group :production do
-  gem 'pg',             '0.17.1'
   gem 'rails_12factor', '0.0.2'
 end
