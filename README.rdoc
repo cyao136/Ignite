@@ -22,7 +22,7 @@ Note: Config folder has been removed due to security reasons. (master branch is 
 == Setting up the development
 * Generate your SSH Key: 'ssh-keygen -t rsa -C "your_email@example.com"'
 * Copy your SSH Key from "~/.ssh/id_rsa.pub" and paste it on gitlab
-* Clone the repo: 'git clone git@gitlab.com:cyao136/web-client.git'
+* Clone the repo: 'git clone git@github.com:cyao136/Ignite.git'
 * Install bundler: 'gem install bundler'
 * Bundle the requirements: 'bundle install'
 * Create the database: 'bundle exec rake db:create'
